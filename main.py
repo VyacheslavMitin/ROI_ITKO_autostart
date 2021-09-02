@@ -11,7 +11,17 @@ ITKO_BIN = 'C:/1Cv77/BIN/1cv7.exe'
 
 cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
 cfg.read('config.ini')  # чтение файла settings_common.ini в папке модуля
-name1 = cfg.get('NAMES', 'РТК')  # РТК
+NAME_1 = cfg.get('NAMES', 'РТК')  # РТК
+NAME_2 = cfg.get('NAMES', 'электротехмонтаж')  # электротехмонтаж
+NAME_3 = cfg.get('NAMES', 'автопитер')  # автопитер
+NAME_4 = cfg.get('NAMES', 'ситилинк')  # ситилинк
+NAME_5 = cfg.get('NAMES', 'скартел')  # скартел
+NAME_6 = cfg.get('NAMES', 'вымпелком')  # вымпелком
+NAME_7 = cfg.get('NAMES', 'мегафон')  # мегафон
+NAME_8 = cfg.get('NAMES', 'мэлон')  # мэлон
+NAME_9 = cfg.get('NAMES', 'сапв')  # сапв
+
+NAMES = []  # кортеж с контрагентами
 
 
 # Функции
@@ -95,9 +105,10 @@ def clearing_file_find():
 
 
 def searching_exporting():
+    pg.press('pageup')
     pg.hotkey('alt', 'shift')
     time.sleep(1)
-    pg.write(name1)
+    pg.write(name1, interval=0.75)
     pg.hotkey('shift', 'F3')
     pg.press('enter')
     pg.press('tab')
@@ -117,7 +128,11 @@ def searching_exporting():
     time.sleep(1)
 
 
-# welcoming()
+def cycling_exports():
+
+
+
+welcoming()
 start_itko()
 call_exports()
 configuring_exports()

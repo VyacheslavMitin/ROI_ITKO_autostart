@@ -80,8 +80,8 @@ def start_itko():
     ])
 
     time.sleep(2)
-    pg.press('enter', presses=4, interval=1)
-    pg.press('tab', presses=2, interval=1)
+    pg.press('enter', presses=4,)
+    pg.press('tab', presses=2)
     pg.press('enter')
 
 
@@ -147,4 +147,4 @@ if __name__ == '__main__':
     welcoming()
     start_itko()
     cycling_exports()
-    pg.hotkey('ctrl', 'F4')
+    pg.hotkey('alt', 'F4')

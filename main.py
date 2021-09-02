@@ -106,7 +106,6 @@ def clearing_file_find():
 
 def searching_exporting(name):
     pg.press('pageup')
-    pg.hotkey('alt', 'shift')
     time.sleep(1)
     pg.write(name, interval=0.75)
     pg.hotkey('shift', 'F3')
@@ -130,6 +129,7 @@ def searching_exporting(name):
 
 
 def cycling_exports():
+    pg.hotkey('alt', 'shift')  # переключение языка
     lenght_ = 0
     lenght = len(NAMES)
 

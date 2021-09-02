@@ -95,7 +95,7 @@ def configuring_exports():
     pg.press('tab')
     time.sleep(1)
     pg.write(past_dates()[1])
-    pg.press('tab', presses=2, interval=1)
+    pg.press('tab', presses=2)
 
 
 def clearing_file_find():
@@ -107,7 +107,7 @@ def clearing_file_find():
 def searching_exporting(name):
     pg.press('pageup')
     time.sleep(1)
-    pg.write(name, interval=0.75)
+    pg.write(name)
     pg.hotkey('shift', 'F3')
     pg.press('enter')
     pg.press('tab')
@@ -117,11 +117,11 @@ def searching_exporting(name):
     time.sleep(1)
     pg.hotkey('ctrl', 's')
     time.sleep(1)
-    pg.write(name, interval=0.75)
+    pg.write(name)
     pg.press('tab')
     pg.press('down', presses=2)
     pg.press('tab')
-    pg.press('enter', presses=2, interval=1)
+    pg.press('enter', presses=2)
     time.sleep(1)
     pg.hotkey('ctrl', 'F4')
     time.sleep(1)

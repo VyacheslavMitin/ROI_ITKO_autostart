@@ -138,6 +138,7 @@ def cycling_exports():
         configuring_exports()
         clearing_file_find()
         searching_exporting(i)
+        print(f'Выгружено {i}')
         if lenght_ >= lenght:
             break
         pg.hotkey('ctrl', 'tab')
@@ -148,3 +149,4 @@ if __name__ == '__main__':
     start_itko()
     cycling_exports()
     pg.hotkey('alt', 'F4')
+    print('Выход!')

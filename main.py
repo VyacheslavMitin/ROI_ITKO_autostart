@@ -126,22 +126,23 @@ def searching_exporting(name):
     time.sleep(1)
     pg.hotkey('ctrl', 'F4')
     time.sleep(1)
+    pg.hotkey('ctrl', 'F4')
 
 
 def cycling_exports():
     lenght_ = 0
     lenght = len(NAMES)
-    clearing_file_find()
 
     for i in NAMES:
-        searching_exporting(i)
+        call_exports()
+        configuring_exports()
+        clearing_file_find()
         if lenght_ >= lenght:
             break
         pg.hotkey('ctrl', 'tab')
 
 
-welcoming()
-start_itko()
-call_exports()
-configuring_exports()
-cycling_exports()
+if __name__ == '__main__':
+    welcoming()
+    start_itko()
+    cycling_exports()

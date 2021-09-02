@@ -1,4 +1,4 @@
-# Модуль работы с ИТКО
+# Модуль работы с ИТКО (выгрузка  отчетов "сформировать")
 # pip install pyautogui
 
 from datetime import datetime
@@ -11,17 +11,17 @@ ITKO_BIN = 'C:/1Cv77/BIN/1cv7.exe'
 
 cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
 cfg.read('config.ini')  # чтение файла settings_common.ini в папке модуля
-NAME_1 = cfg.get('NAMES', 'РТК')  # РТК
-NAME_2 = cfg.get('NAMES', 'электротехмонтаж')  # электротехмонтаж
-NAME_3 = cfg.get('NAMES', 'автопитер')  # автопитер
-NAME_4 = cfg.get('NAMES', 'ситилинк')  # ситилинк
-NAME_5 = cfg.get('NAMES', 'скартел')  # скартел
-NAME_6 = cfg.get('NAMES', 'вымпелком')  # вымпелком
-NAME_7 = cfg.get('NAMES', 'мегафон')  # мегафон
-NAME_8 = cfg.get('NAMES', 'мэлон')  # мэлон
-NAME_9 = cfg.get('NAMES', 'сапв')  # сапв
+NAME_1 = cfg.get('NAMES', 'РТК')
+NAME_2 = cfg.get('NAMES', 'электротехмонтаж')
+NAME_3 = cfg.get('NAMES', 'автопитер')
+NAME_4 = cfg.get('NAMES', 'ситилинк')
+NAME_5 = cfg.get('NAMES', 'скартел')
+NAME_6 = cfg.get('NAMES', 'вымпелком')
+NAME_7 = cfg.get('NAMES', 'мегафон')
+NAME_8 = cfg.get('NAMES', 'мэлон')
+NAME_9 = cfg.get('NAMES', 'сапв')
 
-NAMES = []  # кортеж с контрагентами
+NAMES = [NAME_1, NAME_2, NAME_3, NAME_4, NAME_5, NAME_6, NAME_7, NAME_8, NAME_9]  # лист с контрагентами
 
 
 # Функции
@@ -67,7 +67,7 @@ def past_dates(year=21):
     return past_start_date_, past_finish_date_, past_year, past_month_str, past_number_month  # возврат функции
 
 
-def welcoming(name_='ИТКО', author_='Вячеслав Митин', version_='0.1'):
+def welcoming(name_='ИТКО', author_='Вячеслав Митин', version_='1'):
     print(f"МОДУЛЬ РАБОТЫ С '{name_}'")
     print(f"Автор модуля: '{author_}'")
     print(f"Версия модуля: '{version_}'")
@@ -101,14 +101,14 @@ def configuring_exports():
 def clearing_file_find():
     pg.click(415, 75)  # переход в поле поиска
     time.sleep(1)
-    pg.press('backspace', presses=20)
+    pg.press('backspace', presses=30)
 
 
-def searching_exporting():
+def searching_exporting(name):
     pg.press('pageup')
     pg.hotkey('alt', 'shift')
     time.sleep(1)
-    pg.write(name1, interval=0.75)
+    pg.write(name, interval=0.75)
     pg.hotkey('shift', 'F3')
     pg.press('enter')
     pg.press('tab')
@@ -118,7 +118,7 @@ def searching_exporting():
     time.sleep(1)
     pg.hotkey('ctrl', 's')
     time.sleep(1)
-    pg.write(name1)
+    pg.write(name, interval=0.75)
     pg.press('tab')
     pg.press('down', presses=2)
     pg.press('tab')
@@ -129,12 +129,19 @@ def searching_exporting():
 
 
 def cycling_exports():
+    lenght_ = 0
+    lenght = len(NAMES)
+    clearing_file_find()
 
+    for i in NAMES:
+        searching_exporting(i)
+        if lenght_ >= lenght:
+            break
+        pg.hotkey('ctrl', 'tab')
 
 
 welcoming()
 start_itko()
 call_exports()
 configuring_exports()
-clearing_file_find()
-searching_exporting()
+cycling_exports()

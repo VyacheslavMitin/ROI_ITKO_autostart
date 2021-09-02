@@ -7,10 +7,6 @@ import subprocess
 import configparser
 import time
 
-name_ = 'ИТКО'
-author_ = 'Вячеслав Митин'
-version_ = '0.1'
-
 ITKO_BIN = 'C:/1Cv77/BIN/1cv7.exe'
 
 cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
@@ -61,7 +57,7 @@ def past_dates(year=21):
     return past_start_date_, past_finish_date_, past_year, past_month_str, past_number_month  # возврат функции
 
 
-def welcoming(name_, author_, version_):
+def welcoming(name_='ИТКО', author_='Вячеслав Митин', version_='0.1'):
     print(f"МОДУЛЬ РАБОТЫ С '{name_}'")
     print(f"Автор модуля: '{author_}'")
     print(f"Версия модуля: '{version_}'")
@@ -79,7 +75,7 @@ def start_itko():
     pg.press('enter')
 
 
-def starting_exports():
+def call_exports():
     pg.click(1000, 150)
 
 
@@ -92,7 +88,38 @@ def configuring_exports():
     pg.press('tab', presses=2, interval=1)
 
 
-#welcoming()
+def clearing_file_find():
+    pg.click(415, 75)  # переход в поле поиска
+    time.sleep(1)
+    pg.press('backspace', presses=20)
+
+
+def searching_exporting():
+    pg.hotkey('alt', 'shift')
+    time.sleep(1)
+    pg.write(name1)
+    pg.hotkey('shift', 'F3')
+    pg.press('enter')
+    pg.press('tab')
+    pg.press('enter')
+    time.sleep(1)
+    pg.hotkey('ctrl', 'F4')
+    time.sleep(1)
+    pg.hotkey('ctrl', 's')
+    time.sleep(1)
+    pg.write(name1)
+    pg.press('tab')
+    pg.press('down', presses=2)
+    pg.press('tab')
+    pg.press('enter', presses=2, interval=1)
+    time.sleep(1)
+    pg.hotkey('ctrl', 'F4')
+    time.sleep(1)
+
+
+# welcoming()
 start_itko()
-starting_exports()
+call_exports()
 configuring_exports()
+clearing_file_find()
+searching_exporting()

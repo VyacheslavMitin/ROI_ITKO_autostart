@@ -137,6 +137,7 @@ def cycling_exports():
         call_exports()
         configuring_exports()
         clearing_file_find()
+        searching_exporting(i)
         if lenght_ >= lenght:
             break
         pg.hotkey('ctrl', 'tab')

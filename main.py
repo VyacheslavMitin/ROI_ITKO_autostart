@@ -147,3 +147,4 @@ if __name__ == '__main__':
     welcoming()
     start_itko()
     cycling_exports()
+    pg.hotkey('ctrl', 'F4')

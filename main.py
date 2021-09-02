@@ -80,8 +80,8 @@ def start_itko():
     ])
 
     time.sleep(2)
-    pg.press('enter', presses=4,)
-    pg.press('tab', presses=2)
+    pg.press('enter', presses=4, interval=1)
+    pg.press('tab', presses=2, interval=1)
     pg.press('enter')
 
 

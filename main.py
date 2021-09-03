@@ -70,41 +70,45 @@ def past_dates(year=21):
 def welcoming(name_='ИТКО', author_='Вячеслав Митин', version_='1'):
     print(f"МОДУЛЬ РАБОТЫ С '{name_}'")
     print(f"Автор модуля: '{author_}'")
-    print(f"Версия модуля: '{version_}'")
-    print()
+    print(f"Версия модуля: '{version_}'\n")
 
 
 def start_itko():
+    """Функция запуска 1С 7 ИТКО"""
     starting = subprocess.Popen([
         ITKO_BIN
     ])
 
     time.sleep(2)
-    pg.press('enter', presses=4, interval=1)
-    pg.press('tab', presses=2, interval=1)
+    pg.press('enter', presses=4, interval=0.5)
+    pg.press('tab', presses=2, interval=0.5)
     pg.press('enter')
 
 
 def call_exports():
+    """Функция запуска отчета Точки по дням"""
     pg.click(1000, 150)
 
 
 def configuring_exports():
-    time.sleep(1)
+    """Функция запуска настройки дат в Точках по дням"""
+    time.sleep(0.5)
     pg.write(past_dates()[0])
     pg.press('tab')
-    time.sleep(1)
+    time.sleep(0.5)
     pg.write(past_dates()[1])
     pg.press('tab', presses=2)
 
 
 def clearing_file_find():
+    """Функция очистки поискового поля"""
     pg.click(415, 75)  # переход в поле поиска
-    time.sleep(1)
+    time.sleep(0.5)
     pg.press('backspace', presses=30)
 
 
 def searching_exporting(name):
+    """Функция поиска контрагента через поле поиска и сохранения нужной печатной формы"""
     pg.press('pageup')
     time.sleep(1)
     pg.write(name)
@@ -129,6 +133,7 @@ def searching_exporting(name):
 
 
 def cycling_exports():
+    """Функция основного цикла для перебора по списку"""
     pg.hotkey('alt', 'shift')  # переключение языка
     lenght_ = 0
     lenght = len(NAMES)
@@ -138,7 +143,7 @@ def cycling_exports():
         configuring_exports()
         clearing_file_find()
         searching_exporting(i)
-        print(f'Выгружено {i}')
+        print(f"Выгружено '{i}'")
         if lenght_ >= lenght:
             break
 
@@ -148,4 +153,4 @@ if __name__ == '__main__':
     start_itko()
     cycling_exports()
     pg.hotkey('alt', 'F4')
-    print('Выход!')
+    print('\nВыход!')

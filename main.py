@@ -10,7 +10,7 @@ import time
 ITKO_BIN = 'C:/1Cv77/BIN/1cv7.exe'
 
 cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
-cfg.read('config.ini')  # чтение файла settings_common.ini в папке модуля
+cfg.read('config.ini')
 NAME_1 = cfg.get('NAMES', 'РТК')
 NAME_2 = cfg.get('NAMES', 'электротехмонтаж')
 NAME_3 = cfg.get('NAMES', 'автопитер')
@@ -141,7 +141,6 @@ def cycling_exports():
         print(f'Выгружено {i}')
         if lenght_ >= lenght:
             break
-        pg.hotkey('ctrl', 'tab')
 
 
 if __name__ == '__main__':

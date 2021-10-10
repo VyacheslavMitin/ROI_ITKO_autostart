@@ -1,5 +1,6 @@
 # Модуль работы с ИТКО (выгрузка  отчетов "сформировать")
 # pip install pyautogui
+# разрешение 2560 х 1440, 150% маштаб
 
 from datetime import datetime
 import pyautogui as pg

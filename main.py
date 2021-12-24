@@ -12,11 +12,11 @@ import time
 import glob
 
 # КОНСТАНТЫ
-ITKO_BIN = 'C:/1Cv77/BIN/1cv7.exe'
+ITKO_BIN = 'C:/1Cv77/BIN/1cv7.exe'  # запуск 1С v7
 
 cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
 cfg.read('config.ini')
-export_dir = cfg.get('PATHS', 'dir')
+EXPORT_DIR = cfg.get('PATHS', 'dir')
 NAME_0 = cfg.get('NAMES', 'ашан')
 NAME_1 = cfg.get('NAMES', 'РТК')
 NAME_2 = cfg.get('NAMES', 'электротехмонтаж')
@@ -29,21 +29,23 @@ NAME_8 = cfg.get('NAMES', 'мэлон')
 NAME_9 = cfg.get('NAMES', 'сапв')
 NAME_10 = cfg.get('NAMES', 'вкусвилл')
 
-NAMES = [NAME_0,   # лист с контрагентами
-         NAME_1,
-         NAME_2,
-         NAME_3,
-         NAME_4,
-         NAME_5,
-         NAME_6,
-         NAME_7,
-         NAME_8,
-         NAME_9,
-         NAME_10]
+NAMES = (  # кортеж с контрагентами
+    NAME_0,
+    NAME_1,
+    NAME_2,
+    NAME_3,
+    NAME_4,
+    NAME_5,
+    NAME_6,
+    NAME_7,
+    NAME_8,
+    NAME_9,
+    NAME_10
+)
 
 
 # ФУНКЦИИ
-def past_dates(year=21):
+def past_dates() -> tuple:
     """Функция расчета конечных дат прошлого месяца в строковом исполнении
     Возвращает дату прошлого месяца: 0 и 1 даты начала/конца месяца, 2 год, 3 месяц, 4 месяц в формате '01 Jan'."""
     past_start_date_, past_finish_date_, past_month_str, past_number_month = '01.01.2021', '31.01.2021', '01', '01 Jan'
@@ -53,8 +55,8 @@ def past_dates(year=21):
     if now_month == 1:  # отлов января и реакция на него, вычитания года и явное указания декабря
         past_month_str = str(12)  # в строковом исполнении явное указания декабря
         past_year = now_year - 1  # вычитание года в цифровом исполнении
-        past_start_date_ = '01' + f'.{past_month_str}.{year}'  # 01 декабря прошлого года
-        past_finish_date_ = '31' + f'.{past_month_str}.{year}'  # 31 декабря прошлого года
+        past_start_date_ = '01' + f'.{past_month_str}.{past_year}'  # 01 декабря прошлого года
+        past_finish_date_ = '31' + f'.{past_month_str}.{past_year}'  # 31 декабря прошлого года
         past_number_month = '12 Dec'
 
     else:  # все остальные месяцы кроме января
@@ -67,37 +69,48 @@ def past_dates(year=21):
                 past_month_str = '0' + str(past_month)  # апрель, июнь, сентябрь
             else:
                 past_month_str = str(past_month)
-            past_start_date_ = '01' + f'.{past_month_str}.{year}'
-            past_finish_date_ = '30' + f'.{past_month_str}.{year}'
+            past_start_date_ = '01' + f'.{past_month_str}.{now_year}'
+            past_finish_date_ = '30' + f'.{past_month_str}.{now_year}'
 
         elif past_month in [1, 3, 5, 7, 8, 10]:  # январь, март, май, июль, август, октябрь
             if len(str(past_month)) == 1:  # если месяц из 1 символа то конкатенация с '0'
                 past_month_str = '0' + str(past_month)  # январь, март, май, июль, август
             else:
                 past_month_str = str(past_month)
-            past_start_date_ = '01' + f'.{past_month_str}.{year}'
-            past_finish_date_ = '31' + f'.{past_month_str}.{year}'
+            past_start_date_ = '01' + f'.{past_month_str}.{now_year}'
+            past_finish_date_ = '31' + f'.{past_month_str}.{now_year}'
 
         elif past_month == 2:  # февраль
             past_month_str = '02'  # февраль в строковом представлении
             if ((past_year - 2020) % 4) == 0:  # если (год - 2020) делится без остатка то високосный
-                past_finish_date_ = '29' + f'.{past_month_str}.{year}'  # февраль високосного
+                past_finish_date_ = '29' + f'.{past_month_str}.{now_year}'  # февраль високосного
             else:  # а если нет то обычный
-                past_finish_date_ = '28' + f'.{past_month_str}.{year}'  # февраль не високосного
-            past_start_date_ = '01' + f'.02.{year}'
+                past_finish_date_ = '28' + f'.{past_month_str}.{now_year}'  # февраль не високосного
+            past_start_date_ = '01' + f'.02.{now_year}'
 
-    return past_start_date_, past_finish_date_, past_year, past_month_str, past_number_month  # возврат функции
+    (dd_, mm_, yyyy_) = past_finish_date_.split('.')  # создание строки без разделителя
+    past_finish_date_no_dots = ''.join((dd_, mm_, yyyy_))
+
+    return past_start_date_, past_finish_date_, past_year, past_month_str, past_number_month, past_finish_date_no_dots  # возврат функции
 
 
-def welcoming(name_='ИТКО', author_='Вячеслав Митин', version_='1'):
+def welcoming(name_='ИТКО', author_='Вячеслав Митин', version_='3'):
     print(f"МОДУЛЬ РАБОТЫ С '{name_}'")
     print(f"Автор модуля: '{author_}'")
     print(f"Версия модуля: '{version_}'\n")
 
 
+# def make_dir() -> str:
+#     """Функция создания каталога для файлов"""
+#     path_ = export_dir + past_dates()[1]
+#     os.makedirs(path_, exist_ok=True)
+#     print(path_)
+#     return path_
+
+
 def cleaning_export_dir():
     """Функция удаления файлов эксель в каталоге экспорта"""
-    for files in glob.glob(export_dir + '*.xls'):
+    for files in glob.glob(EXPORT_DIR + f'*_{past_dates()[5]}.xls'):
         os.remove(files)
     time.sleep(0.5)
 
@@ -139,28 +152,35 @@ def clearing_file_find():
 def searching_exporting(name):
     """Функция поиска контрагента через поле поиска и сохранения нужной печатной формы"""
     pg.press('pageup')
-    time.sleep(1)
-    pg.write(name)
+    timeout = 1  # таймаут ожидания
+    time.sleep(timeout)
+    pg.write(name)  # имя в поисковое окно
     if name == NAME_0 or name == NAME_1 or name == NAME_2:  # дополнительный поиск 'Ашан', 'РТК' и 'электротехмонтаж'
         pg.hotkey('shift', 'F3')
-    pg.hotkey('shift', 'F3')
-    pg.press('enter')
+    pg.hotkey('shift', 'F3')  # поиск
+    pg.press('enter')  # выбор клиента
     pg.press('tab')
-    pg.press('enter')
-    time.sleep(1)
+    pg.press('enter')  # формирование форм
+    time.sleep(timeout)
     pg.hotkey('ctrl', 'F4')
-    time.sleep(1)
+    time.sleep(timeout)
     pg.hotkey('ctrl', 's')
-    time.sleep(1)
-    pg.write(name)
+    time.sleep(timeout)
+    pg.write(name.upper() + f'_{past_dates()[5]}')  # имя файла для сохранения
     pg.press('tab')
-    pg.press('down', presses=2)
-    pg.press('tab')
-    pg.press('enter', presses=2)
-    time.sleep(1)
+    pg.press('down', presses=2)  # выбор формата файла
+    pg.press('enter', presses=2)  # сохранение файла
+    time.sleep(timeout)
+    pg.hotkey('ctrl', 'F4')  # закрытие окна формы
+    time.sleep(timeout)
     pg.hotkey('ctrl', 'F4')
-    time.sleep(1)
-    pg.hotkey('ctrl', 'F4')
+
+
+def make_separator(name_='1.txt'):
+    """Функция создания сепаратора для проводника"""
+    os.chdir(EXPORT_DIR)
+    with open(name_) as f:
+        pass
 
 
 def cycling_exports():
@@ -179,10 +199,18 @@ def cycling_exports():
             break
 
 
+def quit_1c():
+    """Функция выхода из 1С"""
+    pg.hotkey('alt', 'F4')
+    os.system(f'explorer.exe {os.path.abspath(EXPORT_DIR)}')
+    print('\nВыход!')
+    pg.alert("Работа по выгрузке окончена!")
+
+
 if __name__ == '__main__':
     welcoming()
     cleaning_export_dir()
     start_itko()
     cycling_exports()
-    pg.hotkey('alt', 'F4')
-    print('\nВыход!')
+    # make_separator()
+    quit_1c()

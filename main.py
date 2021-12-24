@@ -1,6 +1,8 @@
 # Модуль работы с ИТКО (выгрузка  отчетов "сформировать")
 # pip install pyautogui
 # разрешение 2560 х 1440, 150% маштаб
+
+# ИМПОРТЫ
 import os
 from datetime import datetime
 import pyautogui as pg
@@ -9,6 +11,7 @@ import configparser
 import time
 import glob
 
+# КОНСТАНТЫ
 ITKO_BIN = 'C:/1Cv77/BIN/1cv7.exe'
 
 cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
@@ -24,11 +27,22 @@ NAME_6 = cfg.get('NAMES', 'вымпелком')
 NAME_7 = cfg.get('NAMES', 'мегафон')
 NAME_8 = cfg.get('NAMES', 'мэлон')
 NAME_9 = cfg.get('NAMES', 'сапв')
+NAME_10 = cfg.get('NAMES', 'вкусвилл')
 
-NAMES = [NAME_0, NAME_1, NAME_2, NAME_3, NAME_4, NAME_5, NAME_6, NAME_7, NAME_8, NAME_9]  # лист с контрагентами
+NAMES = [NAME_0,   # лист с контрагентами
+         NAME_1,
+         NAME_2,
+         NAME_3,
+         NAME_4,
+         NAME_5,
+         NAME_6,
+         NAME_7,
+         NAME_8,
+         NAME_9,
+         NAME_10]
 
 
-# Функции
+# ФУНКЦИИ
 def past_dates(year=21):
     """Функция расчета конечных дат прошлого месяца в строковом исполнении
     Возвращает дату прошлого месяца: 0 и 1 даты начала/конца месяца, 2 год, 3 месяц, 4 месяц в формате '01 Jan'."""

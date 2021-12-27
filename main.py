@@ -1,6 +1,7 @@
-# Модуль работы с ИТКО (выгрузка  отчетов "сформировать")
+# Модуль работы с ИТКО (выгрузка отчетов "сформировать")
 # pip install pyautogui
-# разрешение 2560 х 1440, 150% маштаб
+# Win7 разрешение 2560 х 1440, 150% маштаб
+# Win10 разрешение 2560 х 1440, 100% маштаб
 
 # ИМПОРТЫ
 import os
@@ -12,11 +13,11 @@ import time
 import glob
 
 # КОНСТАНТЫ
-ITKO_BIN = 'C:/1Cv77/BIN/1cv7.exe'  # запуск 1С v7
 # TODO переписать на словарях
 cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
 cfg.read('config.ini')
 EXPORT_DIR = cfg.get('PATHS', 'dir')
+ITKO_BIN = cfg.get('PATHS', 'itko')
 NAME_0 = cfg.get('NAMES', 'ашан')
 NAME_1 = cfg.get('NAMES', 'РТК')
 NAME_2 = cfg.get('NAMES', 'электротехмонтаж')
@@ -132,7 +133,7 @@ def start_itko():
 
 def call_exports():
     """Функция запуска отчета Точки по дням"""
-    pg.click(1000, 150)
+    pg.click(1000, 120)  # координаты под вин7 150% (1000, 150)
 
 
 def configuring_exports():
@@ -147,7 +148,7 @@ def configuring_exports():
 
 def clearing_file_find():
     """Функция очистки поискового поля"""
-    pg.click(415, 75)  # переход в поле поиска
+    pg.click(350, 60)  # переход в поле поиска; координаты под вин7 150% (415, 75)
     time.sleep(0.5)
     pg.press('backspace', presses=30)
 

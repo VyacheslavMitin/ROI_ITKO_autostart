@@ -1,19 +1,19 @@
 # Модуль работы с ИТКО (выгрузка отчетов "сформировать")
 # pip install pyautogui
-# Win7 разрешение 2560 х 1440, 150% маштаб
+# Win7 разрешение 2560 х 1440, 125% маштаб
 # Win10 разрешение 2560 х 1440, 100% маштаб
 
 # ИМПОРТЫ
 import os
 from datetime import datetime
 import pyautogui as pg
+import pyperclip  # для копирования и вставки
 import subprocess
 import configparser
 import time
 import glob
 
 # КОНСТАНТЫ
-# TODO переписать на словарях
 cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
 cfg.read('config.ini')
 EXPORT_DIR = cfg.get('PATHS', 'dir')

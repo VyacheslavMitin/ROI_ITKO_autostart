@@ -3,6 +3,7 @@
 # ИМПОРТЫ
 import pyautogui as pg
 import time
+from MyModules.print_log import print_log
 import subprocess
 import configparser
 
@@ -21,6 +22,8 @@ def welcoming(name_='ИТКО', author_='Вячеслав Митин', version_=
 
 def start_itko(point='buh'):
     """Функция запуска 1С 7 ИТКО"""
+    print_log("Запуск ИТКО")
+
     subprocess.Popen([
         ITKO_BIN
     ])
@@ -32,17 +35,26 @@ def start_itko(point='buh'):
     pg.press('home')  # выбор администратора для точки отсчета
 
     if point == 'buh':  # выбор бухгалтера
+        print_log("Выбор Бухгалтера для входа")
         pg.press('down', presses=7)
     elif point == 'adm':  # оставить администратора
-        pass
+        print_log("Выбор Администратора для входа")
 
     pg.press('enter', presses=4, interval=0.5)
     pg.press('tab', presses=2, interval=0.5)
     pg.press('enter')
 
 
+def success_window_alert():
+    time.sleep(1)
+    pg.alert("Автоматизация завершена", title="Завершено")
+    print_log("Автоматизация завершена", line_before=True)
+
+
 def pyautogui_menu() -> str:
     """Функция МЕНЮ"""
+    print_log("Запуск меню")
+
     menu_points = {
         0: 'Загрузка базы ИТКО',
         1: 'Старт ИТКО Бухгалтером',
@@ -65,11 +77,14 @@ def pyautogui_menu() -> str:
 
 if __name__ == '__main__':
     welcoming()
+
     select = pyautogui_menu()
     if select == '0':
         pass
+
     elif select == '1':
         start_itko()
+
     elif select == '2':
         from MyModules.exporting_xls import *
         start_itko(point='buh')
@@ -77,7 +92,11 @@ if __name__ == '__main__':
         cycling_exports()
         make_separator()
         quit_1c()
+
     elif select == '3':
         pass
+
     elif select == '4':
         start_itko(point='adm')
+
+    success_window_alert()

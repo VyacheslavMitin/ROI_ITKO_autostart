@@ -4,6 +4,7 @@ import os
 import configparser
 import pyautogui as pg
 from MyModules.past_dates import past_dates
+from MyModules.print_log import print_log
 from MyModules.typing_unicode_str import typing_unicode_str as typing
 
 cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
@@ -26,6 +27,8 @@ NAMES_LIST_double = NAMES_STR_double.split(',')  # список для жлем�
 
 def cleaning_export_dir():
     """Функция удаления файлов эксель в каталоге экспорта"""
+    print_log("Очистка каталога экспорта")
+
     for files in glob.glob(EXPORT_DIR + f'*_{past_dates()[5]}.xls'):
         os.remove(files)
     time.sleep(0.5)
@@ -90,6 +93,7 @@ def make_separator(separator='---------'):
 
 def cycling_exports():
     """Функция основного цикла для перебора по списку"""
+    print_log("Начало выгрузки файлов 'Сформировать'", line_before=True)
     pg.hotkey('alt', 'shift')  # переключение языка
     length_ = 0
     length = len(NAMES_LIST)
@@ -99,7 +103,7 @@ def cycling_exports():
         configuring_exports()
         clearing_file_find()
         searching_exporting(i)
-        print(f"Выгружено '{i}'")
+        print_log(f"Выгружено '{i}'")
         if length_ >= length:
             break
 
@@ -117,7 +121,3 @@ def quit_1c(name_='+Сформировать'):
             pg.getWindowsWithTitle(item[1])[item[0]].close()
 
     os.system(f'explorer.exe {os.path.normpath(EXPORT_DIR)}')  # запуск
-
-    print('\nВыход!')
-    time.sleep(1)
-    pg.alert("Работа по выгрузке окончена!", title="Файлы выгружены")

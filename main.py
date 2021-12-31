@@ -25,7 +25,7 @@ def start_itko(point='buh'):
         ITKO_BIN
     ])
 
-    time.sleep(2)
+    time.sleep(1)
     pg.press('tab', presses=2)
     pg.press('home')  # выбор первой базы в списке баз
     pg.press('enter')

@@ -9,31 +9,12 @@ from MyModules.typing_unicode_str import typing_unicode_str as typing
 cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
 cfg.read('config.ini')
 EXPORT_DIR = cfg.get('PATHS', 'dir_exports')
-NAME_0 = cfg.get('NAMES', 'ашан')
-NAME_1 = cfg.get('NAMES', 'РТК')
-NAME_2 = cfg.get('NAMES', 'электротехмонтаж')
-NAME_3 = cfg.get('NAMES', 'автопитер')
-NAME_4 = cfg.get('NAMES', 'ситилинк')
-NAME_5 = cfg.get('NAMES', 'скартел')
-NAME_6 = cfg.get('NAMES', 'вымпелком')
-NAME_7 = cfg.get('NAMES', 'мегафон')
-NAME_8 = cfg.get('NAMES', 'мэлон')
-NAME_9 = cfg.get('NAMES', 'сапв')
-NAME_10 = cfg.get('NAMES', 'вкусвилл')
+NAMES_STR = cfg.get('NAMES', 'points')
+NAMES_STR_double = cfg.get('NAMES', 'points_double')
 
-NAMES = (  # кортеж с контрагентами
-    NAME_0,
-    NAME_1,
-    NAME_2,
-    NAME_3,
-    NAME_4,
-    NAME_5,
-    NAME_6,
-    NAME_7,
-    NAME_8,
-    NAME_9,
-    NAME_10
-)
+NAMES_LIST = NAMES_STR.split(',')  # список для всех элементов
+NAMES_LIST_double = NAMES_STR_double.split(',')  # список для жлементов которые нужно дважды искать
+
 
 # def make_dir() -> str:
 #     """Функция создания каталога для файлов"""
@@ -77,8 +58,8 @@ def searching_exporting(name):
     pg.press('pageup')
     timeout = 1  # таймаут ожидания
     time.sleep(timeout)
-    pg.write(name)  # имя в поисковое окно
-    if name == NAME_0 or name == NAME_1 or name == NAME_2:  # дополнительный поиск 'Ашан', 'РТК' и 'электротехмонтаж'
+    typing(name)  # имя в поисковое окно
+    if name in NAMES_LIST_double:
         pg.hotkey('shift', 'F3')
     pg.hotkey('shift', 'F3')  # поиск
     pg.press('enter')  # выбор клиента
@@ -89,7 +70,7 @@ def searching_exporting(name):
     time.sleep(timeout)
     pg.hotkey('ctrl', 's')
     time.sleep(timeout)
-    pg.write(name.lower() + f'_{past_dates()[5]}')  # имя файла для сохранения
+    typing(name + f'_{past_dates()[5]}')  # имя файла для сохранения
     pg.press('tab')
     pg.press('down', presses=2)  # выбор формата файла
     pg.press('enter', presses=2)  # сохранение файла
@@ -110,16 +91,16 @@ def make_separator(separator='---------'):
 def cycling_exports():
     """Функция основного цикла для перебора по списку"""
     pg.hotkey('alt', 'shift')  # переключение языка
-    lenght_ = 0
-    lenght = len(NAMES)
+    length_ = 0
+    length = len(NAMES_LIST)
 
-    for i in NAMES:
+    for i in NAMES_LIST:
         call_exports()
         configuring_exports()
         clearing_file_find()
         searching_exporting(i)
         print(f"Выгружено '{i}'")
-        if lenght_ >= lenght:
+        if length_ >= length:
             break
 
 

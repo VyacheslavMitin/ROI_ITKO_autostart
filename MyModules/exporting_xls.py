@@ -7,10 +7,7 @@ from MyModules.past_dates import past_dates
 from MyModules.print_log import print_log
 from MyModules.typing_unicode_str import typing_unicode_str as typing
 
-cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
-cfg.read('config.ini')
-ITKO_DIR = cfg.get('PATHS', 'dir_itko')
-EXPORT_DIR = cfg.get('PATHS', 'dir_exports')
+
 EXPORT_PATH = os.path.join(ITKO_DIR, EXPORT_DIR)
 NAMES_STR = cfg.get('NAMES', 'points')
 NAMES_STR_double = cfg.get('NAMES', 'points_double')
@@ -83,7 +80,10 @@ def searching_exporting(name):
     pg.hotkey('ctrl', 'F4')  # закрытие окна формы
     time.sleep(timeout)
     pg.hotkey('ctrl', 'F4')
-
+cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
+cfg.read('config.ini')
+ITKO_DIR = cfg.get('PATHS', 'dir_itko')
+EXPORT_DIR = cfg.get('PATHS', 'dir_exports')
 
 def make_separator(separator='---------'):
     """Функция создания сепаратора для проводника"""

@@ -19,6 +19,7 @@ ITKO_DIR = cfg.get('PATHS', 'dir_itko')
 ITKO_BIN = cfg.get('PATHS', 'itko_bin')
 PATH_014 = os.path.join(ITKO_DIR, cfg.get('PATHS', 'dir_014'))
 PATH_VSKK = os.path.join(ITKO_DIR, cfg.get('PATHS', 'dir_vskk'))
+PATH_VOU = os.path.join(ITKO_DIR, cfg.get('PATHS', 'dir_vou'))
 
 
 # ФУНКЦИИ
@@ -28,7 +29,7 @@ def welcoming(name_='ИТКО', author_='Вячеслав Митин', version_=
     print(f"Версия модуля: '{version_}'\n")
 
 
-def start_itko(point='buh', mode='ENTERPRISE'):
+def start_itko(point='buh', mode='ENTERPRISE', no_windows=True):
     """Функция запуска 1С 7 ИТКО"""
     print_log(f"Запуск ИТКО в  режиме {mode}")
 
@@ -43,22 +44,45 @@ def start_itko(point='buh', mode='ENTERPRISE'):
     pg.press('enter')
     pg.hotkey('shift', 'tab')
     pg.press('home')  # выбор администратора для точки отсчета
+
     if point == 'buh':  # выбор бухгалтера
         print_log("Выбор Бухгалтера для входа")
         pg.press('down', presses=7)
-        pg.press('enter', presses=4, interval=0.5)
-        pg.press('tab', presses=2, interval=0.5)
-
     elif point == 'adm':  # оставить администратора
         print_log("Выбор Администратора для входа")
 
+    pg.press('enter', presses=4, interval=0.5)
+    pg.press('tab', presses=2, interval=0.5)
     pg.press('enter')
+
+    if point == 'buh' and mode == 'ENTERPRISE':  # оставить администратора
+        time.sleep(0.5)
+        pg.click(10, 680)
+        if not no_windows:
+            print_log("Открытие окон")
+            tuple_ = ((750, 115), (85, 85))
+            for i in tuple_:
+                pg.click(i)
+
+    if point == 'adm' and mode == 'ENTERPRISE':  # оставить администратора
+        print_log("Открытие журнала ВОУ")
+        time.sleep(0.5)
+        pg.press('alt')
+        pg.press('right', presses=4, interval=0.1)
+        pg.press('down', presses=5, interval=0.1)
+        pg.press('enter')
+        print_log("Открытие журнала документов")
+        time.sleep(0.5)
+        pg.press('alt')
+        pg.press('right', presses=2, interval=0.1)
+        pg.press('down', presses=1, interval=0.1)
+        pg.press('enter', presses=2, interval=0.5)
 
     if mode == 'CONFIG':
         print_log("Открытие окна для загрузки базы", line_before=True)
         pg.press('alt')
-        pg.press('right', presses=3)
-        pg.press('down', presses=5)
+        pg.press('right', presses=3, interval=0.1)
+        pg.press('down', presses=5, interval=0.1)
         pg.press('enter')
         pg.press('tab')
         pg.press('enter')
@@ -74,17 +98,20 @@ def success_window_alert():
 
 
 def change_datetime():
+    print_log("Изменение даты/времени", line_before=True)
     file = 'change_datetime.lnk'
     import os
     os.system(file)
 
 
 def preparation_vou():
+    print_log("Запуск расчета ВОУ", line_before=True)
     pg.click(750, 85)
     pg.click(650, 85)
 
 
 def export_014():
+    print_log("Экспорт 014", line_before=True)
     from MyModules.past_dates import past_dates
     pg.click(50, 120)
     pg.write(past_dates()[0])
@@ -99,12 +126,42 @@ def export_014():
 
 
 def export_vskk():
+    print_log("Экспорт ВСКК", line_before=True)
     from MyModules.past_dates import past_dates
     pg.click(250, 120)
+    pg.press('tab', presses=8, interval=0.2)
+    pg.press('esc', interval=0.2)
+    pg.press('tab')
     pg.write(past_dates()[0])
     pg.press('tab')
     pg.write(past_dates()[1])
-    pg.press('tab', presses=2)
+    pg.press('tab', presses=2, interval=0.2)
+    typing(PATH_VSKK + f'VSKK OKO ALL {past_dates()[3]} {past_dates()[2]}.txt')
+    pg.press('tab')
+    pg.press('enter')
+    time.sleep(5)
+    pg.press('enter')
+
+
+def export_vou():
+    print_log("Экспорт ВОУ", line_before=True)
+    from MyModules.past_dates import past_dates
+
+    pg.click(885, 85)  # экспорт файла
+    pg.press('tab', presses=9, interval=0.2)
+    pg.write(past_dates()[1])
+    pg.press('tab')
+    pg.write(past_dates()[0])
+    pg.press('tab')
+    typing(PATH_VOU + f'VOU OKO')
+    pg.press('tab')
+    pg.press('enter')
+    time.sleep(3)
+
+    pg.click(785, 85)  # вызов журнала с ведомостями
+
+    pg.click(1025, 85)  # открытие обработки для превращения в ДБФ
+
 
 
 def pyautogui_menu() -> str:
@@ -115,10 +172,11 @@ def pyautogui_menu() -> str:
         0: 'Загрузка базы ИТКО',
         1: 'Старт ИТКО Бухгалтером',
         2: 'Старт ИТКО Администратором',
-        3: "Подготовка к формированию ВОУ",
+    3: "Подготовка к формированию ВОУ",
         4: "Файлы 'Сформировать.xls'",
         5: "Выгрузка '014'",
         6: "Выгрузка 'ВСКК'",
+        7: "Выгрузка 'ВОУ'",
         9: "Поменять системные дату/время"
     }
 
@@ -135,6 +193,7 @@ def pyautogui_menu() -> str:
     4: {menu_points.get(4)}
     5: {menu_points.get(5)}
     6: {menu_points.get(6)}
+    7: {menu_points.get(7)}
     =========================
     9: {menu_points.get(9)}
     """, title='МЕНЮ АВТОМАТИЗАЦИИ ИТКО', default='1')
@@ -148,7 +207,7 @@ if __name__ == '__main__':
         start_itko(point='adm', mode='CONFIG')
 
     elif select == '1':
-        start_itko()
+        start_itko(point='buh', no_windows=False)
 
     elif select == '2':
         start_itko(point='adm')
@@ -174,6 +233,12 @@ if __name__ == '__main__':
     elif select == '6':
         start_itko(point='buh')
         export_vskk()
+        quit_1c()
+
+    elif select == '7':
+        start_itko(point='buh')
+        export_vou()
+        # quit_1c()
 
     elif select == '9':
         change_datetime()

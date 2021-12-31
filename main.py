@@ -10,6 +10,7 @@ import configparser
 # КОНСТАНТЫ
 cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
 cfg.read('config.ini')
+ITKO_DIR = cfg.get('PATHS', 'dir_itko')
 ITKO_BIN = cfg.get('PATHS', 'itko_bin')
 
 
@@ -20,29 +21,43 @@ def welcoming(name_='ИТКО', author_='Вячеслав Митин', version_=
     print(f"Версия модуля: '{version_}'\n")
 
 
-def start_itko(point='buh'):
+def start_itko(point='buh', mode='ENTERPRISE'):
     """Функция запуска 1С 7 ИТКО"""
-    print_log("Запуск ИТКО")
+    print_log(f"Запуск ИТКО в  режиме {mode}")
 
     subprocess.Popen([
-        ITKO_BIN
+        ITKO_BIN,
+        mode
     ])
 
     time.sleep(1)
     pg.press('tab', presses=2)
     pg.press('home')  # выбор первой базы в списке баз
     pg.press('enter')
+    pg.hotkey('shift', 'tab')
     pg.press('home')  # выбор администратора для точки отсчета
-
     if point == 'buh':  # выбор бухгалтера
         print_log("Выбор Бухгалтера для входа")
         pg.press('down', presses=7)
+        pg.press('enter', presses=4, interval=0.5)
+        pg.press('tab', presses=2, interval=0.5)
+
     elif point == 'adm':  # оставить администратора
         print_log("Выбор Администратора для входа")
 
-    pg.press('enter', presses=4, interval=0.5)
-    pg.press('tab', presses=2, interval=0.5)
     pg.press('enter')
+
+    if mode == 'CONFIG':
+        print_log("Открытие окна для загрузки базы", line_before=True)
+        pg.press('alt')
+        pg.press('right', presses=3)
+        pg.press('down', presses=5)
+        pg.press('enter')
+        pg.press('tab')
+        pg.press('enter')
+        from MyModules.typing_unicode_str import typing_unicode_str
+        typing_unicode_str(ITKO_DIR)
+        pg.press('enter')
 
 
 def success_window_alert():
@@ -80,7 +95,7 @@ if __name__ == '__main__':
 
     select = pyautogui_menu()
     if select == '0':
-        pass
+        start_itko(point='adm', mode='CONFIG')
 
     elif select == '1':
         start_itko()

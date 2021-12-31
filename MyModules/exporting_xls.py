@@ -9,7 +9,9 @@ from MyModules.typing_unicode_str import typing_unicode_str as typing
 
 cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
 cfg.read('config.ini')
+ITKO_DIR = cfg.get('PATHS', 'dir_itko')
 EXPORT_DIR = cfg.get('PATHS', 'dir_exports')
+EXPORT_PATH = os.path.join(ITKO_DIR, EXPORT_DIR)
 NAMES_STR = cfg.get('NAMES', 'points')
 NAMES_STR_double = cfg.get('NAMES', 'points_double')
 
@@ -29,7 +31,7 @@ def cleaning_export_dir():
     """Функция удаления файлов эксель в каталоге экспорта"""
     print_log("Очистка каталога экспорта")
 
-    for files in glob.glob(EXPORT_DIR + f'*_{past_dates()[5]}.xls'):
+    for files in glob.glob(EXPORT_PATH + f'*_{past_dates()[5]}.xls'):
         os.remove(files)
     time.sleep(0.5)
 
@@ -85,7 +87,7 @@ def searching_exporting(name):
 
 def make_separator(separator='---------'):
     """Функция создания сепаратора для проводника"""
-    path_ = os.path.normpath(EXPORT_DIR)  # переход в папку
+    path_ = os.path.normpath(EXPORT_PATH)  # переход в папку
     os.chdir(path_)
     with open(separator + past_dates()[1] + separator, 'tw'):  # создание пустого файла как разделителя
         pass
@@ -93,7 +95,7 @@ def make_separator(separator='---------'):
 
 def cycling_exports():
     """Функция основного цикла для перебора по списку"""
-    print_log("Начало выгрузки файлов 'Сформировать'", line_before=True)
+    print_log("Начало выгрузки файлов 'Сформировать.xls'", line_before=True)
     pg.hotkey('alt', 'shift')  # переключение языка
     length_ = 0
     length = len(NAMES_LIST)
@@ -120,4 +122,4 @@ def quit_1c(name_='+Сформировать'):
         for item in enumerate(list__):
             pg.getWindowsWithTitle(item[1])[item[0]].close()
 
-    os.system(f'explorer.exe {os.path.normpath(EXPORT_DIR)}')  # запуск
+    os.system(f'explorer.exe {os.path.normpath(EXPORT_PATH)}')  # запуск

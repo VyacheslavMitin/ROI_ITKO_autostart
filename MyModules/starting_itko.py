@@ -33,14 +33,16 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
     time.sleep(0.5)
 
     if mode == 'ENTERPRISE':
-        pg.click(10, 680)  # закрыть всплывающее уведомление внизу
+        pg.click(COORDINATES_FOR_DISPLAY.get('закрыть уведомление'))  # закрыть всплывающее уведомление внизу
 
     if point == 'buh' and mode == 'ENTERPRISE':  # оставить администратора
         if not no_windows:
             print_log("Открытие окон")
-            tuple_ = ((750, 115), (1250, 85), (85, 85))
+            tuple_ = (COORDINATES_FOR_DISPLAY.get('документы за день'),
+                      COORDINATES_FOR_DISPLAY.get('распред. ведомости'),
+                      COORDINATES_FOR_DISPLAY.get('открыть клиенты'))
             for item in tuple_:
-                if item == (1250, 85):
+                if item == COORDINATES_FOR_DISPLAY.get('распред. ведомости'):
                     pg.click(item)
                     from main import interval_january
                     interval_january(long_=True)

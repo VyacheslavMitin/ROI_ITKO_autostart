@@ -42,8 +42,15 @@ dict_with_paths = {  # словарь с именами папок и путям
 # Блок для работы с именами клиентов
 NAMES_STR = cfg.get('NAMES', 'points')
 NAMES_STR_double = cfg.get('NAMES', 'points_double')
-# Блок для работы с писмами
+# Блок для работы с письмами
 RECIPIENTS_SFORMIROVAT = cfg.get('NAMES', 'recipients_sform')
 RECIPIENTS_202 = cfg.get('NAMES', 'recipients_202')
 RECIPIENTS_TEST = cfg.get('NAMES', 'recipients_test')
 RECIPIENTS_COPY = cfg.get('NAMES', 'recipients_copy')
+# Блок для определения монитора
+from MyModules.checking_monitor import checking_monitor
+COORDINATES_FOR_DISPLAY = checking_monitor()
+
+
+if __name__ == '__main__':
+    print(COORDINATES_FOR_DISPLAY)

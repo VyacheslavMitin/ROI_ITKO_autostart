@@ -21,27 +21,29 @@ def search_sending_files(mode_):
     """Функция подготовки файлов для писем к отправке через MS Outlook.
     Режимы mode_ могут быть '202', 'sformirovat', 'test'"""
     files_names = ''
-    path_ = None
+    files = []
+    path_files = None
+
+    extensions = EXTENSIONS.split(',')
 
     if mode_ == 'test':
         print_log("Файлов для отправки нет - тестовый режим")
 
     elif mode_ == '202':
-        path_ = PATH_202
+        path_files = PATH_202
 
     elif mode_ == 'sformirovat':
-        path_ = PATH_SFORMIROVAT
+        path_files = PATH_SFORMIROVAT
 
-    files = glob.glob(path_ + '*.xls') \
-            + glob.glob(path_ + '*.pok') \
-            + glob.glob(path_ + '*.ndo') \
-            + glob.glob(path_ + '*.akb')
+    for item in extensions:  # искать файлы по расширению
+        files.extend(glob.glob(path_files + f'*{item}'))
 
-    files_names_ = os.listdir(path_)
+    files_names_ = os.listdir(path_files)
     for names in enumerate(files_names_):
         files_names += f'{str(names[0] + 1)})  {names[1]}\n'  # '; '
 
-    if mode_ != 'test': return files, files_names
+    if mode_ != 'test':
+        return files, files_names
 
 
 def sending_outlook(mode_, displayed=True) -> None:
@@ -76,7 +78,8 @@ def sending_outlook(mode_, displayed=True) -> None:
         print_log("Поиск файлов для отправки через e-mail:", line_before=True)
         for files in (search_sending_files(mode_)[0]):  # вложения
             new_mail.Attachments.Add(files)
-        if mode_ != 'test': print_log(f"Файлы для отправки:\n{search_sending_files(mode_)[1]}")
+        if mode_ != 'test':
+            print_log(f"Файлы для отправки:\n{search_sending_files(mode_)[1]}")
 
     if displayed:  # отображать окно письма
         new_mail.Display(True)  # отображение подготовленного письма или new_mail.Send()  # немедленная отправка письма
@@ -90,4 +93,6 @@ def sending_outlook(mode_, displayed=True) -> None:
 
 
 if __name__ == '__main__':
-    sending_outlook('test')
+    # sending_outlook('test')
+    # sending_outlook('sformirovat')
+    sending_outlook('202')

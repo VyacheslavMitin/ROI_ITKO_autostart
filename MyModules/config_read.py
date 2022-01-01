@@ -49,7 +49,9 @@ RECIPIENTS_TEST = cfg.get('NAMES', 'recipients_test')
 RECIPIENTS_COPY = cfg.get('NAMES', 'recipients_copy')
 # Блок для определения монитора
 from MyModules.checking_monitor import checking_monitor
-COORDINATES_FOR_DISPLAY = checking_monitor()
+COORDINATES_FOR_DISPLAY = checking_monitor(silent=True)
+# Блок для определения расширений файлов для поиска
+EXTENSIONS = cfg.get('PATHS', 'extensions')
 
 
 if __name__ == '__main__':

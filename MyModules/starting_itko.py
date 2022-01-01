@@ -1,3 +1,4 @@
+import pyautogui
 import pyautogui as pg
 import subprocess
 import time
@@ -5,7 +6,7 @@ from MyModules.config_read import *
 from MyModules.print_log import print_log
 
 
-def start_itko(point='buh', mode='ENTERPRISE', no_windows=True):
+def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
     """Функция запуска 1С 7 ИТКО"""
     print_log(f"Запуск ИТКО в режиме {mode}")
 
@@ -64,15 +65,30 @@ def start_itko(point='buh', mode='ENTERPRISE', no_windows=True):
             pg.press('enter', presses=2, interval=0.5)
 
     if mode == 'CONFIG':
-        print_log("Открытие окна для загрузки базы", line_before=True)
+        from MyModules.switch_layout import eng_layout, rus_layout
+        from MyModules.typing_unicode_str import typing_unicode_str
         pg.press('alt')
         pg.press('right', presses=3, interval=0.1)
-        pg.press('down', presses=5, interval=0.1)
-        pg.press('enter')
-        pg.press('tab')
-        pg.press('enter')
-        from MyModules.switch_layout import eng_layout
-        eng_layout()
-        from MyModules.typing_unicode_str import typing_unicode_str
-        typing_unicode_str(PATH_ITKO)
-        pg.press('enter')
+        if args[0] == 'import':
+            print_log("Открытие окна для загрузки базы", line_before=True)
+            pg.press('down', presses=5, interval=0.1)
+            pg.press('enter')
+            pg.press('tab')
+            pg.press('enter')
+            eng_layout()
+            typing_unicode_str(PATH_ITKO)
+            pg.press('enter')
+        elif args[0] == 'export':
+            from MyModules.past_dates import past_dates
+            print_log("Открытие окна для выгрузки базы", line_before=True)
+            pg.press('down', presses=4, interval=0.1)
+            pg.press('enter')
+            eng_layout()
+            typing_unicode_str(PATH_ITKO)
+            typing_unicode_str(past_dates()[7])
+            rus_layout()
+            typing_unicode_str(" после ВОУ")
+            eng_layout()
+            typing_unicode_str(".zip")
+            pg.press('tab', presses=2, interval=0.2)
+            pg.press('enter')

@@ -23,7 +23,7 @@ OUTLOOK_BIN = cfg.get('PATHS', 'outlook_bin')
 # Блок для работы с путями к папкам
 PATH_ITKO = cfg.get('PATHS', 'dir_itko')
 
-PATH_SFORMIROVAT = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_exports'))
+PATH_SFORMIROVAT = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_sformirovat'))
 PATH_014 = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_014'))
 PATH_VSKK = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_vskk'))
 PATH_VOU = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_vou'))

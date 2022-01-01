@@ -105,7 +105,9 @@ if __name__ == '__main__':
 
     select = pyautogui_menu()
     if select == '0':
-        start_itko(point='adm', mode='CONFIG')
+        start_itko('import', point='adm', mode='CONFIG')
+    elif select == '00':
+        start_itko('export', point='adm', mode='CONFIG')
 
     elif select == '1':
         start_itko(point='buh', no_windows=False)

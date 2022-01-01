@@ -5,7 +5,8 @@ from datetime import datetime
 
 def past_dates() -> tuple:
     """Функция расчета конечных дат прошлого месяца в строковом исполнении
-    Возвращает дату прошлого месяца: 0 и 1 даты начала/конца месяца, 2 год, 3 месяц, 4 месяц в формате '01 Jan'."""
+    Возвращает дату прошлого месяца: 0 и 1 даты начала/конца месяца, 2 год, 3 месяц, 4 месяц в формате '01 Jan',
+    5 дату в формате '311221', 6 год в формате '2021', 7 дата в формате '31 12 21'."""
     past_start_date_, past_finish_date_, past_month_str, past_number_month = '01.01.2021', '31.01.2021', '01', '01 Jan'
     now_month = datetime.now().month  # текущий месяц в цифровом представлении
     now_year = datetime.now().year  # текущий год в цифровом представлении
@@ -52,12 +53,15 @@ def past_dates() -> tuple:
     (dd_, mm_, yyyy_) = past_finish_date_.split('.')  # создание строки без разделителя
     past_finish_date_no_dots = ''.join((dd_, mm_, yyyy_))
 
+    (dd_, mm_, yyyy_) = past_finish_date_.split('.')  # создание строки с пробелом разделителем
+    past_finish_date_with_spaces = ' '.join((dd_, mm_, yyyy_))
+
     return past_start_date_, past_finish_date_, past_year, past_month_str, past_number_month, \
-        past_finish_date_no_dots, past_year_
+        past_finish_date_no_dots, past_year_, past_finish_date_with_spaces
 
 
 def period_for_emails() -> str:
-    """Функция генерация строков значения периода для писем в формате 'период ДЕКАБРЬ 2021'"""
+    """Функция генерация строкового значения периода для писем в формате 'период ДЕКАБРЬ 2021'"""
     dict_ = {
              '01': 'ЯНВАРЬ',
              '02': 'ФЕВРАЛЬ',

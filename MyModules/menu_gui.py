@@ -8,9 +8,9 @@ def pyautogui_menu() -> str:
     print_log("Запуск меню")
 
     menu_points = {
-        0: 'Загрузка базы ИТКО',
-        1: 'Старт ИТКО Бухгалтером',
-        2: 'Старт ИТКО Администратором',
+        0: 'Загрузка/Выгрузка базы ИТКО',
+        1: 'Старт/Быстрый старт Бухгалтером',
+        2: 'Старт/Быстрый старт ИТКО Администратором',
         3: "Формирование ВОУ",
         4: "Файлы 'Сформировать.xls'",
         5: "Выгрузка '014'",
@@ -19,25 +19,25 @@ def pyautogui_menu() -> str:
         8: "Выгрузка '202 форма'",
         9: "Поменять системные дату/время"
     }
-
+    separator = '=' * 40
     return pg.prompt(text=f"""
     МОДУЛЬ АВТОМАТИЗАЦИИ ИТКО
                                   время {datetime.now().strftime('%d.%m.%y %H:%M')}
     
     Необходимо выбрать пункт меню:
 
-    0: {menu_points.get(0)}
-    =========================
-    1: {menu_points.get(1)}
-    2: {menu_points.get(2)}
-    =========================
+    0/00: {menu_points.get(0)}
+    {separator}
+    1/10: {menu_points.get(1)}
+    2/20: {menu_points.get(2)}
+    {separator}
     3: {menu_points.get(3)}
-    =========================
+    {separator}
     4: {menu_points.get(4)}
     5: {menu_points.get(5)}
     6: {menu_points.get(6)}
     7: {menu_points.get(7)}
     8: {menu_points.get(8)}
-    =========================
+    {separator}
     9: {menu_points.get(9)}
     """, title='МЕНЮ АВТОМАТИЗАЦИИ ИТКО', default='1')

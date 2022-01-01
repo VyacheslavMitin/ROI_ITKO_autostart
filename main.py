@@ -90,6 +90,7 @@ dct = {
     '014_dir': (cfg.get('PATHS', 'dir_014'), PATH_014),
     'vskk_dir': (cfg.get('PATHS', 'dir_vskk'), PATH_VSKK),
     'vou_dir': (cfg.get('PATHS', 'dir_vou'), PATH_VOU),
+    '202_dir': (cfg.get('PATHS', 'dir_202'), PATH_202),
     'exports_dir': (cfg.get('PATHS', 'dir_exports'), PATH_EXPORTS),
 }
 
@@ -118,6 +119,8 @@ if __name__ == '__main__':
 
     elif select == '1':
         start_itko(point='buh', no_windows=False)
+    elif select == '10':
+        start_itko(point='buh', no_windows=True)
 
     elif select == '2':
         start_itko(point='adm')
@@ -154,6 +157,14 @@ if __name__ == '__main__':
         cleaning_dir(PATH_VOU)
         export_vou()
         quit_1c(*dct.get('vou_dir'))
+
+    elif select == '8':
+        start_itko(point='buh')
+        from MyModules.exports_202 import export_202
+        cleaning_dir(PATH_202)
+        export_202()
+        quit_1c(*dct.get('202_dir'))
+
     elif select == '9':
         change_datetime()
 

@@ -15,6 +15,7 @@ def pyautogui_menu() -> str:
         5: "Выгрузка '014'",
         6: "Выгрузка 'ВСКК'",
         7: "Выгрузка 'ВОУ'",
+        8: "Выгрузка '202 форма'",
         9: "Поменять системные дату/время"
     }
 
@@ -32,6 +33,7 @@ def pyautogui_menu() -> str:
     5: {menu_points.get(5)}
     6: {menu_points.get(6)}
     7: {menu_points.get(7)}
+    8: {menu_points.get(8)}
     =========================
     9: {menu_points.get(9)}
     """, title='МЕНЮ АВТОМАТИЗАЦИИ ИТКО', default='1')

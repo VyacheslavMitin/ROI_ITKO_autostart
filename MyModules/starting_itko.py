@@ -27,8 +27,8 @@ def start_itko(point='buh', mode='ENTERPRISE', no_windows=True):
     elif point == 'adm':  # оставить администратора
         print_log("Выбор Администратора для входа")
 
-    pg.press('enter', presses=4, interval=0.5)
-    pg.press('tab', presses=2, interval=0.5)
+    pg.press('enter', presses=4, interval=0.3)
+    pg.press('tab', presses=2, interval=0.3)
     pg.press('enter')
 
     if point == 'buh' and mode == 'ENTERPRISE':  # оставить администратора

@@ -53,11 +53,12 @@ def interval_january(long_=False):
         pg.press('backspace', presses=20, interval=0.0)
 
     if past_dates()[3] == '12':
+        time_sec = 0
         pg.press('alt')
-        pg.press('right', presses=1, interval=0.1)
-        pg.press('down', presses=12, interval=0.1)
+        pg.press('right', presses=1, interval=time_sec)
+        pg.press('down', presses=12, interval=time_sec)
         if long_:
-            pg.press('down', presses=4, interval=0.1)
+            pg.press('down', presses=4, interval=time_sec)
         pg.press('enter')
         clear_dates()
         typing(past_dates()[0])

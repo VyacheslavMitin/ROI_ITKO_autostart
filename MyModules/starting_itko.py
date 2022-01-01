@@ -35,28 +35,26 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
 
     if mode == 'ENTERPRISE':
         pg.hotkey('ctrl', 'shift', 'z')  # закрыть окно сообщений
-        # pg.click(COORDINATES_FOR_DISPLAY.get('закрыть уведомление'))  # закрыть всплывающее уведомление внизу
 
     if point == 'buh' and mode == 'ENTERPRISE':  # оставить администратора
         if not no_windows:
             print_log("Открытие окон")
-            selecting_menu(1, 2)
+            selecting_menu(1, 2)  # документы за день
             pg.press('f4')
             pg.press('end')
             pg.press('enter')
-            selecting_menu(2, 3)
+            pg.press('tab', presses=1, interval=0.0)
+            for i in range(4):
+                pg.press('tab')
+                pg.press('space')
+            pg.press('tab', presses=1, interval=0.0)
+            for i in range(4):
+                pg.press('tab')
+                pg.press('space')
+            selecting_menu(2, 3)  # распред. ведомости
             from main import interval_january
             interval_january(long_=True)
-            selecting_menu(2, 4)
-            # tuple_ = (COORDINATES_FOR_DISPLAY.get('документы за день'),
-            #           COORDINATES_FOR_DISPLAY.get('распред. ведомости'),
-            #           COORDINATES_FOR_DISPLAY.get('открыть клиенты'))
-            # for item in tuple_:
-            #     if item == COORDINATES_FOR_DISPLAY.get('распред. ведомости'):
-            #         pg.click(item)
-            #         from main import interval_january
-            #         interval_january(long_=True)
-            #     pg.click(item)
+            selecting_menu(2, 4)  # клиенты
 
     if point == 'adm' and mode == 'ENTERPRISE':  # оставить администратора
         if not no_windows:

@@ -275,7 +275,7 @@ if __name__ == '__main__':
     elif select == '4':
         from MyModules.exporting_xls import *
         start_itko(point='buh')
-        cleaning_dir(EXPORT_PATH)
+        cleaning_dir(PATH_EXPORTS)
         cycling_exports()
         quit_1c()
 

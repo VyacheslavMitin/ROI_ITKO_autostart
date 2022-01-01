@@ -7,5 +7,5 @@ import time
 while True:
     time.sleep(0.2)
     a = pyautogui.position()
-    b = pyautogui.pixel(*pyautogui.position())
-    print(a, b)
+    # b = pyautogui.pixel(*pyautogui.position())
+    print(a)

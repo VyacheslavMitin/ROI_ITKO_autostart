@@ -1,6 +1,7 @@
 # Модуль работы с ИТКО (выгрузка отчетов "сформировать")
 
 # ИМПОРТЫ
+import pyautogui
 import pyautogui as pg
 import time
 from MyModules.print_log import print_log
@@ -66,6 +67,17 @@ def success_window_alert():
     print_log("Автоматизация завершена", line_before=True)
 
 
+def change_datetime():
+    file = 'change_datetime.lnk'
+    import os
+    os.system(file)
+
+
+def preparation_vou():
+    pg.click(750, 85)
+    pg.click(650, 85)
+
+
 def pyautogui_menu() -> str:
     """Функция МЕНЮ"""
     print_log("Запуск меню")
@@ -109,7 +121,9 @@ if __name__ == '__main__':
         quit_1c()
 
     elif select == '3':
-        pass
+        change_datetime()
+        start_itko()
+        preparation_vou()
 
     elif select == '4':
         start_itko(point='adm')

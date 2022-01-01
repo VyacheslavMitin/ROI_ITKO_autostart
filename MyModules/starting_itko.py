@@ -51,6 +51,8 @@ def start_itko(point='buh', mode='ENTERPRISE', no_windows=True):
         pg.press('right', presses=4, interval=0.1)
         pg.press('down', presses=5, interval=0.1)
         pg.press('enter')
+        from main import interval_january
+        interval_january()
         print_log("Открытие журнала документов")
         time.sleep(0.5)
         pg.press('alt')
@@ -66,6 +68,8 @@ def start_itko(point='buh', mode='ENTERPRISE', no_windows=True):
         pg.press('enter')
         pg.press('tab')
         pg.press('enter')
+        from MyModules.switch_layout import eng_layout
+        eng_layout()
         from MyModules.typing_unicode_str import typing_unicode_str
         typing_unicode_str(PATH_ITKO)
         pg.press('enter')

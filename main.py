@@ -70,9 +70,9 @@ def interval_january(long_=False):
 def preparation_vou():
     """Функция запуска расчета ВОУ"""
     print_log("Запуск расчета ВОУ", line_before=True)
-    pg.click(750, 85)
+    pg.click(COORDINATES_FOR_DISPLAY.get('журнал воу'))
     interval_january()
-    pg.click(650, 85)
+    pg.click(COORDINATES_FOR_DISPLAY.get('авто воу'))
 
 
 def cleaning_dir(path0_: str):

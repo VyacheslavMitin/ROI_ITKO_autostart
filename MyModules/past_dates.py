@@ -1,3 +1,5 @@
+# Модуль для определения текущих дат
+# from MyModules.past_dates import past_dates
 from datetime import datetime
 
 

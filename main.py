@@ -7,12 +7,14 @@ from datetime import datetime
 import subprocess
 import pyautogui as pg
 import time
+# Мои модули
+from MyModules.config_read import *
+from MyModules.starting_itko import start_itko
 from MyModules.typing_unicode_str import typing_unicode_str as typing
 from MyModules.print_log import print_log
-from MyModules.quit_itko import quit_1c
 from MyModules.menu_gui import pyautogui_menu
 from MyModules.switch_layout import rus_layout, eng_layout
-from MyModules.config_read import *
+
 
 # КОНСТАНТЫ
 NOW_DATE = datetime.now().strftime('%d.%m.%y')  # Текущая дата в фоммате 01.01.22
@@ -20,74 +22,14 @@ NOW_DATE = datetime.now().strftime('%d.%m.%y')  # Текущая дата в ф�
 
 # ФУНКЦИИ
 def welcoming(name_='ИТКО', author_='Вячеслав Митин', version_='5'):
+    """Функция приветсвия"""
     print(f"МОДУЛЬ РАБОТЫ С '{name_}'")
     print(f"Автор модуля: '{author_}'")
     print(f"Версия модуля: '{version_}'\n")
 
 
-def start_itko(point='buh', mode='ENTERPRISE', no_windows=True):
-    """Функция запуска 1С 7 ИТКО"""
-    print_log(f"Запуск ИТКО в  режиме {mode}")
-
-    subprocess.Popen([
-        ITKO_BIN,
-        mode
-    ])
-
-    time.sleep(1)
-    pg.press('tab', presses=2)
-    pg.press('home')  # выбор первой базы в списке баз
-    pg.press('enter')
-    pg.hotkey('shift', 'tab')
-    pg.press('home')  # выбор администратора для точки отсчета
-
-    if point == 'buh':  # выбор бухгалтера
-        print_log("Выбор Бухгалтера для входа")
-        pg.press('down', presses=7)
-    elif point == 'adm':  # оставить администратора
-        print_log("Выбор Администратора для входа")
-
-    pg.press('enter', presses=4, interval=0.5)
-    pg.press('tab', presses=2, interval=0.5)
-    pg.press('enter')
-
-    if point == 'buh' and mode == 'ENTERPRISE':  # оставить администратора
-        time.sleep(0.5)
-        pg.click(10, 680)
-        if not no_windows:
-            print_log("Открытие окон")
-            tuple_ = ((750, 115), (85, 85))
-            for i in tuple_:
-                pg.click(i)
-
-    if point == 'adm' and mode == 'ENTERPRISE':  # оставить администратора
-        print_log("Открытие журнала ВОУ")
-        time.sleep(0.5)
-        pg.press('alt')
-        pg.press('right', presses=4, interval=0.1)
-        pg.press('down', presses=5, interval=0.1)
-        pg.press('enter')
-        print_log("Открытие журнала документов")
-        time.sleep(0.5)
-        pg.press('alt')
-        pg.press('right', presses=2, interval=0.1)
-        pg.press('down', presses=1, interval=0.1)
-        pg.press('enter', presses=2, interval=0.5)
-
-    if mode == 'CONFIG':
-        print_log("Открытие окна для загрузки базы", line_before=True)
-        pg.press('alt')
-        pg.press('right', presses=3, interval=0.1)
-        pg.press('down', presses=5, interval=0.1)
-        pg.press('enter')
-        pg.press('tab')
-        pg.press('enter')
-        from MyModules.typing_unicode_str import typing_unicode_str
-        typing_unicode_str(PATH_ITKO)
-        pg.press('enter')
-
-
 def success_window_alert():
+    """Функция отбивки об успехе"""
     time.sleep(1)
     pg.alert("Автоматизация завершена", title="Завершено")
     print_log("Автоматизация завершена", line_before=True)
@@ -95,15 +37,42 @@ def success_window_alert():
 
 
 def change_datetime():
+    """Функция смены сестемной даты и времени"""
     print_log("Изменение даты/времени", line_before=True)
     file = 'change_datetime.lnk'
     import os
     os.system(file)
 
 
+def interval_january(long_=False):
+    """Функция определения интервалов если январь и нужен доступ к документам прошлого года"""
+    from MyModules.past_dates import past_dates
+    if past_dates()[3] == '12':
+        pg.press('alt')
+        pg.press('right', presses=1, interval=0.1)
+        pg.press('down', presses=12, interval=0.1)
+        if long_:
+            pg.press('down', presses=4, interval=0.1)
+        pg.press('enter')
+
+    def clear_dates():
+        pg.press('right', presses=10, interval=0.1)
+        pg.press('backspace', presses=10, interval=0.1)
+
+    clear_dates()
+    typing(past_dates()[0])
+    pg.press('tab')
+    clear_dates()
+    typing(NOW_DATE)
+    pg.press('tab')
+    pg.press('enter')
+
+
 def preparation_vou():
+    """Функция запуска расчета ВОУ"""
     print_log("Запуск расчета ВОУ", line_before=True)
     pg.click(750, 85)
+    interval_january()
     pg.click(650, 85)
 
 
@@ -114,6 +83,30 @@ def cleaning_dir(path_: str):
     for files in glob.glob(path_ + f'*.*'):
         os.remove(files)
     time.sleep(0.5)
+
+
+dct = {
+    'root_dir': ('07 ITKO\\', PATH_ITKO),
+    '014_dir': (cfg.get('PATHS', 'dir_014'), PATH_014),
+    'vskk_dir': (cfg.get('PATHS', 'dir_vskk'), PATH_VSKK),
+    'vou_dir': (cfg.get('PATHS', 'dir_vou'), PATH_VOU),
+    'exports_dir': (cfg.get('PATHS', 'dir_exports'), PATH_EXPORTS),
+}
+
+
+def quit_1c(name_, path_):
+    """Функция выхода из 1С и запуска проводника"""
+    pg.hotkey('alt', 'f4')
+    name_ = name_[:-1]
+    if name_ in pg.getAllTitles():  # поиск открытой папки
+        list__ = []
+        for i in pg.getAllTitles():
+            if i == name_:
+                list__.append(i)
+        for item in enumerate(list__):
+            pg.getWindowsWithTitle(item[1])[item[0]].close()
+
+    os.system(f'explorer.exe {os.path.normpath(path_)}')  # запуск проводника
 
 
 if __name__ == '__main__':
@@ -139,26 +132,28 @@ if __name__ == '__main__':
         start_itko(point='buh')
         cleaning_dir(PATH_EXPORTS)
         cycling_exports()
-        quit_1c()
+        quit_1c(*dct.get('exports_dir'))
 
     elif select == '5':
         start_itko(point='buh')
         from MyModules.exports_014_vskk_vou import export_014
+        cleaning_dir(PATH_014)
         export_014()
-        quit_1c()
+        quit_1c(*dct.get('014_dir'))
 
     elif select == '6':
         start_itko(point='buh')
         from MyModules.exports_014_vskk_vou import export_vskk
+        cleaning_dir(PATH_VSKK)
         export_vskk()
-        quit_1c()
+        quit_1c(*dct.get('vskk_dir'))
 
     elif select == '7':
         start_itko(point='buh')
         from MyModules.exports_014_vskk_vou import export_vou
+        cleaning_dir(PATH_VOU)
         export_vou()
-        quit_1c()
-
+        quit_1c(*dct.get('vou_dir'))
     elif select == '9':
         change_datetime()
 

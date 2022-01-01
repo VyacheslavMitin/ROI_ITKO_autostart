@@ -35,7 +35,10 @@ def export_vskk():
     pg.press('tab')
     pg.write(past_dates()[1])
     pg.press('tab', presses=2, interval=0.2)
-    typing(PATH_VSKK + f'VSKK OKO ALL {past_dates()[3]} {past_dates()[2]}.txt')
+    eng_layout()
+    typing(PATH_VSKK)
+    rus_layout()
+    typing(f'ВСКК ОКО ALL {past_dates()[3]} {past_dates()[2]}')
     pg.press('tab')
     pg.press('enter')
     time.sleep(5)
@@ -47,7 +50,7 @@ def export_vou():
     print_log("Работа с ВОУ", line_before=True)
     import pyperclip
     from MyModules.past_dates import past_dates
-
+    file_name = 'ВОУ ОКО'
     print_log("Экспорт ВОУ в текстовый файл")
     pg.click(885, 85)  # экспорт файла
     pg.press('tab', presses=9, interval=0.2)
@@ -55,31 +58,20 @@ def export_vou():
     pg.press('tab')
     pg.write(past_dates()[0])
     pg.press('tab')
-    typing(PATH_VOU + f'VOU_OKO.txt')
+    eng_layout()
+    typing(PATH_VOU)
+    rus_layout()
+    typing(f'{file_name}')
+    # eng_layout()
+    # typing('.txt')
     pg.press('tab')
     pg.press('enter')
     time.sleep(3)
 
     print_log("Генерация XLS файла")
     pg.click(785, 85)  # вызов журнала с ведомостями
-    if past_dates()[3] == '12':
-        pg.press('alt')
-        pg.press('right', presses=1, interval=0.1)
-        pg.press('down', presses=12, interval=0.1)
-        pg.press('enter')
-
-        def clear_dates():
-            pg.press('right', presses=10, interval=0.1)
-            pg.press('backspace', presses=10, interval=0.1)
-
-        clear_dates()
-        typing(past_dates()[0])
-        pg.press('tab')
-        clear_dates()
-        typing(past_dates()[1])
-        pg.press('tab')
-        pg.press('enter')
-        # input('')
+    from main import interval_january
+    interval_january()
     pg.press('end')
     pg.press('enter')
     pg.press('tab', presses=4, interval=0.2)
@@ -91,7 +83,10 @@ def export_vou():
     time.sleep(4)
     pg.hotkey('ctrl', 's')
     time.sleep(0.5)
-    typing(PATH_VOU + f'VOU_OKO_{pyperclip.paste()}')
+    eng_layout()
+    typing(PATH_VOU)
+    rus_layout()
+    typing(f'{file_name}_{pyperclip.paste()}')
     pg.press('tab')
     pg.press('down', presses=2)  # выбор формата файла
     pg.press('enter', presses=2)  # сохранение файла

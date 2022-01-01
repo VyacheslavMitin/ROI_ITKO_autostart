@@ -3,16 +3,18 @@
 # ИМПОРТЫ
 import glob
 import sys
+import pyautogui as pg
 from datetime import datetime
 import subprocess
-import pyautogui as pg
 import time
 # Мои модули
 from MyModules.config_read import *
 from MyModules.starting_itko import start_itko
+from MyModules.menu_gui import pyautogui_menu
+from MyModules.sending_files import sending_outlook
+from MyModules.past_dates import past_dates
 from MyModules.typing_unicode_str import typing_unicode_str as typing
 from MyModules.print_log import print_log
-from MyModules.menu_gui import pyautogui_menu
 from MyModules.switch_layout import rus_layout, eng_layout
 
 
@@ -85,16 +87,6 @@ def cleaning_dir(path_: str):
     time.sleep(0.5)
 
 
-dct = {
-    'root_dir': ('07 ITKO\\', PATH_ITKO),
-    '014_dir': (cfg.get('PATHS', 'dir_014'), PATH_014),
-    'vskk_dir': (cfg.get('PATHS', 'dir_vskk'), PATH_VSKK),
-    'vou_dir': (cfg.get('PATHS', 'dir_vou'), PATH_VOU),
-    '202_dir': (cfg.get('PATHS', 'dir_202'), PATH_202),
-    'exports_dir': (cfg.get('PATHS', 'dir_exports'), PATH_EXPORTS),
-}
-
-
 def quit_1c(name_, path_):
     """Функция выхода из 1С и запуска проводника"""
     pg.hotkey('alt', 'f4')
@@ -133,37 +125,39 @@ if __name__ == '__main__':
     elif select == '4':
         from MyModules.exporting_xls import *
         start_itko(point='buh')
-        cleaning_dir(PATH_EXPORTS)
+        cleaning_dir(PATH_SFORMIROVAT)
         cycling_exports()
-        quit_1c(*dct.get('exports_dir'))
+        quit_1c(*dict_with_paths.get('exports_dir'))
+        sending_outlook(mode_='sformirovat', displayed=True)
 
     elif select == '5':
         start_itko(point='buh')
         from MyModules.exports_014_vskk_vou import export_014
         cleaning_dir(PATH_014)
         export_014()
-        quit_1c(*dct.get('014_dir'))
+        quit_1c(*dict_with_paths.get('014_dir'))
 
     elif select == '6':
         start_itko(point='buh')
         from MyModules.exports_014_vskk_vou import export_vskk
         cleaning_dir(PATH_VSKK)
         export_vskk()
-        quit_1c(*dct.get('vskk_dir'))
+        quit_1c(*dict_with_paths.get('vskk_dir'))
 
     elif select == '7':
         start_itko(point='buh')
         from MyModules.exports_014_vskk_vou import export_vou
         cleaning_dir(PATH_VOU)
         export_vou()
-        quit_1c(*dct.get('vou_dir'))
+        quit_1c(*dict_with_paths.get('vou_dir'))
 
     elif select == '8':
         start_itko(point='buh')
         from MyModules.exports_202 import export_202
         cleaning_dir(PATH_202)
         export_202()
-        quit_1c(*dct.get('202_dir'))
+        quit_1c(*dict_with_paths.get('202_dir'))
+        sending_outlook(mode_='202', displayed=True)
 
     elif select == '9':
         change_datetime()

@@ -2,11 +2,10 @@
 
 import pyautogui as pg
 import time
-import pyperclip
+from MyModules.config_read import *
 from MyModules.print_log import print_log
 from MyModules.switch_layout import rus_layout, eng_layout
 from MyModules.typing_unicode_str import typing_unicode_str as typing
-from MyModules.config_read import *
 
 
 def export_202():
@@ -40,4 +39,3 @@ def export_202():
         pg.press('enter', presses=2)  # сохранение файла
         time.sleep(0.5)
         pg.hotkey('ctrl', 'F4')  # закрытие окна формы
-

@@ -7,7 +7,7 @@ from MyModules.print_log import print_log
 
 def start_itko(point='buh', mode='ENTERPRISE', no_windows=True):
     """Функция запуска 1С 7 ИТКО"""
-    print_log(f"Запуск ИТКО в  режиме {mode}")
+    print_log(f"Запуск ИТКО в режиме {mode}")
 
     subprocess.Popen([
         ITKO_BIN,

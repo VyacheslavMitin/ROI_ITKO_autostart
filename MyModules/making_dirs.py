@@ -2,7 +2,7 @@
 
 from MyModules.config_read import *
 
-tuple_dirs = (PATH_014, PATH_VSKK, PATH_VOU, PATH_EXPORTS, PATH_202)
+tuple_dirs = (PATH_014, PATH_VSKK, PATH_VOU, PATH_SFORMIROVAT, PATH_202)
 
 
 def making_dirs():

@@ -54,7 +54,7 @@ def searching_exporting(name):
     pg.hotkey('ctrl', 's')
     time.sleep(timeout)
     eng_layout()
-    typing(PATH_EXPORTS)
+    typing(PATH_SFORMIROVAT)
     rus_layout()
     typing(name + f'_{past_dates()[5]}')  # имя файла для сохранения
     pg.press('tab')

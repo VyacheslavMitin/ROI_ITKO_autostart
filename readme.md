@@ -1,5 +1,5 @@
 # Модуль работы с ИТКО
-* Установить pip install pyautogui, pynput
+* Установить pip install pyautogui, pynput, pywin32
 * Win7 разрешение 2560 х 1440, 125% маштаб
 * Win10 разрешение 2560 х 1440, 100% маштаб
 

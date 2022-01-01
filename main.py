@@ -1,24 +1,18 @@
 # Модуль работы с ИТКО (выгрузка отчетов "сформировать")
 
 # ИМПОРТЫ
-import os
 import glob
+from datetime import datetime
+import subprocess
 import pyautogui as pg
 import time
 from MyModules.typing_unicode_str import typing_unicode_str as typing
 from MyModules.print_log import print_log
 from MyModules.quit_itko import quit_1c
-import subprocess
-import configparser
+from MyModules.config_read import *
 
 # КОНСТАНТЫ
-cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
-cfg.read('config.ini')
-ITKO_DIR = cfg.get('PATHS', 'dir_itko')
-ITKO_BIN = cfg.get('PATHS', 'itko_bin')
-PATH_014 = os.path.join(ITKO_DIR, cfg.get('PATHS', 'dir_014'))
-PATH_VSKK = os.path.join(ITKO_DIR, cfg.get('PATHS', 'dir_vskk'))
-PATH_VOU = os.path.join(ITKO_DIR, cfg.get('PATHS', 'dir_vou'))
+NOW_DATE = datetime.now().strftime('%d.%m.%y')  # Текущая дата в фоммате 01.01.22
 
 
 # ФУНКЦИИ
@@ -257,7 +251,7 @@ def pyautogui_menu() -> str:
     7: {menu_points.get(7)}
     =========================
     9: {menu_points.get(9)}
-    """, title='МЕНЮ АВТОМАТИЗАЦИИ ИТКО', default='7')
+    """, title='МЕНЮ АВТОМАТИЗАЦИИ ИТКО', default='4')
 
 
 if __name__ == '__main__':

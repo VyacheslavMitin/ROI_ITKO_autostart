@@ -1,17 +1,12 @@
-import configparser
 import pyautogui as pg
-import os
-
-cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
-cfg.read('config.ini')
-ITKO_DIR = cfg.get('PATHS', 'dir_itko')
+from MyModules.config_read import *
 
 
-def quit_1c(name_='07 ITKO'):
+def quit_1c(name_='07 ITKO', path_=ITKO_DIR):
     """Функция выхода из 1С и запуска проводника"""
     pg.hotkey('alt', 'F4')  # выход из кассы пересчета
 
-    if name_ in pg.getAllTitles():
+    if name_ in pg.getAllTitles():  # поиск открытой папки
         list__ = []
         for i in pg.getAllTitles():
             if i == name_:
@@ -19,4 +14,4 @@ def quit_1c(name_='07 ITKO'):
         for item in enumerate(list__):
             pg.getWindowsWithTitle(item[1])[item[0]].close()
 
-    os.system(f'explorer.exe {os.path.normpath(ITKO_DIR)}')  # запуск
+    os.system(f'explorer.exe {os.path.normpath(path_)}')  # запуск проводника

@@ -71,9 +71,12 @@ def interval_january(long_=False):
 def preparation_vou():
     """Функция запуска расчета ВОУ"""
     print_log("Запуск расчета ВОУ", line_before=True)
-    pg.click(COORDINATES_FOR_DISPLAY.get('журнал воу'))
+    from MyModules.select_menu import selecting_menu
+    selecting_menu(1, 5)
+    # pg.click(COORDINATES_FOR_DISPLAY.get('журнал воу'))
     interval_january()
-    pg.click(COORDINATES_FOR_DISPLAY.get('авто воу'))
+    selecting_menu(2, 6)
+    # pg.click(COORDINATES_FOR_DISPLAY.get('авто воу'))
 
 
 def cleaning_dir(path0_: str):
@@ -131,6 +134,7 @@ if __name__ == '__main__':
         from MyModules.exports_014_vskk_vou_202 import export_vou
         export_vou()
         quit_1c(*dict_with_paths.get('vou_dir'))
+        time.sleep(0.5)
         sending_outlook(mode_='vou', displayed=True)
 
     elif select == '5':
@@ -153,6 +157,7 @@ if __name__ == '__main__':
         start_itko(point='buh')
         cycling_exports()
         quit_1c(*dict_with_paths.get('exports_dir'))
+        time.sleep(0.5)
         sending_outlook(mode_='sformirovat', displayed=True)
 
     elif select == '8':
@@ -161,6 +166,7 @@ if __name__ == '__main__':
         from MyModules.exports_014_vskk_vou_202 import export_202
         export_202()
         quit_1c(*dict_with_paths.get('202_dir'))
+        time.sleep(0.5)
         sending_outlook(mode_='202', displayed=True)
 
     elif select == '9':

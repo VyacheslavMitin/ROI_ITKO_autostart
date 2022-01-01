@@ -28,26 +28,35 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
     elif point == 'adm':  # оставить администратора
         print_log("Выбор Администратора для входа")
 
-    pg.press('enter', presses=4, interval=0.3)
-    pg.press('tab', presses=2, interval=0.3)
+    pg.press('enter', presses=4, interval=0.2)
+    pg.press('tab', presses=2, interval=0.2)
     pg.press('enter')
     time.sleep(0.5)
 
     if mode == 'ENTERPRISE':
-        pg.click(COORDINATES_FOR_DISPLAY.get('закрыть уведомление'))  # закрыть всплывающее уведомление внизу
+        pg.hotkey('ctrl', 'shift', 'z')  # закрыть окно сообщений
+        # pg.click(COORDINATES_FOR_DISPLAY.get('закрыть уведомление'))  # закрыть всплывающее уведомление внизу
 
     if point == 'buh' and mode == 'ENTERPRISE':  # оставить администратора
         if not no_windows:
             print_log("Открытие окон")
-            tuple_ = (COORDINATES_FOR_DISPLAY.get('документы за день'),
-                      COORDINATES_FOR_DISPLAY.get('распред. ведомости'),
-                      COORDINATES_FOR_DISPLAY.get('открыть клиенты'))
-            for item in tuple_:
-                if item == COORDINATES_FOR_DISPLAY.get('распред. ведомости'):
-                    pg.click(item)
-                    from main import interval_january
-                    interval_january(long_=True)
-                pg.click(item)
+            selecting_menu(1, 2)
+            pg.press('f4')
+            pg.press('end')
+            pg.press('enter')
+            selecting_menu(2, 3)
+            from main import interval_january
+            interval_january(long_=True)
+            selecting_menu(2, 4)
+            # tuple_ = (COORDINATES_FOR_DISPLAY.get('документы за день'),
+            #           COORDINATES_FOR_DISPLAY.get('распред. ведомости'),
+            #           COORDINATES_FOR_DISPLAY.get('открыть клиенты'))
+            # for item in tuple_:
+            #     if item == COORDINATES_FOR_DISPLAY.get('распред. ведомости'):
+            #         pg.click(item)
+            #         from main import interval_january
+            #         interval_january(long_=True)
+            #     pg.click(item)
 
     if point == 'adm' and mode == 'ENTERPRISE':  # оставить администратора
         if not no_windows:

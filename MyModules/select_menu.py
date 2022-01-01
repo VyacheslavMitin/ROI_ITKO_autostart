@@ -1,3 +1,5 @@
+import time
+
 import pyautogui as pg
 # Мои модули
 # from MyModules.select_menu import selecting_menu
@@ -5,17 +7,26 @@ import pyautogui as pg
 
 def selecting_menu(mode_, point_):
     """Функция выбора строки меню в 'Робот'.
-    0 - ТочкиПоДням
-    1 - Документы кассового дня
-    2 - Распредел. ведомости
-    3 - Клиенты
-    4 - Журнал ВОУ
-    5 - (Авто) Выгрузка ВОУ
-    6 - Выгрузка 014
-    7 - Преобразовать TXT в DBF
-    8 - Выгрузка ВСКК
-    9 - Выгрузка 202"""
+    1 - ТочкиПоДням
+    2 - Документы кассового дня
+    3 - Распредел. ведомости
+    4 - Клиенты
+    5 - Журнал ВОУ
+    6 - Автоформирование ВОУ
+    7 - Выгрузка ВОУ
+    8 - Преобразовать TXT в DBF
+    9 - Выгрузка 014
+    10 - Выгрузка ВСКК
+    11 - Выгрузка 202"""
 
-    pg.press('alt', presses=mode_)
-    pg.press('down', presses=point_)
+    timeout = 0.0
+
+    time.sleep(timeout)
+    pg.press('alt')
+    time.sleep(timeout)
+    pg.press('right', presses=mode_, interval=timeout)
+    time.sleep(timeout)
+    pg.press('down', presses=point_, interval=timeout)
+    time.sleep(timeout)
     pg.press('enter')
+    time.sleep(timeout)

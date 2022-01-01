@@ -54,7 +54,7 @@ def past_dates() -> tuple:
     past_finish_date_no_dots = ''.join((dd_, mm_, yyyy_))
 
     (dd_, mm_, yyyy_) = past_finish_date_.split('.')  # создание строки с пробелом разделителем
-    past_finish_date_with_spaces = ' '.join((dd_, mm_, yyyy_))
+    past_finish_date_with_spaces = ' '.join((dd_, mm_, '20' + yyyy_))
 
     return past_start_date_, past_finish_date_, past_year, past_month_str, past_number_month, \
         past_finish_date_no_dots, past_year_, past_finish_date_with_spaces

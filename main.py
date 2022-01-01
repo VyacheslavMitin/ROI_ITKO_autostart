@@ -12,6 +12,7 @@ from MyModules.config_read import *
 from MyModules.starting_itko import start_itko
 from MyModules.menu_gui import pyautogui_menu
 from MyModules.sending_files import sending_outlook
+from MyModules.making_dirs import making_dirs
 from MyModules.past_dates import past_dates
 from MyModules.typing_unicode_str import typing_unicode_str as typing
 from MyModules.print_log import print_log
@@ -101,6 +102,7 @@ def quit_1c(name_, path1_):
 
 if __name__ == '__main__':
     welcoming()
+    making_dirs()
 
     select = pyautogui_menu()
     if select == '0':

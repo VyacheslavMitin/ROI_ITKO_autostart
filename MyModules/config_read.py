@@ -20,6 +20,7 @@ cfg.read(PATH_TO_INI)
 
 ITKO_BIN = cfg.get('PATHS', 'itko_bin')
 OUTLOOK_BIN = cfg.get('PATHS', 'outlook_bin')
+CHANGE_TIME = cfg.get('PATHS', 'change_time')
 # Блок для работы с путями к папкам
 PATH_ITKO = cfg.get('PATHS', 'dir_itko')
 

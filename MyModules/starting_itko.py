@@ -1,4 +1,3 @@
-import pyautogui
 import pyautogui as pg
 import subprocess
 import time

@@ -23,7 +23,7 @@ NOW_DATE = datetime.now().strftime('%d.%m.%y')  # Текущая дата в ф�
 
 
 # ФУНКЦИИ
-def welcoming(name_='ИТКО', author_='Вячеслав Митин', version_='10'):
+def welcoming(name_='ИТКО', author_='Вячеслав Митин', version_='15'):
     """Функция приветствия"""
     print(f"МОДУЛЬ РАБОТЫ '{name_}'")
     print(f"Автор модуля: '{author_}'")
@@ -41,9 +41,8 @@ def success_window_alert():
 def change_datetime():
     """Функция смены сестемной даты и времени"""
     print_log("Изменение даты/времени", line_before=True)
-    file = 'change_datetime.lnk'
-    import os
-    os.system(file)
+    from os import system
+    system(CHANGE_TIME)
 
 
 def interval_january(long_=False):
@@ -125,37 +124,38 @@ if __name__ == '__main__':
         preparation_vou()
 
     elif select == '4':
-        from MyModules.exporting_xls import *
         start_itko(point='buh')
-        cleaning_dir(PATH_SFORMIROVAT)
-        cycling_exports()
-        quit_1c(*dict_with_paths.get('exports_dir'))
-        sending_outlook(mode_='sformirovat', displayed=True)
+        from MyModules.exports_014_vskk_vou_202 import export_vou
+        cleaning_dir(PATH_VOU)
+        export_vou()
+        quit_1c(*dict_with_paths.get('vou_dir'))
 
     elif select == '5':
         start_itko(point='buh')
-        from MyModules.exports_014_vskk_vou import export_014
+        from MyModules.exports_014_vskk_vou_202 import export_014
         cleaning_dir(PATH_014)
         export_014()
         quit_1c(*dict_with_paths.get('014_dir'))
 
     elif select == '6':
         start_itko(point='buh')
-        from MyModules.exports_014_vskk_vou import export_vskk
+        from MyModules.exports_014_vskk_vou_202 import export_vskk
         cleaning_dir(PATH_VSKK)
         export_vskk()
         quit_1c(*dict_with_paths.get('vskk_dir'))
 
     elif select == '7':
+        from MyModules.exporting_xls import *
+
         start_itko(point='buh')
-        from MyModules.exports_014_vskk_vou import export_vou
-        cleaning_dir(PATH_VOU)
-        export_vou()
-        quit_1c(*dict_with_paths.get('vou_dir'))
+        cleaning_dir(PATH_SFORMIROVAT)
+        cycling_exports()
+        quit_1c(*dict_with_paths.get('exports_dir'))
+        sending_outlook(mode_='sformirovat', displayed=True)
 
     elif select == '8':
         start_itko(point='buh')
-        from MyModules.exports_202 import export_202
+        from MyModules.exports_014_vskk_vou_202 import export_202
         cleaning_dir(PATH_202)
         export_202()
         quit_1c(*dict_with_paths.get('202_dir'))

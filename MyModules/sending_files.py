@@ -80,7 +80,7 @@ def sending_outlook(mode_, displayed=True) -> None:
         new_mail.Body = f'Детализация выручки ОКО за {period_for_emails()}.' \
                         f'\n' + SIGNATURE  # сообщение
         new_mail.To = RECIPIENTS_VOU  # обращение к списку получателей
-    new_mail.CC = RECIPIENTS_COPY  # получателии в копии
+    new_mail.CC = RECIPIENTS_COPY  # получатели в копии
 
     if mode_ != 'test':  # работа с вложениями
         print_log("Поиск файлов для отправки через e-mail:", line_before=True)
@@ -105,6 +105,6 @@ if __name__ == '__main__':
     # sending_outlook('test')
     # sending_outlook('sformirovat')
     # sending_outlook('202')
-    # print(search_sending_files('vou')[0])
+    print(search_sending_files('202')[0])
     # print(search_sending_files('vou')[1])
-    sending_outlook('vou')
+    # sending_outlook('vou')

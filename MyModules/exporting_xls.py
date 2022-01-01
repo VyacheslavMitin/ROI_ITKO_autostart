@@ -11,7 +11,7 @@ from MyModules.select_menu import selecting_menu
 
 # Константы
 NAMES_LIST = NAMES_STR.split(',')  # список для всех элементов
-NAMES_LIST_double = NAMES_STR_double.split(',')  # список для жлементов которые нужно дважды искать
+NAMES_LIST_double = NAMES_STR_double.split(',')  # список для элементов которые нужно дважды искать
 
 
 def call_exports():

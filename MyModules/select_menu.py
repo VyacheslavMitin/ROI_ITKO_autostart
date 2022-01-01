@@ -3,19 +3,19 @@ import pyautogui as pg
 # from MyModules.select_menu import selecting_menu
 
 
-def selecting_menu(point_):
+def selecting_menu(mode_, point_):
     """Функция выбора строки меню в 'Робот'.
     0 - ТочкиПоДням
-    1 - Журнал ВОУ
+    1 - Документы кассового дня
     2 - Распредел. ведомости
     3 - Клиенты
-    4 - Авто ВОУ
-    5 - Выгрузка ВОУ
+    4 - Журнал ВОУ
+    5 - (Авто) Выгрузка ВОУ
     6 - Выгрузка 014
     7 - Преобразовать TXT в DBF
     8 - Выгрузка ВСКК
     9 - Выгрузка 202"""
 
-    pg.press('alt', presses=2)
+    pg.press('alt', presses=mode_)
     pg.press('down', presses=point_)
     pg.press('enter')

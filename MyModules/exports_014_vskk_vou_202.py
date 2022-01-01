@@ -76,7 +76,7 @@ def export_vou():
     pg.press('enter')
     pg.press('tab', presses=4, interval=0.2)
     pg.hotkey('ctrl', 'c')
-    pg.press('tab', presses=13, interval=0.2)
+    pg.press('tab', presses=12, interval=0.2)  # или 13
     pg.press('space')
     pg.press('down')
     pg.press('enter')

@@ -1,4 +1,5 @@
 # Модуль переключения раскладок
+# from MyModules.switch_layout import rus_layout, eng_layout
 import pyautogui as pg
 import time
 

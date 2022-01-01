@@ -2,6 +2,7 @@
 
 # ИМПОРТЫ
 import glob
+import sys
 from datetime import datetime
 import subprocess
 import pyautogui as pg
@@ -9,6 +10,7 @@ import time
 from MyModules.typing_unicode_str import typing_unicode_str as typing
 from MyModules.print_log import print_log
 from MyModules.quit_itko import quit_1c
+from MyModules.switch_layout import rus_layout, eng_layout
 from MyModules.config_read import *
 
 # КОНСТАНТЫ
@@ -88,6 +90,7 @@ def success_window_alert():
     time.sleep(1)
     pg.alert("Автоматизация завершена", title="Завершено")
     print_log("Автоматизация завершена", line_before=True)
+    sys.exit(0)
 
 
 def change_datetime():
@@ -101,113 +104,6 @@ def preparation_vou():
     print_log("Запуск расчета ВОУ", line_before=True)
     pg.click(750, 85)
     pg.click(650, 85)
-
-
-def export_014():
-    print_log("Экспорт 014", line_before=True)
-    from MyModules.past_dates import past_dates
-    pg.click(50, 120)
-    pg.write(past_dates()[0])
-    pg.press('tab')
-    pg.write(past_dates()[1])
-    pg.press('tab', presses=2)
-    typing(PATH_014 + f'014_{past_dates()[5]}.xml')
-    time.sleep(1)
-    pg.press('tab')
-    pg.press('enter')
-    time.sleep(30)
-
-
-def export_vskk():
-    print_log("Экспорт ВСКК", line_before=True)
-    from MyModules.past_dates import past_dates
-    pg.click(250, 120)
-    pg.press('tab', presses=8, interval=0.2)
-    pg.press('esc', interval=0.2)
-    pg.press('tab')
-    pg.write(past_dates()[0])
-    pg.press('tab')
-    pg.write(past_dates()[1])
-    pg.press('tab', presses=2, interval=0.2)
-    typing(PATH_VSKK + f'VSKK OKO ALL {past_dates()[3]} {past_dates()[2]}.txt')
-    pg.press('tab')
-    pg.press('enter')
-    time.sleep(5)
-    pg.press('enter')
-
-
-def export_vou():
-    print_log("Работа с ВОУ", line_before=True)
-    import pyperclip
-    from MyModules.past_dates import past_dates
-
-    print_log("Экспорт ВОУ в текстовый файл")
-    pg.click(885, 85)  # экспорт файла
-    pg.press('tab', presses=9, interval=0.2)
-    pg.write(past_dates()[1])
-    pg.press('tab')
-    pg.write(past_dates()[0])
-    pg.press('tab')
-    typing(PATH_VOU + f'VOU_OKO.txt')
-    pg.press('tab')
-    pg.press('enter')
-    time.sleep(3)
-
-    print_log("Генерация XLS файла")
-    pg.click(785, 85)  # вызов журнала с ведомостями
-    if past_dates()[3] == '12':
-        pg.press('alt')
-        pg.press('right', presses=1, interval=0.1)
-        pg.press('down', presses=12, interval=0.1)
-        pg.press('enter')
-
-        def clear_dates():
-            pg.press('right', presses=10, interval=0.1)
-            pg.press('backspace', presses=10, interval=0.1)
-
-        clear_dates()
-        typing(past_dates()[0])
-        pg.press('tab')
-        clear_dates()
-        typing(past_dates()[1])
-        pg.press('tab')
-        pg.press('enter')
-        # input('')
-    pg.press('end')
-    pg.press('enter')
-    pg.press('tab', presses=4, interval=0.2)
-    pg.hotkey('ctrl', 'c')
-    pg.press('tab', presses=12, interval=0.2)
-    pg.press('space')
-    pg.press('down')
-    pg.press('enter')
-    time.sleep(4)
-    pg.hotkey('ctrl', 's')
-    time.sleep(0.5)
-    typing(PATH_VOU + f'VOU_OKO_{pyperclip.paste()}')
-    pg.press('tab')
-    pg.press('down', presses=2)  # выбор формата файла
-    pg.press('enter', presses=2)  # сохранение файла
-    time.sleep(0.5)
-
-    print_log("Генерация DBF файла")
-    pg.click(1025, 85)  # открытие обработки для превращения в ДБФ
-    pg.press('f4')
-    time.sleep(0.5)
-    typing(f'VOU_OKO_{past_dates()[0]}_{past_dates()[1]}.txt')
-    time.sleep(0.5)
-    pg.press('enter')
-    time.sleep(0.5)
-    pg.click(10, 680)
-    pg.hotkey('shift', 'tab')
-    typing(past_dates()[1])
-    pg.press('tab', presses=2, interval=0.2)
-    pg.press('enter')
-    time.sleep(30)
-    pg.press('tab')
-    time.sleep(0.5)
-    pg.press('enter')
-    time.sleep(3)
 
 
 def cleaning_dir(path_: str):
@@ -281,16 +177,19 @@ if __name__ == '__main__':
 
     elif select == '5':
         start_itko(point='buh')
+        from MyModules.exports_014_vskk_vou import export_014
         export_014()
         quit_1c()
 
     elif select == '6':
         start_itko(point='buh')
+        from MyModules.exports_014_vskk_vou import export_vskk
         export_vskk()
         quit_1c()
 
     elif select == '7':
         start_itko(point='buh')
+        from MyModules.exports_014_vskk_vou import export_vou
         export_vou()
         quit_1c()
 

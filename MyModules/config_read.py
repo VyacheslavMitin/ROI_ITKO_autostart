@@ -6,7 +6,7 @@ import os
 
 # КОНСТАНТЫ
 cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
-cfg.read('../config.ini')
+cfg.read('config.ini')
 ITKO_DIR = cfg.get('PATHS', 'dir_itko')
 ITKO_BIN = cfg.get('PATHS', 'itko_bin')
 EXPORT_DIR = cfg.get('PATHS', 'dir_exports')

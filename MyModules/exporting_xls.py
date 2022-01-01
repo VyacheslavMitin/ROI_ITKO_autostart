@@ -14,26 +14,57 @@ NAMES_LIST = NAMES_STR.split(',')  # список для всех элемент
 NAMES_LIST_double = NAMES_STR_double.split(',')  # список для элементов которые нужно дважды искать
 
 
-def call_exports():
-    """Функция запуска отчета Точки по дням"""
-    selecting_menu(1, 1)
-
-
-def configuring_exports():
-    """Функция запуска настройки дат в Точках по дням"""
+def call_sformirovat():
+    """Функция запуска и настройки отчета Точки по дням"""
+    selecting_menu(1, 1)  # запуск обработки по дням
     time.sleep(0.5)
     pg.write(past_dates()[0])
     pg.press('tab')
     time.sleep(0.5)
     pg.write(past_dates()[1])
     pg.press('tab', presses=2)
+    # pg.press('esc', presses=1)
 
 
-def clearing_file_find():
-    """Функция очистки поискового поля"""
-    pg.click(COORDINATES_FOR_DISPLAY.get('очистка поискового поля'))  # переход в поле поиска;
+def working_find():
+    """Функция работы с поиском"""
+    # pg.press('f4')
+    pg.press('home')
+    pg.hotkey('ctrl', 'f3')
+    pg.press('delete', presses=50)
+
+
+def exporting(name):
+    """Функция работы с экспортом"""
+    rus_layout()
+    typing(name)  # имя в поисковое окно
+    pg.press('enter')  # поиск
+    if name in NAMES_LIST_double:
+        time.sleep(0.5)
+        pg.hotkey('shift', 'F3')
+    pg.press('enter')  # выбор клиента
     time.sleep(0.5)
-    pg.press('backspace', presses=50)
+    pg.press('tab')
+    pg.press('enter')  # формирование форм
+    time.sleep(1)
+    pg.hotkey('ctrl', 'F4')
+    pg.hotkey('ctrl', 's')
+    eng_layout()
+    typing(PATH_SFORMIROVAT)
+    rus_layout()
+    if name == 'Сеть автомат':
+        typing('САПВ' + f'_{past_dates()[5]}')  # имя файла для сохранения
+    elif name == 'Мэлон':
+        typing('Мэлон Фэшн Груп' + f'_{past_dates()[5]}')  # имя файла для сохранения
+    else:
+        typing(name + f'_{past_dates()[5]}')  # имя файла для сохранения
+    pg.press('tab')
+    pg.press('down', presses=2)  # выбор формата файла
+    pg.press('enter', presses=2)  # сохранение файла
+    # time.sleep(0.5)
+    pg.hotkey('ctrl', 'F4')  # закрытие окна формы
+    # time.sleep(0.5)
+    pg.hotkey('ctrl', 'F4')
 
 
 def searching_exporting(name):
@@ -75,10 +106,9 @@ def cycling_exports():
     length = len(NAMES_LIST)
 
     for i in NAMES_LIST:
-        call_exports()
-        configuring_exports()
-        clearing_file_find()
-        searching_exporting(i)
+        call_sformirovat()
+        working_find()
+        exporting(i)
         print_log(f"Выгружено '{i}'")
         if length_ >= length:
             break

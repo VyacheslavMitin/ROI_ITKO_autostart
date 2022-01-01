@@ -127,7 +127,7 @@ if __name__ == '__main__':
 
     elif select == '3':
         change_datetime()
-        start_itko()
+        start_itko(point='buh')
         preparation_vou()
 
     elif select == '4':

@@ -21,3 +21,6 @@ PATH_202 = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_202'))
 
 NAMES_STR = cfg.get('NAMES', 'points')
 NAMES_STR_double = cfg.get('NAMES', 'points_double')
+
+RECIPIENTS_SFORMIROVAT = cfg.get('NAMES', 'recipients_sform')
+RECIPIENTS_202 = cfg.get('NAMES', 'recipients_sform')

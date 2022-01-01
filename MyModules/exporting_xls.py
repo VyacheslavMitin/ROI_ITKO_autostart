@@ -1,10 +1,10 @@
-import glob
 import time
 import os
 import configparser
 import pyautogui as pg
 from MyModules.past_dates import past_dates
 from MyModules.print_log import print_log
+from MyModules.switch_layout import eng_layout, rus_layout
 from MyModules.typing_unicode_str import typing_unicode_str as typing
 
 cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
@@ -17,23 +17,6 @@ NAMES_STR_double = cfg.get('NAMES', 'points_double')
 
 NAMES_LIST = NAMES_STR.split(',')  # список для всех элементов
 NAMES_LIST_double = NAMES_STR_double.split(',')  # список для жлементов которые нужно дважды искать
-
-
-# def make_dir() -> str:
-#     """Функция создания каталога для файлов"""
-#     path_ = export_dir + past_dates()[1]
-#     os.makedirs(path_, exist_ok=True)
-#     print(path_)
-#     return path_
-
-
-def cleaning_export_dir():
-    """Функция удаления файлов эксель в каталоге экспорта"""
-    print_log("Очистка каталога экспорта")
-
-    for files in glob.glob(EXPORT_PATH + f'*_{past_dates()[5]}.xls'):
-        os.remove(files)
-    time.sleep(0.5)
 
 
 def call_exports():
@@ -75,6 +58,9 @@ def searching_exporting(name):
     time.sleep(timeout)
     pg.hotkey('ctrl', 's')
     time.sleep(timeout)
+    text = EXPORT_PATH + name + f'_{past_dates()[5]}'
+    print(text)
+    # input('')
     typing(name + f'_{past_dates()[5]}')  # имя файла для сохранения
     pg.press('tab')
     pg.press('down', presses=2)  # выбор формата файла
@@ -85,18 +71,11 @@ def searching_exporting(name):
     pg.hotkey('ctrl', 'F4')
 
 
-def make_separator(separator='---------'):
-    """Функция создания сепаратора для проводника"""
-    path_ = os.path.normpath(EXPORT_PATH)  # переход в папку
-    os.chdir(path_)
-    with open(separator + past_dates()[1] + separator, 'tw'):  # создание пустого файла как разделителя
-        pass
-
-
 def cycling_exports():
     """Функция основного цикла для перебора по списку"""
     print_log("Начало выгрузки файлов 'Сформировать.xls'", line_before=True)
-    pg.hotkey('alt', 'shift')  # переключение языка
+    rus_layout()
+    # pg.hotkey('alt', 'shift')  # переключение языка
     length_ = 0
     length = len(NAMES_LIST)
 
@@ -108,4 +87,3 @@ def cycling_exports():
         print_log(f"Выгружено '{i}'")
         if length_ >= length:
             break
-

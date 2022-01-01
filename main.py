@@ -2,6 +2,7 @@
 
 # ИМПОРТЫ
 import os
+import glob
 import pyautogui as pg
 import time
 from MyModules.typing_unicode_str import typing_unicode_str as typing
@@ -215,6 +216,15 @@ def export_vou():
     time.sleep(3)
 
 
+def cleaning_dir(path_: str):
+    """Функция удаления файлов в каталоге экспортов"""
+    print_log("Очистка каталога экспорта")
+
+    for files in glob.glob(path_ + f'*.*'):
+        os.remove(files)
+    time.sleep(0.5)
+
+
 def pyautogui_menu() -> str:
     """Функция МЕНЮ"""
     print_log("Запуск меню")
@@ -271,9 +281,8 @@ if __name__ == '__main__':
     elif select == '4':
         from MyModules.exporting_xls import *
         start_itko(point='buh')
-        cleaning_export_dir()
+        cleaning_dir(EXPORT_PATH)
         cycling_exports()
-        make_separator()
         quit_1c()
 
     elif select == '5':

@@ -3,6 +3,7 @@ import subprocess
 import time
 from MyModules.config_read import *
 from MyModules.print_log import print_log
+from MyModules.select_menu import selecting_menu
 
 
 def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):

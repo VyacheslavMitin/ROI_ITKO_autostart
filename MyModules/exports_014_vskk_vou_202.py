@@ -1,16 +1,18 @@
 # Модуль с экспортами 014, ВСКК, ВОУ
 import pyautogui as pg
 import time
+
+from MyModules.config_read import *
 from MyModules.print_log import print_log
 from MyModules.switch_layout import rus_layout, eng_layout
 from MyModules.typing_unicode_str import typing_unicode_str as typing
-from MyModules.config_read import *
+from MyModules.past_dates import past_dates
+from MyModules.select_menu import selecting_menu
 
 
 def export_014():
     """Функция экспорта файла 014"""
     print_log("Экспорт 014", line_before=True)
-    from MyModules.past_dates import past_dates
     pg.click(COORDINATES_FOR_DISPLAY.get('экспорт 014'))
     pg.write(past_dates()[0])
     pg.press('tab')
@@ -26,7 +28,6 @@ def export_014():
 def export_vskk():
     """Функция экспорта файла ВСКК"""
     print_log("Экспорт ВСКК", line_before=True)
-    from MyModules.past_dates import past_dates
     pg.click(COORDINATES_FOR_DISPLAY.get('экспорт вскк'))
     pg.press('tab', presses=8, interval=0.2)
     pg.press('esc', interval=0.2)
@@ -48,8 +49,7 @@ def export_vskk():
 def export_vou():
     """Функция экспорта файлов ВОУ"""
     print_log("Работа с ВОУ", line_before=True)
-    import pyperclip
-    from MyModules.past_dates import past_dates
+    # import pyperclip
     file_name = 'ВОУ ОКО'
     print_log("Экспорт ВОУ в текстовый файл")
     pg.click(COORDINATES_FOR_DISPLAY.get('экспорт воу'))  # экспорт файла
@@ -74,9 +74,10 @@ def export_vou():
     interval_january()
     pg.press('end')
     pg.press('enter')
-    pg.press('tab', presses=4, interval=0.2)
-    pg.hotkey('ctrl', 'c')
-    pg.press('tab', presses=12, interval=0.2)  # или 13
+    # pg.press('tab', presses=4, interval=0.2)
+    # pg.hotkey('ctrl', 'c')
+    # pg.press('tab', presses=12, interval=0.2)  # или 13
+    pg.press('tab', presses=16, interval=0.1)
     pg.press('space')
     pg.press('down')
     pg.press('enter')

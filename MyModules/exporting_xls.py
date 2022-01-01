@@ -2,11 +2,12 @@
 
 import time
 import pyautogui as pg
+from MyModules.config_read import *
 from MyModules.past_dates import past_dates
 from MyModules.print_log import print_log
 from MyModules.switch_layout import eng_layout, rus_layout
 from MyModules.typing_unicode_str import typing_unicode_str as typing
-from MyModules.config_read import *
+from MyModules.select_menu import selecting_menu
 
 # Константы
 NAMES_LIST = NAMES_STR.split(',')  # список для всех элементов

@@ -20,7 +20,7 @@ from MyModules.switch_layout import rus_layout, eng_layout
 
 
 # КОНСТАНТЫ
-NOW_DATE = datetime.now().strftime('%d.%m.%y')  # Текущая дата в фоммате 01.01.22
+NOW_DATE = datetime.now().strftime('%d.%m.%y')  # Текущая дата в формате 01.01.22
 
 
 # ФУНКЦИИ
@@ -40,7 +40,7 @@ def success_window_alert():
 
 
 def change_datetime():
-    """Функция смены сестемной даты и времени"""
+    """Функция смены системной даты и времени"""
     print_log("Изменение даты/времени", line_before=True)
     from os import system
     system(CHANGE_TIME)
@@ -127,39 +127,38 @@ if __name__ == '__main__':
 
     elif select == '4':
         start_itko(point='buh')
-        from MyModules.exports_014_vskk_vou_202 import export_vou
         cleaning_dir(PATH_VOU)
+        from MyModules.exports_014_vskk_vou_202 import export_vou
         export_vou()
         quit_1c(*dict_with_paths.get('vou_dir'))
         sending_outlook(mode_='vou', displayed=True)
 
     elif select == '5':
         start_itko(point='buh')
-        from MyModules.exports_014_vskk_vou_202 import export_014
         cleaning_dir(PATH_014)
+        from MyModules.exports_014_vskk_vou_202 import export_014
         export_014()
         quit_1c(*dict_with_paths.get('014_dir'))
 
     elif select == '6':
         start_itko(point='buh')
-        from MyModules.exports_014_vskk_vou_202 import export_vskk
         cleaning_dir(PATH_VSKK)
+        from MyModules.exports_014_vskk_vou_202 import export_vskk
         export_vskk()
         quit_1c(*dict_with_paths.get('vskk_dir'))
 
     elif select == '7':
         from MyModules.exporting_xls import *
-
-        start_itko(point='buh')
         cleaning_dir(PATH_SFORMIROVAT)
+        start_itko(point='buh')
         cycling_exports()
         quit_1c(*dict_with_paths.get('exports_dir'))
         sending_outlook(mode_='sformirovat', displayed=True)
 
     elif select == '8':
         start_itko(point='buh')
-        from MyModules.exports_014_vskk_vou_202 import export_202
         cleaning_dir(PATH_202)
+        from MyModules.exports_014_vskk_vou_202 import export_202
         export_202()
         quit_1c(*dict_with_paths.get('202_dir'))
         sending_outlook(mode_='202', displayed=True)

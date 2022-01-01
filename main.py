@@ -1,10 +1,14 @@
 # Модуль работы с ИТКО (выгрузка отчетов "сформировать")
 
 # ИМПОРТЫ
+import os
+
 import pyautogui
 import pyautogui as pg
 import time
+from MyModules.typing_unicode_str import typing_unicode_str as typing
 from MyModules.print_log import print_log
+from MyModules.quit_itko import quit_1c
 import subprocess
 import configparser
 
@@ -13,6 +17,8 @@ cfg = configparser.ConfigParser()  # создание объекта с вызо
 cfg.read('config.ini')
 ITKO_DIR = cfg.get('PATHS', 'dir_itko')
 ITKO_BIN = cfg.get('PATHS', 'itko_bin')
+PATH_014 = os.path.join(ITKO_DIR, cfg.get('PATHS', 'dir_014'))
+PATH_VSKK = os.path.join(ITKO_DIR, cfg.get('PATHS', 'dir_vskk'))
 
 
 # ФУНКЦИИ
@@ -78,6 +84,29 @@ def preparation_vou():
     pg.click(650, 85)
 
 
+def export_014():
+    from MyModules.past_dates import past_dates
+    pg.click(50, 120)
+    pg.write(past_dates()[0])
+    pg.press('tab')
+    pg.write(past_dates()[1])
+    pg.press('tab', presses=2)
+    typing(PATH_014 + f'014_{past_dates()[5]}.xml')
+    time.sleep(1)
+    pg.press('tab')
+    pg.press('enter')
+    time.sleep(30)
+
+
+def export_vskk():
+    from MyModules.past_dates import past_dates
+    pg.click(250, 120)
+    pg.write(past_dates()[0])
+    pg.press('tab')
+    pg.write(past_dates()[1])
+    pg.press('tab', presses=2)
+
+
 def pyautogui_menu() -> str:
     """Функция МЕНЮ"""
     print_log("Запуск меню")
@@ -85,20 +114,29 @@ def pyautogui_menu() -> str:
     menu_points = {
         0: 'Загрузка базы ИТКО',
         1: 'Старт ИТКО Бухгалтером',
-        2: "Файлы 'Сформировать.xls'",
+        2: 'Старт ИТКО Администратором',
         3: "Подготовка к формированию ВОУ",
-        4: 'Старт ИТКО Администратором',
+        4: "Файлы 'Сформировать.xls'",
+        5: "Выгрузка '014'",
+        6: "Выгрузка 'ВСКК'",
+        9: "Поменять системные дату/время"
     }
 
     return pg.prompt(text=f"""
     Необходимо выбрать пункт меню:
     
     0: {menu_points.get(0)}
+    =========================
     1: {menu_points.get(1)}
     2: {menu_points.get(2)}
+    =========================
     3: {menu_points.get(3)}
+    =========================
     4: {menu_points.get(4)}
-
+    5: {menu_points.get(5)}
+    6: {menu_points.get(6)}
+    =========================
+    9: {menu_points.get(9)}
     """, title='МЕНЮ АВТОМАТИЗАЦИИ ИТКО', default='1')
 
 
@@ -113,12 +151,7 @@ if __name__ == '__main__':
         start_itko()
 
     elif select == '2':
-        from MyModules.exporting_xls import *
-        start_itko(point='buh')
-        cleaning_export_dir()
-        cycling_exports()
-        make_separator()
-        quit_1c()
+        start_itko(point='adm')
 
     elif select == '3':
         change_datetime()
@@ -126,6 +159,23 @@ if __name__ == '__main__':
         preparation_vou()
 
     elif select == '4':
-        start_itko(point='adm')
+        from MyModules.exporting_xls import *
+        start_itko(point='buh')
+        cleaning_export_dir()
+        cycling_exports()
+        make_separator()
+        quit_1c()
+
+    elif select == '5':
+        start_itko(point='buh')
+        export_014()
+        quit_1c()
+
+    elif select == '6':
+        start_itko(point='buh')
+        export_vskk()
+
+    elif select == '9':
+        change_datetime()
 
     success_window_alert()

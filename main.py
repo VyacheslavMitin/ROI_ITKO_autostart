@@ -73,11 +73,9 @@ def preparation_vou():
     """Функция запуска расчета ВОУ"""
     print_log("Запуск расчета ВОУ", line_before=True)
     from MyModules.select_menu import selecting_menu
-    selecting_menu(1, 5)
-    # pg.click(COORDINATES_FOR_DISPLAY.get('журнал воу'))
+    selecting_menu(1, 5)  # запуск журнала воу
     interval_january()
-    selecting_menu(2, 6)
-    # pg.click(COORDINATES_FOR_DISPLAY.get('авто воу'))
+    selecting_menu(2, 6)  # запуск автоформирования
 
 
 def cleaning_dir(path0_: str):

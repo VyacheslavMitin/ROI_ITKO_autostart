@@ -17,7 +17,6 @@ NAMES_LIST_double = NAMES_STR_double.split(',')  # список для элем�
 def call_exports():
     """Функция запуска отчета Точки по дням"""
     selecting_menu(1, 1)
-    # pg.click(COORDINATES_FOR_DISPLAY.get('точки по дням'))  # координаты под Win7 125% (1000, 150)
 
 
 def configuring_exports():

@@ -14,7 +14,6 @@ def export_014():
     """Функция экспорта файла 014"""
     print_log("Экспорт 014", line_before=True)
     selecting_menu(1, 9)
-    # pg.click(COORDINATES_FOR_DISPLAY.get('экспорт 014'))
     pg.write(past_dates()[0])
     pg.press('tab')
     pg.write(past_dates()[1])
@@ -30,7 +29,6 @@ def export_vskk():
     """Функция экспорта файла ВСКК"""
     print_log("Экспорт ВСКК", line_before=True)
     selecting_menu(1, 10)
-    # pg.click(COORDINATES_FOR_DISPLAY.get('экспорт вскк'))
     pg.press('tab', presses=8, interval=0.2)
     pg.press('esc', interval=0.2)
     pg.press('tab')
@@ -51,11 +49,9 @@ def export_vskk():
 def export_vou():
     """Функция экспорта файлов ВОУ"""
     print_log("Работа с ВОУ", line_before=True)
-    # import pyperclip
     file_name = 'ВОУ ОКО'
     print_log("Экспорт ВОУ в текстовый файл")
-    selecting_menu(1, 7)
-    # pg.click(COORDINATES_FOR_DISPLAY.get('экспорт воу'))  # экспорт файла
+    selecting_menu(1, 7)  # запуск обработки выгрузки воу
     pg.press('tab', presses=9, interval=0.2)
     pg.write(past_dates()[1])
     pg.press('tab')
@@ -72,8 +68,7 @@ def export_vou():
     time.sleep(3)
 
     print_log("Генерация XLS файла")
-    selecting_menu(2, 5)
-    # pg.click(COORDINATES_FOR_DISPLAY.get('журнал воу'))  # вызов журнала с ведомостями
+    selecting_menu(2, 5)  # вход в журнал воу с сохранением файла
     from main import interval_january
     interval_january()
     pg.press('end')
@@ -96,8 +91,7 @@ def export_vou():
     time.sleep(0.5)
 
     print_log("Генерация DBF файла")
-    selecting_menu(4, 8)
-    # pg.click(COORDINATES_FOR_DISPLAY.get('обработка дбф'))  # открытие обработки для превращения в ДБФ
+    selecting_menu(4, 8)  # запуск обработки конвертации тхт в дбф
     pg.press('f4')
     time.sleep(0.5)
     rus_layout()
@@ -110,7 +104,6 @@ def export_vou():
     pg.press('enter')
     time.sleep(0.5)
     pg.hotkey('ctrl', 'shift', 'z')  # закрыть окно сообщений
-    # pg.click(COORDINATES_FOR_DISPLAY.get('закрыть уведомление'))
     pg.hotkey('shift', 'tab')
     typing(past_dates()[1])
     pg.press('tab', presses=2, interval=0.2)
@@ -125,8 +118,7 @@ def export_vou():
 def export_202():
     """Функция экспорта файлов 202 формы"""
     print_log("Экспорт 202 формы", line_before=True)
-    selecting_menu(1, 11)
-    # pg.click(COORDINATES_FOR_DISPLAY.get('экспорт 202'))
+    selecting_menu(1, 11)  # запуск обработки выгрузки 202
     pg.press('tab', presses=1, interval=0.2)
     pg.press('space')
     pg.press('tab', presses=2, interval=0.2)

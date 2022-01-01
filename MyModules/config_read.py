@@ -5,8 +5,18 @@ import configparser
 import os
 
 # КОНСТАНТЫ
+name_curdir = os.path.basename(os.path.abspath(os.path.curdir))
+
+if name_curdir == 'MyModules':
+    path_ = os.path.abspath(os.path.join(os.path.curdir, '..')) + '\\'
+else:
+    path_ = os.path.abspath(os.path.join(os.path.curdir)) + '\\'
+
+INI_FILE = 'config.ini'
+PATH_TO_INI = path_ + INI_FILE
+
 cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
-cfg.read('config.ini')  # или cfg.read('../config.ini')
+cfg.read(PATH_TO_INI)
 
 ITKO_BIN = cfg.get('PATHS', 'itko_bin')
 OUTLOOK_BIN = cfg.get('PATHS', 'outlook_bin')
@@ -25,7 +35,7 @@ dict_with_paths = {  # словарь с именами папок и путям
     'vskk_dir': (cfg.get('PATHS', 'dir_vskk'), PATH_VSKK),
     'vou_dir': (cfg.get('PATHS', 'dir_vou'), PATH_VOU),
     '202_dir': (cfg.get('PATHS', 'dir_202'), PATH_202),
-    'exports_dir': (cfg.get('PATHS', 'dir_exports'), PATH_SFORMIROVAT),
+    'exports_dir': (cfg.get('PATHS', 'dir_sformirovat'), PATH_SFORMIROVAT),
 }
 
 # Блок для работы с именами клиентов

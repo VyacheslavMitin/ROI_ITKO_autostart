@@ -9,3 +9,6 @@ def making_dirs():
     """Функция создания каталогов для файлов экспорта"""
     for item in tuple_dirs:
         os.makedirs(os.path.normpath(item), exist_ok=True)
+
+if __name__ == '__main__':
+    making_dirs()

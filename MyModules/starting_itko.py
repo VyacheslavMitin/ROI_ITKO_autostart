@@ -30,10 +30,12 @@ def start_itko(point='buh', mode='ENTERPRISE', no_windows=True):
     pg.press('enter', presses=4, interval=0.3)
     pg.press('tab', presses=2, interval=0.3)
     pg.press('enter')
+    time.sleep(0.5)
+
+    if mode == 'ENTERPRISE':
+        pg.click(10, 680)  # закрыть всплывающее уведомление внизу
 
     if point == 'buh' and mode == 'ENTERPRISE':  # оставить администратора
-        time.sleep(0.5)
-        pg.click(10, 680)  # закрыть всплывающее уведомление
         if not no_windows:
             print_log("Открытие окон")
             tuple_ = ((750, 115), (1250, 85), (85, 85))
@@ -45,20 +47,21 @@ def start_itko(point='buh', mode='ENTERPRISE', no_windows=True):
                 pg.click(item)
 
     if point == 'adm' and mode == 'ENTERPRISE':  # оставить администратора
-        print_log("Открытие журнала ВОУ")
-        time.sleep(0.5)
-        pg.press('alt')
-        pg.press('right', presses=4, interval=0.1)
-        pg.press('down', presses=5, interval=0.1)
-        pg.press('enter')
-        from main import interval_january
-        interval_january()
-        print_log("Открытие журнала документов")
-        time.sleep(0.5)
-        pg.press('alt')
-        pg.press('right', presses=2, interval=0.1)
-        pg.press('down', presses=1, interval=0.1)
-        pg.press('enter', presses=2, interval=0.5)
+        if not no_windows:
+            from main import interval_january
+            print_log("Открытие журнала ВОУ")
+            time.sleep(0.5)
+            pg.press('alt')
+            pg.press('right', presses=4, interval=0.1)
+            pg.press('down', presses=5, interval=0.1)
+            pg.press('enter')
+            interval_january()
+            print_log("Открытие журнала документов")
+            time.sleep(0.5)
+            pg.press('alt')
+            pg.press('right', presses=2, interval=0.1)
+            pg.press('down', presses=1, interval=0.1)
+            pg.press('enter', presses=2, interval=0.5)
 
     if mode == 'CONFIG':
         print_log("Открытие окна для загрузки базы", line_before=True)

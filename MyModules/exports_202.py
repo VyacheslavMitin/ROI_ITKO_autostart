@@ -9,7 +9,7 @@ from MyModules.typing_unicode_str import typing_unicode_str as typing
 
 
 def export_202():
-    """Функция экспорта файлов 202"""
+    """Функция экспорта файлов 202 формы"""
     print_log("Экспорт 202 формы", line_before=True)
     pg.click(1110, 85)
     pg.press('tab', presses=3, interval=0.2)

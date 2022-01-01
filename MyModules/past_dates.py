@@ -12,8 +12,8 @@ def past_dates() -> tuple:
 
     if now_month == 1:  # отлов января и реакция на него, вычитания года и явное указания декабря
         past_month_str = str(12)  # в строковом исполнении явное указания декабря
-        past_year = now_year - 1  # вычитание года в цифровом
-        past_year = str(past_year)[2:]
+        past_year_ = now_year - 1  # вычитание года в цифровом
+        past_year = str(past_year_)[2:]
         past_start_date_ = '01' + f'.{past_month_str}.{past_year}'  # 01 декабря прошлого года
         past_finish_date_ = '31' + f'.{past_month_str}.{past_year}'  # 31 декабря прошлого года
         past_number_month = '12 Dec'
@@ -52,4 +52,30 @@ def past_dates() -> tuple:
     (dd_, mm_, yyyy_) = past_finish_date_.split('.')  # создание строки без разделителя
     past_finish_date_no_dots = ''.join((dd_, mm_, yyyy_))
 
-    return past_start_date_, past_finish_date_, past_year, past_month_str, past_number_month, past_finish_date_no_dots
+    return past_start_date_, past_finish_date_, past_year, past_month_str, past_number_month, \
+        past_finish_date_no_dots, past_year_
+
+
+def period_for_emails() -> str:
+    """Функция генерация строков значения периода для писем в формате 'период ДЕКАБРЬ 2021'"""
+    dict_ = {
+             '01': 'ЯНВАРЬ',
+             '02': 'ФЕВРАЛЬ',
+             '03': 'МАРТ',
+             '04': 'АПРЕЛЬ',
+             '05': 'МАЙ',
+             '06': 'ИЮНЬ',
+             '07': 'ИЮЛЬ',
+             '08': 'АВГУСТ',
+             '09': 'СЕНТЯБРЬ',
+             '10': 'ОКТЯБРЬ',
+             '11': 'НОЯБРЬ',
+             '12': 'ДЕКАБРЬ'}
+
+    period_str = f'период {dict_.get(past_dates()[3])} {past_dates()[6]}'
+    return period_str
+
+
+if __name__ == '__main__':
+    print(past_dates())
+    print(period_for_emails())

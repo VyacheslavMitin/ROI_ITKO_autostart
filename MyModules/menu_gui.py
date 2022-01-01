@@ -1,4 +1,5 @@
 import pyautogui as pg
+from datetime import datetime
 from MyModules.print_log import print_log
 
 
@@ -20,6 +21,9 @@ def pyautogui_menu() -> str:
     }
 
     return pg.prompt(text=f"""
+    МОДУЛЬ АВТОМАТИЗАЦИИ ИТКО
+                                  время {datetime.now().strftime('%d.%m.%y %H:%M')}
+    
     Необходимо выбрать пункт меню:
 
     0: {menu_points.get(0)}

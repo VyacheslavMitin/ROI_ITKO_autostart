@@ -3,10 +3,10 @@
 # ИМПОРТЫ
 import glob
 import sys
-import pyautogui as pg
-from datetime import datetime
 import subprocess
 import time
+import pyautogui as pg
+from datetime import datetime
 # Мои модули
 from MyModules.config_read import *
 from MyModules.starting_itko import start_itko
@@ -23,9 +23,9 @@ NOW_DATE = datetime.now().strftime('%d.%m.%y')  # Текущая дата в ф�
 
 
 # ФУНКЦИИ
-def welcoming(name_='ИТКО', author_='Вячеслав Митин', version_='5'):
-    """Функция приветсвия"""
-    print(f"МОДУЛЬ РАБОТЫ С '{name_}'")
+def welcoming(name_='ИТКО', author_='Вячеслав Митин', version_='10'):
+    """Функция приветствия"""
+    print(f"МОДУЛЬ РАБОТЫ '{name_}'")
     print(f"Автор модуля: '{author_}'")
     print(f"Версия модуля: '{version_}'\n")
 
@@ -47,8 +47,11 @@ def change_datetime():
 
 
 def interval_january(long_=False):
-    """Функция определения интервалов если январь и нужен доступ к документам прошлого года"""
-    from MyModules.past_dates import past_dates
+    """Функция определения интервалов: если январь и нужен доступ к документам прошлого года"""
+    def clear_dates():
+        pg.press('right', presses=20, interval=0.0)
+        pg.press('backspace', presses=20, interval=0.0)
+
     if past_dates()[3] == '12':
         pg.press('alt')
         pg.press('right', presses=1, interval=0.1)
@@ -56,18 +59,13 @@ def interval_january(long_=False):
         if long_:
             pg.press('down', presses=4, interval=0.1)
         pg.press('enter')
-
-    def clear_dates():
-        pg.press('right', presses=10, interval=0.1)
-        pg.press('backspace', presses=10, interval=0.1)
-
-    clear_dates()
-    typing(past_dates()[0])
-    pg.press('tab')
-    clear_dates()
-    typing(NOW_DATE)
-    pg.press('tab')
-    pg.press('enter')
+        clear_dates()
+        typing(past_dates()[0])
+        pg.press('tab')
+        clear_dates()
+        typing(NOW_DATE)
+        pg.press('tab')
+        pg.press('enter')
 
 
 def preparation_vou():
@@ -78,16 +76,16 @@ def preparation_vou():
     pg.click(650, 85)
 
 
-def cleaning_dir(path_: str):
+def cleaning_dir(path0_: str):
     """Функция удаления файлов в каталоге экспортов"""
     print_log("Очистка каталога экспорта")
 
-    for files in glob.glob(path_ + f'*.*'):
+    for files in glob.glob(path0_ + f'*.*'):
         os.remove(files)
     time.sleep(0.5)
 
 
-def quit_1c(name_, path_):
+def quit_1c(name_, path1_):
     """Функция выхода из 1С и запуска проводника"""
     pg.hotkey('alt', 'f4')
     name_ = name_[:-1]
@@ -99,7 +97,7 @@ def quit_1c(name_, path_):
         for item in enumerate(list__):
             pg.getWindowsWithTitle(item[1])[item[0]].close()
 
-    os.system(f'explorer.exe {os.path.normpath(path_)}')  # запуск проводника
+    os.system(f'explorer.exe {os.path.normpath(path1_)}')  # запуск проводника
 
 
 if __name__ == '__main__':
@@ -115,7 +113,9 @@ if __name__ == '__main__':
         start_itko(point='buh', no_windows=True)
 
     elif select == '2':
-        start_itko(point='adm')
+        start_itko(point='adm', no_windows=False)
+    elif select == '20':
+        start_itko(point='adm', no_windows=True)
 
     elif select == '3':
         change_datetime()

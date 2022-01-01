@@ -1,12 +1,14 @@
 import glob
 import subprocess
+import time
 # Мои модули
 from MyModules.config_read import *
 from MyModules.print_log import print_log
-from MyModules.past_dates import past_dates
+from MyModules.past_dates import period_for_emails
 
 # КОНСТАНТЫ
 SIGNATURE = """
+
 ______________________
 Ведущий специалист Регионального Центра "Ульяновск" Объединения РОСИНКАСС
 Митин Вячеслав Алексеевич
@@ -52,19 +54,19 @@ def sending_outlook(mode_, displayed=True) -> None:
     new_mail.BodyFormat = 2  # формат HTML
 
     if mode_ == 'test':
-        new_mail.Subject = f'Тестовое письмо из ИТКО {past_dates()[1]}'  # указание темы
-        new_mail.Body = f"Тестовое письмо из ИТКО за {past_dates()[1]}." + SIGNATURE  # сообщение
+        new_mail.Subject = f'Тестовое письмо из ИТКО {period_for_emails()}'  # указание темы
+        new_mail.Body = f"Тестовое письмо из ИТКО за {period_for_emails()}." + SIGNATURE  # сообщение
         new_mail.To = RECIPIENTS_TEST  # обращение к списку получателей
 
     elif mode_ == '202':
-        new_mail.Subject = f'Форма 202 {past_dates()[1]}'  # указание темы
-        new_mail.Body = f"Форма 202 из ИТКО за {past_dates()[1]}.\n\nФайлы:\n{search_sending_files(mode_)[1]}" \
+        new_mail.Subject = f'Форма 202 {period_for_emails()}'  # указание темы
+        new_mail.Body = f"Форма 202 из ИТКО за {period_for_emails()}.\n\nФайлы:\n{search_sending_files(mode_)[1]}" \
                         + SIGNATURE  # сообщение
         new_mail.To = RECIPIENTS_202  # обращение к списку получателей
 
     elif mode_ == 'sformirovat':
-        new_mail.Subject = f'Файлы "Сформировать.xls" из кассы пересчета {past_dates()[1]}'  # указание темы
-        new_mail.Body = f'Файлы "Сформировать.xls" из кассы пересчета за {past_dates()[1]}.' \
+        new_mail.Subject = f'Файлы "Сформировать.xls" из кассы пересчета {period_for_emails()}'  # указание темы
+        new_mail.Body = f'Файлы "Сформировать.xls" из кассы пересчета за {period_for_emails()}.' \
                         f'\n\nФайлы:\n{search_sending_files(mode_)[1]}' + SIGNATURE  # сообщение
         new_mail.To = RECIPIENTS_SFORMIROVAT  # обращение к списку получателей
 
@@ -83,4 +85,9 @@ def sending_outlook(mode_, displayed=True) -> None:
 
     print_log("Письмо для отправки через MS Outlook подготовлено")
 
+    time.sleep(0.5)
     subprocess.Popen(OUTLOOK_BIN)  # запуск MS Outlook
+
+
+if __name__ == '__main__':
+    sending_outlook('test')

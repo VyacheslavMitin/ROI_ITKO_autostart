@@ -49,11 +49,17 @@ RECIPIENTS_VOU = cfg.get('NAMES', 'recipients_vou')
 RECIPIENTS_TEST = cfg.get('NAMES', 'recipients_test')
 RECIPIENTS_COPY = cfg.get('NAMES', 'recipients_copy')
 # Блок для определения монитора
-from MyModules.checking_monitor import checking_monitor
-COORDINATES_FOR_DISPLAY = checking_monitor(silent=True)
+# from MyModules.checking_monitor import checking_monitor
+# COORDINATES_FOR_DISPLAY = checking_monitor(silent=True)
 # Блок для определения расширений файлов для поиска
 EXTENSIONS = cfg.get('PATHS', 'extensions')
 
 
 if __name__ == '__main__':
-    print(COORDINATES_FOR_DISPLAY)
+    print(PATH_TO_INI)
+    print(ITKO_BIN)
+    print(OUTLOOK_BIN)
+    print(CHANGE_TIME)
+    print(PATH_ITKO)
+    print(NAMES_STR)
+    print(EXTENSIONS)

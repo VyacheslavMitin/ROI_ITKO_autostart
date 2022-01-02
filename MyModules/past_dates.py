@@ -61,7 +61,7 @@ def past_dates() -> tuple:
 
 
 def period_for_emails() -> str:
-    """Функция генерация строкового значения периода для писем в формате 'период ДЕКАБРЬ 2021'"""
+    """Функция генерация строкового значения периода для писем в формате 'ДЕКАБРЬ 2021'"""
     dict_ = {
              '01': 'ЯНВАРЬ',
              '02': 'ФЕВРАЛЬ',
@@ -76,7 +76,7 @@ def period_for_emails() -> str:
              '11': 'НОЯБРЬ',
              '12': 'ДЕКАБРЬ'}
 
-    period_str = f'период {dict_.get(past_dates()[3])} {past_dates()[6]}'
+    period_str = f'{dict_.get(past_dates()[3])} {past_dates()[6]}'
     return period_str
 
 

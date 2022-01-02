@@ -19,7 +19,7 @@ ______________________
 # ФУНКЦИИ
 def search_sending_files(mode_):
     """Функция подготовки файлов для писем к отправке через MS Outlook.
-    Режимы mode_ могут быть '202', 'sformirovat', 'test'"""
+    Режимы mode_ могут быть '202', 'sformirovat', 'vou', 'test'"""
     files_names = ''
     files = []
     path_files = None
@@ -35,12 +35,15 @@ def search_sending_files(mode_):
     elif mode_ == 'sformirovat':
         path_files = PATH_SFORMIROVAT
 
+    elif mode_ == 'vou':
+        path_files = PATH_VOU
+
     for item in extensions:  # искать файлы по расширению
         files.extend(glob.glob(path_files + f'*{item}'))
 
-    files_names_ = os.listdir(path_files)
+    files_names_ = os.listdir(path_files)  # список имен файлов вида 1) Ашан
     for names in enumerate(files_names_):
-        files_names += f'{str(names[0] + 1)})  {names[1]}\n'  # '; '
+        files_names += f'{str(names[0] + 1)})  {names[1]}\n'  # в конце разделитель, может быть хоть '; '
 
     if mode_ != 'test':
         return files, files_names
@@ -48,7 +51,7 @@ def search_sending_files(mode_):
 
 def sending_outlook(mode_, displayed=True) -> None:
     """Функция подготовки писем к отправке через MS Outlook.
-    Режимы mode_ могут быть '202', 'sformirovat', 'test'"""
+    Режимы mode_ могут быть '202', 'sformirovat', 'vou', 'test'"""
     import win32com.client as win32  # импорт модуля для работы с Win32COM (MS Outlook, etc.)
     outlook = win32.gencache.EnsureDispatch('Outlook.Application')  # вызов MS Outlook
     new_mail = outlook.CreateItem(0)  # создание письма в MS Outlook
@@ -72,13 +75,19 @@ def sending_outlook(mode_, displayed=True) -> None:
                         f'\n\nФайлы:\n{search_sending_files(mode_)[1]}' + SIGNATURE  # сообщение
         new_mail.To = RECIPIENTS_SFORMIROVAT  # обращение к списку получателей
 
+    elif mode_ == 'vou':
+        new_mail.Subject = f'Детализация выручки ОКО {period_for_emails()}'  # указание темы
+        new_mail.Body = f'Детализация выручки ОКО за {period_for_emails()}.' \
+                        f'\n' + SIGNATURE  # сообщение
+        new_mail.To = RECIPIENTS_VOU  # обращение к списку получателей
     new_mail.CC = RECIPIENTS_COPY  # получателии в копии
 
-    if mode_ != 'test':
+    if mode_ != 'test':  # работа с вложениями
         print_log("Поиск файлов для отправки через e-mail:", line_before=True)
         for files in (search_sending_files(mode_)[0]):  # вложения
             new_mail.Attachments.Add(files)
-        if mode_ != 'test':
+        tuple_not_used = ('test', 'vou')
+        if mode_ not in tuple_not_used:
             print_log(f"Файлы для отправки:\n{search_sending_files(mode_)[1]}")
 
     if displayed:  # отображать окно письма
@@ -95,4 +104,7 @@ def sending_outlook(mode_, displayed=True) -> None:
 if __name__ == '__main__':
     # sending_outlook('test')
     # sending_outlook('sformirovat')
-    sending_outlook('202')
+    # sending_outlook('202')
+    # print(search_sending_files('vou')[0])
+    # print(search_sending_files('vou')[1])
+    sending_outlook('vou')

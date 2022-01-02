@@ -86,9 +86,10 @@ def export_vou():
     eng_layout()
     typing(PATH_VOU)
     rus_layout()
-    typing(f'{file_name}')
-    eng_layout()
-    typing(f'_{pyperclip.paste()}')
+    from MyModules.past_dates import period_for_emails
+    typing(f'Детализация выручки ОКО {period_for_emails()}')
+    # eng_layout()
+    # typing(f'_{pyperclip.paste()}')
     pg.press('tab')
     pg.press('down', presses=2)  # выбор формата файла
     pg.press('enter', presses=2)  # сохранение файла

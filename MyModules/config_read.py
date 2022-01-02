@@ -45,6 +45,7 @@ NAMES_STR_double = cfg.get('NAMES', 'points_double')
 # Блок для работы с письмами
 RECIPIENTS_SFORMIROVAT = cfg.get('NAMES', 'recipients_sform')
 RECIPIENTS_202 = cfg.get('NAMES', 'recipients_202')
+RECIPIENTS_VOU = cfg.get('NAMES', 'recipients_vou')
 RECIPIENTS_TEST = cfg.get('NAMES', 'recipients_test')
 RECIPIENTS_COPY = cfg.get('NAMES', 'recipients_copy')
 # Блок для определения монитора

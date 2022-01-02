@@ -131,6 +131,7 @@ if __name__ == '__main__':
         cleaning_dir(PATH_VOU)
         export_vou()
         quit_1c(*dict_with_paths.get('vou_dir'))
+        sending_outlook(mode_='vou', displayed=True)
 
     elif select == '5':
         start_itko(point='buh')
@@ -165,5 +166,9 @@ if __name__ == '__main__':
 
     elif select == '9':
         change_datetime()
+
+    elif select is None:
+        pg.alert("Выход из меню!", title='Выход')
+        sys.exit("Выход!")
 
     success_window_alert()

@@ -28,8 +28,8 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
     elif point == 'adm':  # оставить администратора
         print_log("Выбор Администратора для входа")
 
-    pg.press('enter', presses=4, interval=0.2)
-    pg.press('tab', presses=2, interval=0.2)
+    pg.press('enter', presses=4, interval=0.3)
+    pg.press('tab', presses=2, interval=0.3)
     pg.press('enter')
     time.sleep(0.5)
 
@@ -39,37 +39,51 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
     if point == 'buh' and mode == 'ENTERPRISE':  # оставить администратора
         if not no_windows:
             print_log("Открытие окон")
-            selecting_menu(1, 2)  # документы за день
-            pg.press('f4')
-            pg.press('end')
-            pg.press('enter')
-            pg.press('tab', presses=1, interval=0.0)
-            for i in range(4):
-                pg.press('tab')
-                pg.press('space')
-            pg.press('tab', presses=1, interval=0.0)
-            for i in range(4):
-                pg.press('tab')
-                pg.press('space')
-            selecting_menu(2, 3)  # распред. ведомости
+            from datetime import datetime
             from main import interval_january
-            interval_january(long_=True)
-            selecting_menu(2, 4)  # клиенты
+            if 1 <= int(datetime.now().strftime('%d')) <= 10:
+                from MyModules.exporting_xls import call_sformirovat
+                call_sformirovat()  # документы за день
+                selecting_menu(2, 5)  # журнал воу
+                interval_january(long_=False)
+                pg.press('end')
+                pg.press('enter')
+            else:
+                selecting_menu(1, 2)  # документы за день
+                pg.press('f4')
+                pg.press('end')
+                pg.press('enter')
+                pg.press('tab', presses=1, interval=0.0)
+                for i in range(4):
+                    pg.press('tab')
+                    pg.press('space')
+                pg.press('tab', presses=1, interval=0.0)
+                for i in range(4):
+                    pg.press('tab')
+                    pg.press('space')
+                selecting_menu(2, 3)  # распред. ведомости
+                interval_january(long_=True)
+                selecting_menu(2, 4)  # клиенты
 
     if point == 'adm' and mode == 'ENTERPRISE':  # оставить администратора
         if not no_windows:
+            from datetime import datetime
             from main import interval_january
-            print_log("Открытие журнала ВОУ")
-            time.sleep(0.5)
-            pg.press('alt')
-            pg.press('right', presses=4, interval=0.1)
-            pg.press('down', presses=5, interval=0.1)
-            pg.press('enter')
-            interval_january()
+            if 1 <= int(datetime.now().strftime('%d')) <= 10:
+                print_log("Открытие журнала ВОУ")
+                time.sleep(0.5)
+                pg.press('alt')
+                pg.press('right', presses=4, interval=0.1)
+                pg.press('down', presses=5, interval=0.1)
+                pg.press('enter')
+                interval_january()
             print_log("Открытие журнала документов")
             time.sleep(0.5)
             pg.press('alt')
-            pg.press('right', presses=2, interval=0.1)
+            if 1 <= int(datetime.now().strftime('%d')) <= 10:
+                pg.press('right', presses=2, interval=0.1)
+            else:
+                pg.press('right', presses=4, interval=0.1)
             pg.press('down', presses=1, interval=0.1)
             pg.press('enter', presses=2, interval=0.5)
 

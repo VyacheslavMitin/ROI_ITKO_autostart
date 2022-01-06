@@ -1,3 +1,5 @@
+# Модуль работы с поиском и отправкой файлов через емейл
+
 import glob
 import subprocess
 import time

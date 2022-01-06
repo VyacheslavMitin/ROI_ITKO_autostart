@@ -1,3 +1,5 @@
+# Модуль запуска ИТКО
+
 import pyautogui as pg
 import subprocess
 import time
@@ -36,21 +38,21 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
     if mode == 'ENTERPRISE':
         pg.hotkey('ctrl', 'shift', 'z')  # закрыть окно сообщений
 
-    if point == 'buh' and mode == 'ENTERPRISE':  # оставить администратора
+    if point == 'buh' and mode == 'ENTERPRISE':
         if not no_windows:
             print_log("Открытие окон")
             from datetime import datetime
             from main import interval_january
-            if 1 <= int(datetime.now().strftime('%d')) <= 10:
+            if 1 <= int(datetime.now().strftime('%d')) <= 10:  # если первые 10 дней месяца
                 from MyModules.exporting_xls import call_sformirovat
                 call_sformirovat()  # документы за день
                 selecting_menu(2, 5)  # журнал воу
                 interval_january(long_=False)
                 pg.press('end')
                 pg.press('enter')
-            else:
+            else:  # если НЕ первые 10 дней месяца
                 selecting_menu(1, 2)  # документы за день
-                pg.press('f4')
+                pg.press('F4')
                 pg.press('end')
                 pg.press('enter')
                 pg.press('tab', presses=1, interval=0.0)
@@ -115,3 +117,7 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
             typing_unicode_str(".zip")
             pg.press('tab', presses=2, interval=0.2)
             pg.press('enter')
+
+
+if __name__ == '__main__':
+    start_itko()

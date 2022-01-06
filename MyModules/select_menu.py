@@ -1,3 +1,5 @@
+# Модуль работы с меню "робот" в ИТКО
+
 import time
 
 import pyautogui as pg
@@ -19,7 +21,7 @@ def selecting_menu(mode_, point_):
     10 - Выгрузка ВСКК
     11 - Выгрузка 202"""
 
-    timeout = 0.0
+    timeout = 0.0  # без таймаута
 
     time.sleep(timeout)
     pg.press('alt')

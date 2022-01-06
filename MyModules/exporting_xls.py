@@ -30,7 +30,7 @@ def working_find():
     """Функция работы с поиском"""
     # pg.press('f4')
     pg.press('home')
-    pg.hotkey('ctrl', 'f3')
+    pg.hotkey('ctrl', 'F3')
     pg.press('delete', presses=50)
 
 
@@ -48,7 +48,7 @@ def exporting(name):
     pg.press('enter')  # формирование форм
     time.sleep(1)
     pg.hotkey('ctrl', 'F4')
-    pg.hotkey('ctrl', 's')
+    pg.hotkey('ctrl', 'S')
     eng_layout()
     typing(PATH_SFORMIROVAT)
     rus_layout()
@@ -67,48 +67,15 @@ def exporting(name):
     pg.hotkey('ctrl', 'F4')
 
 
-def searching_exporting(name):
-    """Функция поиска контрагента через поле поиска и сохранения нужной печатной формы"""
-    pg.press('pageup')
-    timeout = 1  # таймаут ожидания
-    time.sleep(timeout)
-    rus_layout()
-    typing(name)  # имя в поисковое окно
-    if name in NAMES_LIST_double:
-        pg.hotkey('shift', 'F3')
-    pg.hotkey('shift', 'F3')  # поиск
-    pg.press('enter')  # выбор клиента
-    pg.press('tab')
-    pg.press('enter')  # формирование форм
-    time.sleep(timeout)
-    pg.hotkey('ctrl', 'F4')
-    time.sleep(timeout)
-    pg.hotkey('ctrl', 's')
-    time.sleep(timeout)
-    eng_layout()
-    typing(PATH_SFORMIROVAT)
-    rus_layout()
-    typing(name + f'_{past_dates()[5]}')  # имя файла для сохранения
-    pg.press('tab')
-    pg.press('down', presses=2)  # выбор формата файла
-    pg.press('enter', presses=2)  # сохранение файла
-    time.sleep(timeout)
-    pg.hotkey('ctrl', 'F4')  # закрытие окна формы
-    time.sleep(timeout)
-    pg.hotkey('ctrl', 'F4')
-
-
 def cycling_exports():
     """Функция основного цикла для перебора по списку"""
     print_log("Начало выгрузки файлов 'Сформировать.xls'", line_before=True)
 
-    length_ = 0
-    length = len(NAMES_LIST)
-
-    for i in NAMES_LIST:
+    i = 0
+    for item in NAMES_LIST:
         call_sformirovat()
         working_find()
         exporting(i)
-        print_log(f"Выгружено '{i}'")
-        if length_ >= length:
-            break
+        print_log(f"Выгружено '{item}'")
+        i += 1
+    print_log(f'Всего {i} файлов выгружено')

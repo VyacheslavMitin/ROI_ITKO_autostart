@@ -1,3 +1,5 @@
+# Модуль проверки монитора, сейчас не используется
+
 # Импорты
 import pyautogui as pg
 import sys
@@ -20,7 +22,7 @@ COORDINATES_THUNDERBOLT_DISPLAY = {  # словарь координат для 
     'открыть клиенты': (95, 95),
 }
 
-COORDINATES_MACBOOK_DISPLAY = {  # словарь координат для MacBook Pro 15" Retina Display
+COORDINATES_MACBOOK_DISPLAY = {  # словарь координат для MacBook Pro 15" Retina Display, не настроен
     'точки по дням': (1000, 125),
     'очистка поискового поля': (400, 65),
     'экспорт 014': (45, 125),

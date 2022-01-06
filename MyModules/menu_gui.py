@@ -1,3 +1,5 @@
+# Модуль работы с меню
+
 import pyautogui as pg
 from datetime import datetime
 from MyModules.print_log import print_log
@@ -40,4 +42,6 @@ def pyautogui_menu() -> str:
     8: {menu_points.get(8)}
     {separator}
     9: {menu_points.get(9)}
-    """, title='МЕНЮ АВТОМАТИЗАЦИИ ИТКО', default='1')
+    """,
+                     title='МЕНЮ АВТОМАТИЗАЦИИ ИТКО',
+                     default='1')

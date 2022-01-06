@@ -1,4 +1,4 @@
-# Модуль чтения конфига
+# Модуль чтения конфига с настройками
 # from MyModules.config_read import *
 
 import configparser
@@ -62,4 +62,8 @@ if __name__ == '__main__':
     print(CHANGE_TIME)
     print(PATH_ITKO)
     print(NAMES_STR)
+    print(NAMES_STR_double)
+    print(RECIPIENTS_SFORMIROVAT)
+    print(RECIPIENTS_202)
+    print(RECIPIENTS_VOU)
     print(EXTENSIONS)

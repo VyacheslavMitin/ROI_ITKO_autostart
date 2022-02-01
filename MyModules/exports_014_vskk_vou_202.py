@@ -79,7 +79,7 @@ def export_vou():
     pg.press('down')
     pg.press('enter')
     time.sleep(4)
-    pg.hotkey('ctrl', 'S')
+    pg.hotkey('ctrl', 's')
     time.sleep(0.5)
     eng_layout()
     typing(PATH_VOU)
@@ -104,7 +104,7 @@ def export_vou():
     time.sleep(0.5)
     pg.press('enter')
     time.sleep(0.5)
-    pg.hotkey('ctrl', 'shift', 'Z')  # закрыть окно сообщений
+    pg.hotkey('ctrl', 'shift', 'z')  # закрыть окно сообщений
     pg.hotkey('shift', 'tab')
     typing(past_dates()[1])
     pg.press('tab', presses=2, interval=0.2)
@@ -138,7 +138,7 @@ def export_202():
     print_log("Выгрузка форм по банкам в XLS")
     banks = ('ВТБ', 'Р-ИНКАС', 'ГПБ', 'ВБРР')
     for bank in banks:
-        pg.hotkey('ctrl', 'S')
+        pg.hotkey('ctrl', 's')
         time.sleep(0.5)
         eng_layout()
         typing(PATH_202)

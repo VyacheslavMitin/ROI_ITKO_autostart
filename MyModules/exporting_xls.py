@@ -48,7 +48,7 @@ def exporting(name):
     pg.press('enter')  # формирование форм
     time.sleep(1)
     pg.hotkey('ctrl', 'F4')
-    pg.hotkey('ctrl', 'S')
+    pg.hotkey('ctrl', 's')
     eng_layout()
     typing(PATH_SFORMIROVAT)
     rus_layout()
@@ -75,7 +75,7 @@ def cycling_exports():
     for item in NAMES_LIST:
         call_sformirovat()
         working_find()
-        exporting(i)
+        exporting(item)
         print_log(f"Выгружено '{item}'")
         i += 1
     print_log(f'Всего {i} файлов выгружено')

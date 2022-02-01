@@ -158,6 +158,14 @@ if __name__ == '__main__':
         quit_1c(*dict_with_paths.get('exports_dir'))
         time.sleep(0.5)
         sending_outlook(mode_='sformirovat', displayed=True)
+    elif select == '70':
+        from MyModules.exporting_xls import *
+        cleaning_dir(PATH_SFORMIROVAT)
+        start_itko(point='buh')
+        exports_rzd()
+        quit_1c(*dict_with_paths.get('exports_dir'))
+        time.sleep(0.5)
+        sending_outlook(mode_='sformirovat', displayed=True)
 
     elif select == '8':
         start_itko(point='buh')

@@ -49,32 +49,18 @@ def export_vskk():
 
 def export_vou():
     """Функция экспорта файлов ВОУ"""
-    print_log("Работа с ВОУ", line_before=True)
-    file_name = 'ВОУ ОКО'
-    print_log("Экспорт ВОУ в текстовый файл")
-    selecting_menu(1, 7)  # запуск обработки выгрузки воу
-    pg.press('tab', presses=9, interval=0.2)
-    pg.write(past_dates()[1])
-    pg.press('tab')
-    pg.write(past_dates()[0])
-    pg.press('tab')
-    eng_layout()
-    typing(PATH_VOU)
-    rus_layout()
-    typing(f'{file_name}')
-    eng_layout()
-    typing('.txt')
-    pg.press('tab')
-    pg.press('enter')
-    time.sleep(3)
-
     print_log("Генерация XLS файла")
-    selecting_menu(2, 5)  # вход в журнал воу с сохранением файла
+    selecting_menu(1, 5)  # вход в журнал воу с сохранением файла
     from main import interval_january
     interval_january()
     pg.press('end')
     pg.press('enter')
-    pg.press('tab', presses=16, interval=0.1)
+    # pg.press('tab', presses=16, interval=0.1)  # без записи даты в ВОУ
+    pg.press('tab', presses=4, interval=0.1)
+    eng_layout()
+    typing(f'{past_dates()[1]}')
+    print_log(f"Смена даты в ВОУ на {past_dates()[1]}")
+    pg.press('tab', presses=12, interval=0.1)
     pg.press('space')
     pg.press('down')
     pg.press('enter')
@@ -90,9 +76,34 @@ def export_vou():
     pg.press('down', presses=2)  # выбор формата файла
     pg.press('enter', presses=2)  # сохранение файла
     time.sleep(0.5)
+    pg.hotkey('ctrl', 'f4')
+    pg.keyDown('shift')
+    pg.press('tab')
+    pg.keyUp('shift')
+    pg.press('space')
+    time.sleep(0.5)
+
+    print_log("Работа с ВОУ", line_before=True)
+    file_name = 'ВОУ ОКО'
+    print_log("Экспорт ВОУ в текстовый файл")
+    selecting_menu(2, 7)  # запуск обработки выгрузки воу
+    pg.press('tab', presses=9, interval=0.2)
+    pg.write(past_dates()[1])
+    pg.press('tab')
+    pg.write(past_dates()[0])
+    pg.press('tab')
+    eng_layout()
+    typing(PATH_VOU)
+    rus_layout()
+    typing(f'{file_name}')
+    eng_layout()
+    typing('.txt')
+    pg.press('tab')
+    pg.press('enter')
+    time.sleep(3)
 
     print_log("Генерация DBF файла")
-    selecting_menu(4, 8)  # запуск обработки конвертации тхт в дбф
+    selecting_menu(2, 8)  # запуск обработки конвертации тхт в дбф
     pg.press('f4')
     time.sleep(0.5)
     rus_layout()

@@ -24,7 +24,7 @@ NOW_DATE = datetime.now().strftime('%d.%m.%y')  # Текущая дата в ф�
 
 
 # ФУНКЦИИ
-def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='22'):
+def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='25'):
     """Функция приветствия"""
     print(f"МОДУЛЬ РАБОТЫ '{name_}'")
     print(f"Автор модуля: '{author_}'")
@@ -75,7 +75,8 @@ def preparation_vou():
     from MyModules.select_menu import selecting_menu
     selecting_menu(1, 5)  # запуск журнала воу
     interval_january()
-    selecting_menu(2, 6)  # запуск автоформирования
+    selecting_menu(2, 6)  # запуск авто формирования
+    time.sleep(5)
 
 
 def cleaning_dir(path0_: str):

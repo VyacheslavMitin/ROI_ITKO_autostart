@@ -24,12 +24,10 @@ def call_sformirovat():
     time.sleep(0.5)
     pg.write(past_dates()[1])
     pg.press('tab', presses=2)
-    # pg.press('esc', presses=1)
 
 
 def working_find():
     """Функция работы с поиском"""
-    # pg.press('f4')
     pg.press('home')
     pg.hotkey('ctrl', 'F3')
     pg.press('delete', presses=50)
@@ -58,10 +56,6 @@ def exporting(name):
     else:
         typing(name + f' ({period_for_emails()})')  # имя файла для сохранения
     saving_xls(name + f' ({period_for_emails()})')
-    # pg.press('tab')
-    # pg.press('down', presses=2)  # выбор формата файла
-    # pg.press('enter', presses=2)  # сохранение файла
-    # pg.hotkey('ctrl', 'F4')  # закрытие окна формы
     pg.hotkey('ctrl', 'F4')
 
 
@@ -74,7 +68,6 @@ def cycling_exports():
         call_sformirovat()
         working_find()
         exporting(item)
-        # print_log(f"Выгружено '{item}'")
         i += 1
     print_log(f'Всего {i} файлов выгружено')
 
@@ -86,5 +79,3 @@ def exports_rzd():
     call_sformirovat()
     working_find()
     exporting("РЖД")
-    #
-    # print_log(f'выгружено РЖД')

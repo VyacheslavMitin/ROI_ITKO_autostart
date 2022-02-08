@@ -47,8 +47,3 @@ def export_202():
         rus_layout()
         typing(f'202 {bank} ({period_for_emails()})')
         saving_xls(f'202 {bank} ({period_for_emails()})')
-        # pg.press('tab')
-        # pg.press('down', presses=2)  # выбор формата файла
-        # pg.press('enter', presses=2)  # сохранение файла
-        # time.sleep(0.5)
-        # pg.hotkey('ctrl', 'F4')  # закрытие окна формы

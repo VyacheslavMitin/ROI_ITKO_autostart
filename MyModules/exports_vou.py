@@ -38,11 +38,6 @@ def export_vou():
     from MyModules.past_dates import period_for_emails
     typing(f'Детализация выручки ОКО {period_for_emails()}')
     saving_xls(f'Детализация выручки ОКО {period_for_emails()}')
-    # pg.press('tab')
-    # pg.press('down', presses=2)  # выбор формата файла
-    # pg.press('enter', presses=2)  # сохранение файла
-    # time.sleep(0.5)
-    # pg.hotkey('ctrl', 'f4')
     pg.keyDown('shift')
     pg.press('tab')
     pg.keyUp('shift')

@@ -177,6 +177,8 @@ if __name__ == '__main__':
         sending_outlook(mode_='202', displayed=True)
 
     elif select == '9':
+        # start_itko(point='buh')
+        # cleaning_dir(PATH_PP)
         pass
 
     elif select == '10':

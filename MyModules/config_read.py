@@ -29,6 +29,7 @@ PATH_014 = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_014'))
 PATH_VSKK = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_vskk'))
 PATH_VOU = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_vou'))
 PATH_202 = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_202'))
+PATH_PP = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_pp'))
 
 dict_with_paths = {  # словарь с именами папок и путям к ним
     'root_dir': ('07 ITKO\\', PATH_ITKO),

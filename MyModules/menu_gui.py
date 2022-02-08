@@ -19,7 +19,8 @@ def pyautogui_menu() -> str:
         6: "Выгрузка 'ВСКК'",
         7: "Файлы 'Сформировать.xls'/'РЖД.xls'",
         8: "Выгрузка '202 форма'",
-        9: "Поменять системные дату/время"
+        9: "Выгрузка 'Отчет по ПП'",
+        10: "Поменять системные дату/время"
     }
     separator = '=' * 40
     return pg.prompt(text=f"""
@@ -40,8 +41,9 @@ def pyautogui_menu() -> str:
     6: {menu_points.get(6)}
     7/70: {menu_points.get(7)}
     8: {menu_points.get(8)}
-    {separator}
     9: {menu_points.get(9)}
+    {separator}
+    10: {menu_points.get(10)}
     """,
                      title='МЕНЮ АВТОМАТИЗАЦИИ ИТКО',
                      default='1')

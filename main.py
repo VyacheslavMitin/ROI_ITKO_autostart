@@ -177,6 +177,9 @@ if __name__ == '__main__':
         sending_outlook(mode_='202', displayed=True)
 
     elif select == '9':
+        pass
+
+    elif select == '10':
         change_datetime()
 
     elif select is None:

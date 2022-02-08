@@ -9,6 +9,7 @@ from MyModules.switch_layout import rus_layout, eng_layout
 from MyModules.typing_unicode_str import typing_unicode_str as typing
 from MyModules.past_dates import past_dates
 from MyModules.select_menu import selecting_menu
+from MyModules.save_file_xls import saving_xls
 
 
 def export_vou():
@@ -36,11 +37,12 @@ def export_vou():
     rus_layout()
     from MyModules.past_dates import period_for_emails
     typing(f'Детализация выручки ОКО {period_for_emails()}')
-    pg.press('tab')
-    pg.press('down', presses=2)  # выбор формата файла
-    pg.press('enter', presses=2)  # сохранение файла
-    time.sleep(0.5)
-    pg.hotkey('ctrl', 'f4')
+    saving_xls(f'Детализация выручки ОКО {period_for_emails()}')
+    # pg.press('tab')
+    # pg.press('down', presses=2)  # выбор формата файла
+    # pg.press('enter', presses=2)  # сохранение файла
+    # time.sleep(0.5)
+    # pg.hotkey('ctrl', 'f4')
     pg.keyDown('shift')
     pg.press('tab')
     pg.keyUp('shift')

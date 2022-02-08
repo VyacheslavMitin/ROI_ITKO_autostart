@@ -9,16 +9,22 @@ from MyModules.switch_layout import rus_layout, eng_layout
 from MyModules.typing_unicode_str import typing_unicode_str as typing
 from MyModules.past_dates import period_for_emails
 from MyModules.select_menu import selecting_menu
+from MyModules.save_file_xls import saving_xls
 
 
 def export_202():
     """Функция экспорта файлов 202 формы"""
     print_log("Экспорт 202 формы", line_before=True)
     selecting_menu(1, 11)  # запуск обработки выгрузки 202
-    # pg.press('tab', presses=1, interval=0.2)
-    # pg.press('space')
-    # pg.press('tab', presses=2, interval=0.2)
-    pg.press('tab', presses=3, interval=0.2)
+
+    # смена месяца
+    pg.press('tab', presses=1, interval=0.2)
+    pg.press('space')
+    pg.press('tab', presses=2, interval=0.2)
+
+    # без смены месяца
+    # pg.press('tab', presses=3, interval=0.2)
+
     for item in range(3):
         pg.press('space')
         pg.press('tab')
@@ -40,8 +46,9 @@ def export_202():
         typing(PATH_202)
         rus_layout()
         typing(f'202 {bank} ({period_for_emails()})')
-        pg.press('tab')
-        pg.press('down', presses=2)  # выбор формата файла
-        pg.press('enter', presses=2)  # сохранение файла
-        time.sleep(0.5)
-        pg.hotkey('ctrl', 'F4')  # закрытие окна формы
+        saving_xls(f'202 {bank} ({period_for_emails()})')
+        # pg.press('tab')
+        # pg.press('down', presses=2)  # выбор формата файла
+        # pg.press('enter', presses=2)  # сохранение файла
+        # time.sleep(0.5)
+        # pg.hotkey('ctrl', 'F4')  # закрытие окна формы

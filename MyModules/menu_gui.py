@@ -38,7 +38,7 @@ def pyautogui_menu() -> str:
     4: {menu_points.get(4)}
     5: {menu_points.get(5)}
     6: {menu_points.get(6)}
-    7: {menu_points.get(7)}
+    7/70: {menu_points.get(7)}
     8: {menu_points.get(8)}
     {separator}
     9: {menu_points.get(9)}

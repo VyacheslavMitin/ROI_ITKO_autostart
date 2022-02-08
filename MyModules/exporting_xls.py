@@ -8,6 +8,7 @@ from MyModules.print_log import print_log
 from MyModules.switch_layout import eng_layout, rus_layout
 from MyModules.typing_unicode_str import typing_unicode_str as typing
 from MyModules.select_menu import selecting_menu
+from MyModules.save_file_xls import saving_xls
 
 # Константы
 NAMES_LIST = NAMES_STR.split(',')  # список для всех элементов
@@ -56,12 +57,11 @@ def exporting(name):
         typing('САПВ' + f' ({period_for_emails()})')  # имя файла для сохранения
     else:
         typing(name + f' ({period_for_emails()})')  # имя файла для сохранения
-    pg.press('tab')
-    pg.press('down', presses=2)  # выбор формата файла
-    pg.press('enter', presses=2)  # сохранение файла
-    # time.sleep(0.5)
-    pg.hotkey('ctrl', 'F4')  # закрытие окна формы
-    # time.sleep(0.5)
+    saving_xls(name + f' ({period_for_emails()})')
+    # pg.press('tab')
+    # pg.press('down', presses=2)  # выбор формата файла
+    # pg.press('enter', presses=2)  # сохранение файла
+    # pg.hotkey('ctrl', 'F4')  # закрытие окна формы
     pg.hotkey('ctrl', 'F4')
 
 
@@ -74,7 +74,7 @@ def cycling_exports():
         call_sformirovat()
         working_find()
         exporting(item)
-        print_log(f"Выгружено '{item}'")
+        # print_log(f"Выгружено '{item}'")
         i += 1
     print_log(f'Всего {i} файлов выгружено')
 
@@ -86,5 +86,5 @@ def exports_rzd():
     call_sformirovat()
     working_find()
     exporting("РЖД")
-
-    print_log(f'выгружено РЖД')
+    #
+    # print_log(f'выгружено РЖД')

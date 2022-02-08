@@ -40,6 +40,9 @@ def search_sending_files(mode_):
     elif mode_ == 'vou':
         path_files = PATH_VOU
 
+    elif mode_ == 'pp':
+        path_files = PATH_PP
+
     for item in extensions:  # искать файлы по расширению
         files.extend(glob.glob(path_files + f'*{item}'))
 
@@ -70,6 +73,13 @@ def sending_outlook(mode_, displayed=True) -> None:
         new_mail.Body = f"Форма 202 из ИТКО за {period_for_emails()}.\n\nФайлы:\n{search_sending_files(mode_)[1]}" \
                         + SIGNATURE  # сообщение
         new_mail.To = RECIPIENTS_202  # обращение к списку получателей
+
+    elif mode_ == 'pp':
+        recipients_pp = RECIPIENTS_202
+        new_mail.Subject = f'Отчет о Платежных Поручениях {period_for_emails()}'  # указание темы
+        new_mail.Body = f"Отчет о Платежных Поручениях за {period_for_emails()}.\n\n" \
+                        f"Файлы:\n{search_sending_files(mode_)[1]}" + SIGNATURE  # сообщение
+        new_mail.To = recipients_pp  # обращение к списку получателей
 
     elif mode_ == 'sformirovat':
         new_mail.Subject = f'Файлы "Сформировать.xls" из кассы пересчета {period_for_emails()}'  # указание темы
@@ -107,6 +117,6 @@ if __name__ == '__main__':
     # sending_outlook('test')
     # sending_outlook('sformirovat')
     # sending_outlook('202')
-    print(search_sending_files('202')[0])
-    # print(search_sending_files('vou')[1])
+    # print(search_sending_files('202')[0])
+    print(search_sending_files('pp')[1])
     # sending_outlook('vou')

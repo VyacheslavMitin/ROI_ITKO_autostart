@@ -177,9 +177,13 @@ if __name__ == '__main__':
         sending_outlook(mode_='202', displayed=True)
 
     elif select == '9':
-        # start_itko(point='buh')
-        # cleaning_dir(PATH_PP)
-        pass
+        start_itko(point='buh')
+        cleaning_dir(PATH_PP)
+        from MyModules.exports_pp import export_pp
+        export_pp()
+        quit_1c(*dict_with_paths.get('pp_dir'))
+        time.sleep(0.5)
+        sending_outlook(mode_='pp', displayed=True)
 
     elif select == '10':
         change_datetime()

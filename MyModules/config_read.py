@@ -37,6 +37,7 @@ dict_with_paths = {  # словарь с именами папок и путям
     'vskk_dir': (cfg.get('PATHS', 'dir_vskk'), PATH_VSKK),
     'vou_dir': (cfg.get('PATHS', 'dir_vou'), PATH_VOU),
     '202_dir': (cfg.get('PATHS', 'dir_202'), PATH_202),
+    'pp_dir': (cfg.get('PATHS', 'dir_pp'), PATH_PP),
     'exports_dir': (cfg.get('PATHS', 'dir_sformirovat'), PATH_SFORMIROVAT),
 }
 

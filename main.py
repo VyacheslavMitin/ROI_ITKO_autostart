@@ -130,7 +130,7 @@ if __name__ == '__main__':
     elif select == '4':
         start_itko(point='buh')
         cleaning_dir(PATH_VOU)
-        from MyModules.exports_014_vskk_vou_202 import export_vou
+        from MyModules.exports_vou import export_vou
         export_vou()
         quit_1c(*dict_with_paths.get('vou_dir'))
         time.sleep(0.5)
@@ -139,14 +139,14 @@ if __name__ == '__main__':
     elif select == '5':
         start_itko(point='buh')
         cleaning_dir(PATH_014)
-        from MyModules.exports_014_vskk_vou_202 import export_014
+        from MyModules.exports_014 import export_014
         export_014()
         quit_1c(*dict_with_paths.get('014_dir'))
 
     elif select == '6':
         start_itko(point='buh')
         cleaning_dir(PATH_VSKK)
-        from MyModules.exports_014_vskk_vou_202 import export_vskk
+        from MyModules.exports_vskk import export_vskk
         export_vskk()
         quit_1c(*dict_with_paths.get('vskk_dir'))
 
@@ -162,7 +162,7 @@ if __name__ == '__main__':
     elif select == '8':
         start_itko(point='buh')
         cleaning_dir(PATH_202)
-        from MyModules.exports_014_vskk_vou_202 import export_202
+        from MyModules.exports_202 import export_202
         export_202()
         quit_1c(*dict_with_paths.get('202_dir'))
         time.sleep(0.5)

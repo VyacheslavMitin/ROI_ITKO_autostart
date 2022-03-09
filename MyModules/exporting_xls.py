@@ -3,6 +3,7 @@
 import time
 import pyautogui as pg
 from MyModules.config_read import *
+from MyModules.finding import working_find
 from MyModules.past_dates import past_dates, period_for_emails
 from MyModules.print_log import print_log
 from MyModules.switch_layout import eng_layout, rus_layout
@@ -26,18 +27,8 @@ def call_sformirovat():
     pg.press('tab', presses=2)
 
 
-def working_find():
-    """Функция работы с поиском"""
-    pg.press('home')
-    pg.hotkey('ctrl', 'F3')
-    pg.press('delete', presses=50)
-
-
 def exporting(name):
     """Функция работы с экспортом"""
-    rus_layout()
-    typing(name)  # имя в поисковое окно
-    pg.press('enter')  # поиск
     if name in NAMES_LIST_double:
         time.sleep(0.5)
         pg.hotkey('shift', 'F3')
@@ -66,7 +57,7 @@ def cycling_exports():
     i = 0
     for item in NAMES_LIST:
         call_sformirovat()
-        working_find()
+        working_find(item)
         exporting(item)
         i += 1
     print_log(f'Всего {i} файлов выгружено')
@@ -76,6 +67,8 @@ def exports_rzd():
     """Функция основного цикла для перебора по списку"""
     print_log("Начало выгрузки файлов 'Сформировать.xls'", line_before=True)
 
+    name_ = "РЖД"
+
     call_sformirovat()
-    working_find()
-    exporting("РЖД")
+    working_find(name_)
+    exporting(name_)

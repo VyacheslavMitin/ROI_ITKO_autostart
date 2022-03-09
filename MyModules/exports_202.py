@@ -18,12 +18,12 @@ def export_202():
     selecting_menu(1, 11)  # запуск обработки выгрузки 202
 
     # смена месяца
-    pg.press('tab', presses=1, interval=0.2)
-    pg.press('space')
-    pg.press('tab', presses=2, interval=0.2)
+    # pg.press('tab', presses=1, interval=0.2)
+    # pg.press('space')
+    # pg.press('tab', presses=2, interval=0.2)
 
     # без смены месяца
-    # pg.press('tab', presses=3, interval=0.2)
+    pg.press('tab', presses=3, interval=0.2)
 
     for item in range(3):
         pg.press('space')

@@ -24,7 +24,7 @@ NOW_DATE = datetime.now().strftime('%d.%m.%y')  # Текущая дата в ф�
 
 
 # ФУНКЦИИ
-def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='25'):
+def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='27'):
     """Функция приветствия"""
     print(f"МОДУЛЬ РАБОТЫ '{name_}'")
     print(f"Автор модуля: '{author_}'")
@@ -186,7 +186,15 @@ if __name__ == '__main__':
         time.sleep(0.5)
         sending_outlook(mode_='pp', displayed=True)
 
-    elif select == '10':
+    elif select == '30':
+        start_itko(point='buh')
+        cleaning_dir(PATH_PP)
+        from MyModules.exports_vypiski import export_vypiski
+        export_vypiski()
+        quit_1c(*dict_with_paths.get('pp_dir'))
+        time.sleep(0.5)
+
+    elif select == '100':
         change_datetime()
 
     elif select is None:

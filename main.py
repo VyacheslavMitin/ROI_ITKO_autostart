@@ -13,7 +13,7 @@ import glob
 
 # КОНСТАНТЫ
 ITKO_BIN = 'C:/1Cv77/BIN/1cv7.exe'  # запуск 1С v7
-
+# TODO переписать на словарях
 cfg = configparser.ConfigParser()  # создание объекта с вызовом класса модуля работы с .ini файлами
 cfg.read('config.ini')
 EXPORT_DIR = cfg.get('PATHS', 'dir')
@@ -54,15 +54,18 @@ def past_dates() -> tuple:
 
     if now_month == 1:  # отлов января и реакция на него, вычитания года и явное указания декабря
         past_month_str = str(12)  # в строковом исполнении явное указания декабря
-        past_year = now_year - 1  # вычитание года в цифровом исполнении
+        past_year = now_year - 1  # вычитание года в цифровом
+        past_year = str(past_year)[2:]
         past_start_date_ = '01' + f'.{past_month_str}.{past_year}'  # 01 декабря прошлого года
         past_finish_date_ = '31' + f'.{past_month_str}.{past_year}'  # 31 декабря прошлого года
         past_number_month = '12 Dec'
 
     else:  # все остальные месяцы кроме января
         past_month = now_month - 1  # вычитание месяца
-        past_year = now_year  # год тот же что и текущий
-        past_number_month = datetime(past_year, past_month, 1).strftime('%m %b')  # в формате "01 Jan"
+        past_year_ = now_year  # год тот же что и текущий
+        past_year = str(past_year_)[2:]
+        now_year = str(now_year)[2:]
+        past_number_month = datetime(past_year_, past_month, 1).strftime('%m %b')  # в формате "01 Jan"
 
         if past_month in [4, 6, 9, 11]:  # апрель, июнь, сентябрь, ноябрь
             if len(str(past_month)) == 1:  # если месяц из 1 символа то конкатенация с '0'
@@ -82,7 +85,7 @@ def past_dates() -> tuple:
 
         elif past_month == 2:  # февраль
             past_month_str = '02'  # февраль в строковом представлении
-            if ((past_year - 2020) % 4) == 0:  # если (год - 2020) делится без остатка то високосный
+            if ((past_year_ - 2020) % 4) == 0:  # если (год - 2020) делится без остатка то високосный
                 past_finish_date_ = '29' + f'.{past_month_str}.{now_year}'  # февраль високосного
             else:  # а если нет то обычный
                 past_finish_date_ = '28' + f'.{past_month_str}.{now_year}'  # февраль не високосного
@@ -91,10 +94,10 @@ def past_dates() -> tuple:
     (dd_, mm_, yyyy_) = past_finish_date_.split('.')  # создание строки без разделителя
     past_finish_date_no_dots = ''.join((dd_, mm_, yyyy_))
 
-    return past_start_date_, past_finish_date_, past_year, past_month_str, past_number_month, past_finish_date_no_dots  # возврат функции
+    return past_start_date_, past_finish_date_, past_year, past_month_str, past_number_month, past_finish_date_no_dots
 
 
-def welcoming(name_='ИТКО', author_='Вячеслав Митин', version_='3'):
+def welcoming(name_='ИТКО', author_='Вячеслав Митин', version_='5'):
     print(f"МОДУЛЬ РАБОТЫ С '{name_}'")
     print(f"Автор модуля: '{author_}'")
     print(f"Версия модуля: '{version_}'\n")
@@ -166,7 +169,7 @@ def searching_exporting(name):
     time.sleep(timeout)
     pg.hotkey('ctrl', 's')
     time.sleep(timeout)
-    pg.write(name.upper() + f'_{past_dates()[5]}')  # имя файла для сохранения
+    pg.write(name.lower() + f'_{past_dates()[5]}')  # имя файла для сохранения
     pg.press('tab')
     pg.press('down', presses=2)  # выбор формата файла
     pg.press('enter', presses=2)  # сохранение файла
@@ -176,10 +179,11 @@ def searching_exporting(name):
     pg.hotkey('ctrl', 'F4')
 
 
-def make_separator(name_='1.txt'):
+def make_separator(separator='---------'):
     """Функция создания сепаратора для проводника"""
-    os.chdir(EXPORT_DIR)
-    with open(name_) as f:
+    path_ = os.path.normpath(EXPORT_DIR)  # переход в папку
+    os.chdir(path_)
+    with open(separator + past_dates()[1] + separator, 'tw'):  # создание пустого файла как разделителя
         pass
 
 
@@ -199,12 +203,23 @@ def cycling_exports():
             break
 
 
-def quit_1c():
-    """Функция выхода из 1С"""
-    pg.hotkey('alt', 'F4')
-    os.system(f'explorer.exe {os.path.abspath(EXPORT_DIR)}')
+def quit_1c(name_='+Сформировать'):
+    """Функция выхода из 1С и запуска проводника"""
+    pg.hotkey('alt', 'F4')  # выход из кассы пересчета
+
+    if name_ in pg.getAllTitles():
+        list__ = []
+        for i in pg.getAllTitles():
+            if i == name_:
+                list__.append(i)
+        for item in enumerate(list__):
+            pg.getWindowsWithTitle(item[1])[item[0]].close()
+
+    os.system(f'explorer.exe {os.path.normpath(EXPORT_DIR)}')  # запуск
+
     print('\nВыход!')
-    pg.alert("Работа по выгрузке окончена!")
+    time.sleep(1)
+    pg.alert("Работа по выгрузке окончена!", title="Файлы выгружены")
 
 
 if __name__ == '__main__':
@@ -212,5 +227,5 @@ if __name__ == '__main__':
     cleaning_export_dir()
     start_itko()
     cycling_exports()
-    # make_separator()
+    make_separator()
     quit_1c()

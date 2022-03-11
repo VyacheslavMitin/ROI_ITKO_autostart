@@ -1,8 +1,15 @@
 # Модуль работы с меню
 
+import os
 import pyautogui as pg
 from datetime import datetime
+from MyModules.config_read import MY_LOGIN, KASSA_LOGIN
 from MyModules.print_log import print_log
+
+if os.getlogin() == MY_LOGIN:  # дефолтный выбор
+    default_menu = '30'
+elif os.getlogin() == KASSA_LOGIN:
+    default_menu = '30'
 
 
 def pyautogui_menu() -> str:
@@ -20,7 +27,7 @@ def pyautogui_menu() -> str:
         7: "Файлы 'Сформировать.xls'/'РЖД.xls'",
         8: "Выгрузка '202 форма'",
         9: "Выгрузка 'Отчет по ПП'",
-        30: "Выписки по клиентам",
+        30: "Выгрузка XML", 31: "Выписки Мегафон-РТК-Вымпелком", 32: "Выгрузка АДМ",
         100: "Поменять системные дату/время"
     }
     separator = '=' * 40
@@ -45,8 +52,10 @@ def pyautogui_menu() -> str:
     9: {menu_points.get(9)}
     {separator}
     30: {menu_points.get(30)}
+    31: {menu_points.get(31)}
+    32: {menu_points.get(32)}
     {separator}
     100: {menu_points.get(100)}
     """,
                      title='МЕНЮ АВТОМАТИЗАЦИИ ИТКО',
-                     default='1')
+                     default=default_menu)

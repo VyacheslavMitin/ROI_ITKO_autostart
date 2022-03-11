@@ -18,6 +18,8 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
     ])
 
     time.sleep(1)
+    if os.getlogin() == KASSA_LOGIN:  # дополнительное время на запуск если в кассе
+        time.sleep(2)
     pg.press('tab', presses=2)
     pg.press('home')  # выбор первой базы в списке баз
     pg.press('enter')

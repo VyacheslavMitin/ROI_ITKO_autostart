@@ -24,12 +24,19 @@ CHANGE_TIME = cfg.get('PATHS', 'change_time')
 # Блок для работы с путями к папкам
 PATH_ITKO = cfg.get('PATHS', 'dir_itko')
 
+# Пути для выручки
 PATH_SFORMIROVAT = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_sformirovat'))
 PATH_014 = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_014'))
 PATH_VSKK = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_vskk'))
 PATH_VOU = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_vou'))
 PATH_202 = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_202'))
 PATH_PP = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_pp'))
+
+# Пути для кассовой рутины
+KASSA_ITKO_BIN = cfg.get('KASSA', 'kassa_itko_bin')
+KASSA_PATH_REESTRY = cfg.get('KASSA', 'path_reestry')
+KASSA_PATH_VYPISKI = cfg.get('KASSA', 'path_vypiski')
+KASSA_PATH_XML = cfg.get('KASSA', 'path_xml')
 
 dict_with_paths = {  # словарь с именами папок и путям к ним
     'root_dir': ('07 ITKO\\', PATH_ITKO),
@@ -56,6 +63,9 @@ RECIPIENTS_COPY = cfg.get('NAMES', 'recipients_copy')
 # Блок для определения расширений файлов для поиска
 EXTENSIONS = cfg.get('PATHS', 'extensions')
 
+# Имена пользователей в системах
+MY_LOGIN = cfg.get('NAMES', 'my_login')
+KASSA_LOGIN = cfg.get('NAMES', 'regina_login')
 
 if __name__ == '__main__':
     print(PATH_TO_INI)
@@ -69,3 +79,8 @@ if __name__ == '__main__':
     print(RECIPIENTS_202)
     print(RECIPIENTS_VOU)
     print(EXTENSIONS)
+    print(MY_LOGIN)
+    print(KASSA_LOGIN)
+    print(KASSA_PATH_REESTRY)
+    print(KASSA_PATH_VYPISKI)
+    print(KASSA_PATH_XML)

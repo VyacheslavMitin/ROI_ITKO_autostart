@@ -12,18 +12,19 @@ from MyModules.select_menu import selecting_menu
 from MyModules.save_file_xls import saving_xls
 
 
-def export_202():
+def export_202(change_mount=False):
     """Функция экспорта файлов 202 формы"""
     print_log("Экспорт 202 формы", line_before=True)
     selecting_menu(1, 11)  # запуск обработки выгрузки 202
 
-    # смена месяца
-    # pg.press('tab', presses=1, interval=0.2)
-    # pg.press('space')
-    # pg.press('tab', presses=2, interval=0.2)
-
-    # без смены месяца
-    pg.press('tab', presses=3, interval=0.2)
+    if change_mount:
+        # смена месяца
+        pg.press('tab', presses=1, interval=0.2)
+        pg.press('space')
+        pg.press('tab', presses=2, interval=0.2)
+    elif not change_mount:
+        # без смены месяца
+        pg.press('tab', presses=3, interval=0.2)
 
     for item in range(3):
         pg.press('space')

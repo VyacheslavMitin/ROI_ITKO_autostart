@@ -3,7 +3,9 @@
 
 import pyautogui as pg
 import time
+import os
 from MyModules.print_log import print_log
+from MyModules.config_read import MY_LOGIN, KASSA_LOGIN
 
 
 def saving_xls(name=None, closing=True):
@@ -21,6 +23,8 @@ def saving_xls(name=None, closing=True):
     pg.press('enter', presses=2)  # сохранение файла
 
     time.sleep(0.5)
+    if os.getlogin() == KASSA_LOGIN:  # дополнительное время если в кассе
+        time.sleep(0.5)
 
     if closing:
         pg.hotkey('ctrl', 'F4')  # закрытие окна формы

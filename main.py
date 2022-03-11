@@ -24,7 +24,7 @@ NOW_DATE = datetime.now().strftime('%d.%m.%y')  # Текущая дата в ф�
 
 
 # ФУНКЦИИ
-def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='27'):
+def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='28'):
     """Функция приветствия"""
     print(f"МОДУЛЬ РАБОТЫ '{name_}'")
     print(f"Автор модуля: '{author_}'")
@@ -91,16 +91,19 @@ def cleaning_dir(path0_: str):
 def quit_1c(name_, path1_):
     """Функция выхода из 1С и запуска проводника"""
     pg.hotkey('alt', 'f4')
-    name_ = name_[:-1]
-    if name_ in pg.getAllTitles():  # поиск открытой папки
-        list__ = []
-        for i in pg.getAllTitles():
-            if i == name_:
-                list__.append(i)
-        for item in enumerate(list__):
-            pg.getWindowsWithTitle(item[1])[item[0]].close()
 
-    os.system(f'explorer.exe {os.path.normpath(path1_)}')  # запуск проводника
+    if name_:
+        name_ = name_[:-1]
+        if name_ in pg.getAllTitles():  # поиск открытой папки
+            list__ = []
+            for i in pg.getAllTitles():
+                if i == name_:
+                    list__.append(i)
+            for item in enumerate(list__):
+                pg.getWindowsWithTitle(item[1])[item[0]].close()
+
+    if path1_:
+        os.system(f'explorer.exe {os.path.normpath(path1_)}')  # запуск проводника
 
 
 if __name__ == '__main__':
@@ -172,7 +175,7 @@ if __name__ == '__main__':
         start_itko(point='buh')
         cleaning_dir(PATH_202)
         from MyModules.exports_202 import export_202
-        export_202()
+        export_202(change_mount=False)
         quit_1c(*dict_with_paths.get('202_dir'))
         time.sleep(0.5)
         sending_outlook(mode_='202', displayed=True)
@@ -188,10 +191,9 @@ if __name__ == '__main__':
 
     elif select == '30':
         start_itko(point='buh')
-        cleaning_dir(PATH_PP)
-        from MyModules.exports_vypiski import export_vypiski
-        export_vypiski()
-        quit_1c(*dict_with_paths.get('pp_dir'))
+        from MyModules.exports_xml_xls_reestr import export_xml_xls_reestr
+        export_xml_xls_reestr()
+        quit_1c(None, None)
         time.sleep(0.5)
 
     elif select == '100':

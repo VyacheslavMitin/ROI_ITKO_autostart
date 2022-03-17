@@ -6,11 +6,12 @@ import time
 from MyModules.config_read import *
 from MyModules.print_log import print_log
 from MyModules.select_menu import selecting_menu
+from MyModules.checking_start_itko import authorization_itko, check_itko
 
 
 def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
     """Функция запуска 1С 7 ИТКО"""
-    print_log(f"Запуск ИТКО в режиме {mode}")
+    print_log(f"Запуск 1С: ИТКО в режиме {mode}")
 
     subprocess.Popen([
         ITKO_BIN,
@@ -18,24 +19,18 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
     ])
 
     time.sleep(1)
-    if os.getlogin() == KASSA_LOGIN:  # дополнительное время на запуск если в кассе
-        time.sleep(2)
-    pg.press('tab', presses=2)
-    pg.press('home')  # выбор первой базы в списке баз
-    pg.press('enter')
-    pg.hotkey('shift', 'tab')
-    pg.press('home')  # выбор администратора для точки отсчета
+    authorization_itko()
 
     if point == 'buh':  # выбор бухгалтера
         print_log("Выбор Бухгалтера для входа")
-        pg.press('down', presses=7)
+        pg.press('down', presses=7, interval=0.1)
     elif point == 'adm':  # оставить администратора
         print_log("Выбор Администратора для входа")
 
     pg.press('enter', presses=4, interval=0.3)
     pg.press('tab', presses=2, interval=0.3)
     pg.press('enter')
-    time.sleep(0.5)
+    check_itko()
 
     if mode == 'ENTERPRISE':
         pg.hotkey('ctrl', 'shift', 'z')  # закрыть окно сообщений

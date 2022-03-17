@@ -14,7 +14,7 @@ elif os.getlogin() == KASSA_LOGIN:
 
 def pyautogui_menu() -> str:
     """Функция МЕНЮ"""
-    print_log("Запуск меню")
+    print_log("Запуск Меню", line_after=True)
 
     menu_points = {
         0: 'Загрузка/Выгрузка базы ИТКО',

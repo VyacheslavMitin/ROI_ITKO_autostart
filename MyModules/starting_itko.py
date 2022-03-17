@@ -13,6 +13,10 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
     """Функция запуска 1С 7 ИТКО"""
     print_log(f"Запуск 1С: ИТКО в режиме {mode}")
 
+    if os.getlogin() == KASSA_LOGIN:  # проверка сети если касса
+        from MyModules.checking_network import network_work
+        network_work()
+
     subprocess.Popen([
         ITKO_BIN,
         mode

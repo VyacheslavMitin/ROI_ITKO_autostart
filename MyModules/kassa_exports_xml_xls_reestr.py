@@ -7,11 +7,11 @@ import pyautogui as pg
 from MyModules.config_read import *
 from MyModules.select_menu import selecting_menu
 from MyModules.print_log import print_log
-from MyModules.Kassa.close_day import closing_day
 from MyModules.save_file_xls import saving_xls
 from MyModules.switch_layout import rus_layout, eng_layout
 from MyModules.typing_unicode_str import typing_unicode_str as typing
 from MyModules.making_dirs import kassa_making_dirs
+from MyModules.kassa_searching_copy_xmls import copy_xml
 
 TODAY_YEAR = datetime.date.today().strftime("%Y")
 TODAY_DATE = datetime.date.today().strftime("%d %m %Y")
@@ -36,7 +36,7 @@ DICT_MOUNTS = {
 
 def export_xml_xls_reestr():
     """Функция экспорта реестров XML и XLS"""
-    closing_day()  # вызов функции закрытия кассового дня
+    # closing_day()  # вызов функции закрытия кассового дня
 
     current_date = ''
     current_bank = ''
@@ -92,7 +92,6 @@ def export_xml_xls_reestr():
             pg.press('space')
             time.sleep(wait_xml_form)
             pg.press('space')
-            # TODO сделать копирование файлов XML в папку
 
             kassa_making_dirs(path=KASSA_PATH_REESTRY, bank=bank)  # создание каталогов для экспорта
 
@@ -120,6 +119,8 @@ def export_xml_xls_reestr():
 
         else:  # если дата не совпадает
             break
+
+    copy_xml()  # копирование XML
 
         # TODO сделать высылку файлов
     # input()

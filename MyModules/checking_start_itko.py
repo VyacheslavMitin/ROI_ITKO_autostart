@@ -19,22 +19,23 @@ def authorization_itko() -> None:
     # Сначала - поиск лаунчера 1С 7
     for item in range(10):
         if WINDOW_LAUNCHER in pg.getAllTitles():
-            print_log("Обнаружено окно выбора баз '1С: ИТКО'")
+            print_log("Обнаружено окно выбора баз '1С: ИТКО', вход")
             break
         time.sleep(1)
 
     if WINDOW_LAUNCHER not in pg.getAllTitles():
-        sys.exit("Не обнаружено окно выбора баз '1С: ИТКО'")
+        sys.exit("Не обнаружено окно выбора баз '1С: ИТКО'!")
 
     # Выбор первой (верхней базы в списке
     pg.press('tab', presses=2)
     pg.press('home')  # выбор первой базы в списке баз
     pg.press('enter')  # вход в базу
 
+    print_log("Ожидание окна авторизации '1С: ИТКО'...", line_before=False)
     # Потом - поиск окна авторизации
     for item in range(60):  # ожидание 30 секунд окна авторизации
         if WINDOW_AUTHORIZATION in pg.getAllTitles():
-            print_log("Обнаружено авторизации в базу '1С: ИТКО'")
+            print_log("Обнаружено окно авторизации в базу '1С: ИТКО'")
             break
         time.sleep(0.5)
 

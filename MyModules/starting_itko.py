@@ -14,11 +14,14 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
     print_log(f"Запуск 1С: ИТКО в режиме {mode}")
 
     if os.getlogin() == KASSA_LOGIN:  # проверка сети если касса
-        from MyModules.Kassa.checking_network import network_work
+        from MyModules.kassa_checking_network import network_work
         network_work()
+        itko_bin = KASSA_ITKO_BIN
+    else:
+        itko_bin = ITKO_BIN
 
     subprocess.Popen([
-        ITKO_BIN,
+        itko_bin,
         mode
     ])
 
@@ -26,14 +29,23 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
     authorization_itko()
 
     if point == 'buh':  # выбор бухгалтера
-        print_log("Выбор Бухгалтера для входа")
+        print_log("Выбор 'Бухгалтер' для входа")
         pg.press('down', presses=7, interval=0.1)
     elif point == 'adm':  # оставить администратора
-        print_log("Выбор Администратора для входа")
+        print_log("Выбор 'Администратор' для входа")
 
+    timeout = 0
+    if os.getlogin() == KASSA_LOGIN:
+        timeout = 2
+    elif os.getlogin() == MY_LOGIN:
+        timeout = 0
+
+    time.sleep(timeout)
     pg.press('enter', presses=4, interval=0.3)
+    time.sleep(timeout)
     pg.press('tab', presses=2, interval=0.3)
     pg.press('enter')
+    time.sleep(timeout)
     check_itko()
 
     if mode == 'ENTERPRISE':

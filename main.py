@@ -19,7 +19,7 @@ NOW_DATE = datetime.now().strftime('%d.%m.%y')  # Текущая дата в ф�
 
 
 # ФУНКЦИИ
-def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='30'):
+def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='31'):
     """Функция приветствия"""
     print(f"МОДУЛЬ РАБОТЫ '{name_}'")
     print(f"Автор модуля: '{author_}'")
@@ -186,7 +186,7 @@ if __name__ == '__main__':
 
     elif select == '30':
         start_itko(point='buh')
-        from MyModules.Kassa.exports_xml_xls_reestr import export_xml_xls_reestr
+        from MyModules.kassa_exports_xml_xls_reestr import export_xml_xls_reestr
         export_xml_xls_reestr()
         quit_1c(None, None)
         time.sleep(0.5)

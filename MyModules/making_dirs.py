@@ -33,8 +33,10 @@ def making_dirs():
 
 def kassa_making_dirs(path, bank):
     """Функция создания каталогов для документов кассы"""
-    # if os.getlogin() == KASSA_LOGIN:
-    os.makedirs(os.path.normpath(f'{path}//{bank}//{TODAY_YEAR}//{DICT_MOUNTS.get(TODAY_MOUNTH)}//'), exist_ok=True)
+    string_path = os.path.normpath(f'{path}//{bank}//{TODAY_YEAR}//{DICT_MOUNTS.get(TODAY_MOUNTH)}//')
+    os.makedirs(string_path, exist_ok=True)
+
+    return string_path
 
 
 if __name__ == '__main__':

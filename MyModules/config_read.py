@@ -36,7 +36,8 @@ PATH_PP = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_pp'))
 KASSA_ITKO_BIN = cfg.get('KASSA', 'kassa_itko_bin')
 KASSA_PATH_REESTRY = cfg.get('KASSA', 'path_reestry')
 KASSA_PATH_VYPISKI = cfg.get('KASSA', 'path_vypiski')
-KASSA_PATH_XML = cfg.get('KASSA', 'path_xml')
+KASSA_PATH_XML_FROM = cfg.get('KASSA', 'path_xml_from')
+KASSA_PATH_XML_TO = cfg.get('KASSA', 'path_xml_to')
 
 dict_with_paths = {  # словарь с именами папок и путям к ним
     'root_dir': ('07 ITKO\\', PATH_ITKO),

@@ -3,16 +3,44 @@
 import os
 import time
 import sys
+import datetime
 import glob
 from MyModules.config_read import *
 from MyModules.print_log import print_log
 
+TODAY_DATE = datetime.date.today().strftime('%d.%m.%Y')
+TODAY_YEAR = datetime.date.today().strftime("%Y")
+TODAY_MOUNTH = datetime.date.today().strftime("%m")
 
-def search_files_to_send(bank, path, printable=False, technical=False):
+PATH_VBRR = f'{PATH_BANKS}/ВБРР/{TODAY_YEAR}/{DICT_MOUNTS.get(TODAY_MOUNTH)}/'
+PATH_VTB = f'{PATH_BANKS}/ВТБ/{TODAY_YEAR}/{DICT_MOUNTS.get(TODAY_MOUNTH)}/'
+PATH_RNKO = f'{PATH_BANKS}/РНКО/{TODAY_YEAR}/{DICT_MOUNTS.get(TODAY_MOUNTH)}/'
+# проверка вложенной папки в ГПБ
+PATH_GPB = f'{PATH_BANKS}/ГПБ/{TODAY_YEAR}/{DICT_MOUNTS.get(TODAY_MOUNTH)}/{datetime.date.today().strftime("%d %m %Y")}/'
+if os.path.isdir(f'{PATH_GPB}/{datetime.date.today().strftime("%d %m %Y")}/'):
+    PATH_GPB = f'{PATH_GPB}/{datetime.date.today().strftime("%d %m %Y")}/'
+
+DICT_BANKS = {  # словарь с путями для банков
+    "ВБРР": os.path.join(PATH_VBRR),
+    "ВТБ": os.path.join(PATH_VTB),
+    "РНКО": os.path.join(PATH_RNKO),
+    "ГПБ": os.path.join(PATH_GPB),
+}
+
+FILES_VBRR, FILES_VTB, FILES_RNKO, FILES_GPB = [], [], [], []
+DICT_FILES = {  # словарь с пустыми списками файлов
+    "ВБРР": FILES_VBRR,
+    "ВТБ": FILES_VTB,
+    "РНКО": FILES_RNKO,
+    "ГПБ": FILES_GPB,
+}
+
+
+def search_files(path, bank, printable=False, technical=False):
     """Функция подготовки списка файлов на отправку"""
     print_log(f"Сбор документов для отправки", line_after=False)
 
-    for bank, path in KASSA_PATH_XML:
+    for path, bank in KASSA_PATH_XML:
         # Получение в лист всех файлов в каталоге
         list_of_files = filter(os.path.isfile,
                                glob.glob(path + '*'))

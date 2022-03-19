@@ -14,7 +14,7 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
     print_log(f"Запуск 1С: ИТКО в режиме {mode}")
 
     if os.getlogin() == KASSA_LOGIN:  # проверка сети если касса
-        from MyModules.checking_network import network_work
+        from MyModules.Kassa.checking_network import network_work
         network_work()
 
     subprocess.Popen([

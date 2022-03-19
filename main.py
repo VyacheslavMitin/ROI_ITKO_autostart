@@ -3,21 +3,16 @@
 # ИМПОРТЫ
 import glob
 import sys
-import subprocess
 import time
 import pyautogui as pg
 from datetime import datetime
 # Мои модули
+from MyModules.print_log import print_log
 from MyModules.config_read import *
 from MyModules.starting_itko import start_itko
 from MyModules.menu_gui import pyautogui_menu
 from MyModules.sending_files import sending_outlook
 from MyModules.making_dirs import making_dirs
-from MyModules.past_dates import past_dates
-from MyModules.typing_unicode_str import typing_unicode_str as typing
-from MyModules.print_log import print_log
-from MyModules.switch_layout import rus_layout, eng_layout
-
 
 # КОНСТАНТЫ
 NOW_DATE = datetime.now().strftime('%d.%m.%y')  # Текущая дата в формате 01.01.22
@@ -191,7 +186,7 @@ if __name__ == '__main__':
 
     elif select == '30':
         start_itko(point='buh')
-        from MyModules.exports_xml_xls_reestr import export_xml_xls_reestr
+        from MyModules.Kassa.exports_xml_xls_reestr import export_xml_xls_reestr
         export_xml_xls_reestr()
         quit_1c(None, None)
         time.sleep(0.5)

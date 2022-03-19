@@ -7,7 +7,7 @@ import pyautogui as pg
 from MyModules.config_read import *
 from MyModules.select_menu import selecting_menu
 from MyModules.print_log import print_log
-from MyModules.close_day import closing_day
+from MyModules.Kassa.close_day import closing_day
 from MyModules.save_file_xls import saving_xls
 from MyModules.switch_layout import rus_layout, eng_layout
 from MyModules.typing_unicode_str import typing_unicode_str as typing
@@ -36,7 +36,7 @@ DICT_MOUNTS = {
 
 def export_xml_xls_reestr():
     """Функция экспорта реестров XML и XLS"""
-    # closing_day()  # вызов функции закрытия кассвоого дня
+    closing_day()  # вызов функции закрытия кассового дня
 
     current_date = ''
     current_bank = ''
@@ -87,7 +87,8 @@ def export_xml_xls_reestr():
             pg.press('enter')  # вход в последнюю запись
 
             print_log(f"Выгрузка файла XML Банка '{bank}'", line_before=True)
-            pg.press('tab', presses=17, interval=0.1)  # выгрузка реестра в XML
+            pg.press('tab', presses=16, interval=0.1)  # выгрузка реестра в XML
+            time.sleep(0.5)
             pg.press('space')
             time.sleep(wait_xml_form)
             pg.press('space')

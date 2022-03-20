@@ -55,12 +55,12 @@ def check_itko() -> bool:
     print_log("Проверка запуска '1С: ИТКО'...")
 
     for item in range(20):
-        if WINDOW_ITKO_ENTERPRISE in pg.getAllTitles() or WINDOW_ITKO_CONFIG in pg.getAllTitles():
+        if (WINDOW_ITKO_ENTERPRISE in pg.getAllTitles()) or (WINDOW_ITKO_CONFIG in pg.getAllTitles()):
             break
         time.sleep(0.5)
 
-    if WINDOW_ITKO_ENTERPRISE not in pg.getAllTitles() or WINDOW_ITKO_CONFIG not in pg.getAllTitles():
-        sys.exit("'1С: ИТКО' не запустилось")
-    else:
+    if (WINDOW_ITKO_ENTERPRISE in pg.getAllTitles()) or (WINDOW_ITKO_CONFIG in pg.getAllTitles()):
         print_log("'1С: ИТКО' запущена")
         return True
+    else:
+        sys.exit("'1С: ИТКО' не запустилось")

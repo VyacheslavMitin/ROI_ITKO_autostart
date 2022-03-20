@@ -35,10 +35,13 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
         print_log("Выбор 'Администратор' для входа")
 
     timeout = 0
+    interval = 0.3
     if os.getlogin() == KASSA_LOGIN:
         timeout = 2
+        interval = 2
     elif os.getlogin() == MY_LOGIN:
         timeout = 0
+        interval = 0.3
 
     time.sleep(timeout)
     pg.press('enter', presses=4, interval=0.3)

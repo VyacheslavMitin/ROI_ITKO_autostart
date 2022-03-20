@@ -38,6 +38,11 @@ KASSA_PATH_REESTRY = cfg.get('KASSA', 'path_reestry')
 KASSA_PATH_VYPISKI = cfg.get('KASSA', 'path_vypiski')
 KASSA_PATH_XML_FROM = cfg.get('KASSA', 'path_xml_from')
 KASSA_PATH_XML_TO = cfg.get('KASSA', 'path_xml_to')
+# Получатели писем кассы
+KASSA_RECIPIENTS_SAMARA = cfg.get('KASSA', 'xml_reestr_samara')
+KASSA_RECIPIENTS_VBRR = cfg.get('KASSA', 'xml_reestr_vbrr')
+KASSA_RECIPIENTS_VTB = cfg.get('KASSA', 'xml_reestr_vtb')
+
 
 dict_with_paths = {  # словарь с именами папок и путям к ним
     'root_dir': ('07 ITKO\\', PATH_ITKO),
@@ -84,4 +89,8 @@ if __name__ == '__main__':
     print(KASSA_LOGIN)
     print(KASSA_PATH_REESTRY)
     print(KASSA_PATH_VYPISKI)
-    print(KASSA_PATH_XML)
+    print(KASSA_PATH_XML_FROM)
+    print(KASSA_PATH_XML_TO)
+    print(KASSA_RECIPIENTS_SAMARA)
+    print(KASSA_RECIPIENTS_VBRR)
+    print(KASSA_RECIPIENTS_VTB)

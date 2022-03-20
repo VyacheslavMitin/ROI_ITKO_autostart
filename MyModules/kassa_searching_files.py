@@ -76,7 +76,7 @@ def search_files(
         else:
             print_log(f"Нет файлов на отправку по Банку '{bank}'")
 
-    return files[0]
+    return files
 
 
 if __name__ == '__main__':

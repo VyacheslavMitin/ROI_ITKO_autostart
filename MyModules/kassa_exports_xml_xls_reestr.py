@@ -13,11 +13,13 @@ from MyModules.switch_layout import rus_layout, eng_layout
 from MyModules.typing_unicode_str import typing_unicode_str as typing
 from MyModules.making_dirs import kassa_making_dirs
 from MyModules.kassa_searching_copy_xmls import copy_xml
+from MyModules.kassa_sending_files import sending_outlook
 
 TODAY_YEAR = datetime.date.today().strftime("%Y")
 TODAY_DATE = datetime.date.today().strftime("%d %m %Y")
 TODAY_MOUNT = datetime.date.today().strftime("%m")
 SAMPLE_NAME = "Реестр"
+TUPLE_BANKS = ("ВБРР", "ВТБ", "РНКО", "ГПБ")
 
 DICT_MOUNTS = {
     '01': "Январь",
@@ -37,7 +39,8 @@ DICT_MOUNTS = {
 
 def export_xml_xls_reestr():
     """Функция экспорта реестров XML и XLS"""
-    closing_day()  # вызов функции закрытия кассового дня
+    if os.getlogin() == KASSA_LOGIN:
+        closing_day()  # вызов функции закрытия кассового дня
 
     current_date = ''
     current_bank = ''
@@ -123,6 +126,14 @@ def export_xml_xls_reestr():
 
     copy_xml()  # копирование XML
 
-    # TODO сделать высылку файлов
-    # input()
+    print_log("Отправка реестров XLS и XLM получателям", line_before=True)
+    for item in TUPLE_BANKS:  # отправка реестров
+        sending_outlook(mode='XML_РЕЕСТРЫ',
+                        path=KASSA_PATH_XML_TO,
+                        bank=item,
+                        displayed=True)
     # КОНЕЦ ФУНКЦИИ
+
+
+# if __name__ == '__main__':
+#     export_xml_xls_reestr()

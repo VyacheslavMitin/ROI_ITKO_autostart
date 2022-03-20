@@ -9,8 +9,10 @@ from MyModules.config_read import KASSA_LOGIN
 # Константы с именами окон для поиска
 WINDOW_LAUNCHER = 'Запуск 1С:Предприятия'
 WINDOW_AUTHORIZATION = 'Авторизация  доступа'
-WINDOW_ITKO_ENTERPRISE = '1С:Предприятие - Касса пересчета РОИ ЦБ РФ:  Бухгалтер: Нурмухамедова Р.М.'
+WINDOW_ITKO_ENTERPRISE_BUH = '1С:Предприятие - Касса пересчета РОИ ЦБ РФ:  Бухгалтер: Нурмухамедова Р.М.'
+WINDOW_ITKO_ENTERPRISE_ADM = '1С:Предприятие - Касса пересчета РОИ ЦБ РФ:  Админ: Администратор'
 WINDOW_ITKO_CONFIG = 'Конфигуратор - Касса пересчета РОИ ЦБ РФ'
+TUPLE_WINDOWS = (WINDOW_ITKO_ENTERPRISE_BUH, WINDOW_ITKO_ENTERPRISE_ADM, WINDOW_ITKO_CONFIG)
 
 
 # Функции
@@ -50,17 +52,29 @@ def authorization_itko() -> None:
     pg.press('home')  # выбор администратора для точки отсчета
 
 
-def check_itko() -> bool:
+def check_itko():
     """Функция проверки запуска ИТКО"""
     print_log("Проверка запуска '1С: ИТКО'...")
 
-    for item in range(20):
-        if (WINDOW_ITKO_ENTERPRISE in pg.getAllTitles()) or (WINDOW_ITKO_CONFIG in pg.getAllTitles()):
+    i = 0
+    check = False
+
+    while i < 20:
+        for element in TUPLE_WINDOWS:
+            if element in pg.getAllTitles():
+                print_log("'1С: ИТКО' запущена")
+                check = True
+                break
+            else:
+                continue
+        if check:
             break
         time.sleep(0.5)
+        i += 1
 
-    if (WINDOW_ITKO_ENTERPRISE in pg.getAllTitles()) or (WINDOW_ITKO_CONFIG in pg.getAllTitles()):
-        print_log("'1С: ИТКО' запущена")
-        return True
-    else:
-        sys.exit("'1С: ИТКО' не запустилось")
+    if not check:
+        print_log("'1С: ИТКО' не запущено!")
+
+
+if __name__ == '__main__':
+    check_itko()

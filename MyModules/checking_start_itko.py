@@ -9,7 +9,8 @@ from MyModules.config_read import KASSA_LOGIN
 # Константы с именами окон для поиска
 WINDOW_LAUNCHER = 'Запуск 1С:Предприятия'
 WINDOW_AUTHORIZATION = 'Авторизация  доступа'
-WINDOW_ITKO = '1С:Предприятие - Касса пересчета РОИ ЦБ РФ:  Бухгалтер: Нурмухамедова Р.М.'
+WINDOW_ITKO_ENTERPRISE = '1С:Предприятие - Касса пересчета РОИ ЦБ РФ:  Бухгалтер: Нурмухамедова Р.М.'
+WINDOW_ITKO_CONFIG = 'Конфигуратор - Касса пересчета РОИ ЦБ РФ'
 
 
 # Функции
@@ -54,11 +55,11 @@ def check_itko() -> bool:
     print_log("Проверка запуска '1С: ИТКО'...")
 
     for item in range(20):
-        if WINDOW_ITKO in pg.getAllTitles():
+        if WINDOW_ITKO_ENTERPRISE in pg.getAllTitles() or WINDOW_ITKO_CONFIG in pg.getAllTitles():
             break
         time.sleep(0.5)
 
-    if WINDOW_ITKO not in pg.getAllTitles():
+    if WINDOW_ITKO_ENTERPRISE not in pg.getAllTitles() or WINDOW_ITKO_CONFIG not in pg.getAllTitles():
         sys.exit("'1С: ИТКО' не запустилось")
     else:
         print_log("'1С: ИТКО' запущена")

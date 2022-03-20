@@ -91,7 +91,7 @@ def export_xml_xls_reestr():
             pg.press('enter')  # вход в последнюю запись
 
             print_log(f"Выгрузка файла XML Банка '{bank}'", line_before=True)
-            pg.press('tab', presses=16, interval=0.1)  # выгрузка реестра в XML
+            pg.press('tab', presses=17, interval=0.1)  # выгрузка реестра в XML
             time.sleep(0.5)
             pg.press('space')
             time.sleep(wait_xml_form)
@@ -126,12 +126,13 @@ def export_xml_xls_reestr():
 
     copy_xml()  # копирование XML
 
-    print_log("Отправка реестров XLS и XLM получателям", line_before=True)
+    print_log("Отправка реестров XLS и XML получателям", line_before=True)
     for item in TUPLE_BANKS:  # отправка реестров
         sending_outlook(mode='XML_РЕЕСТРЫ',
                         path=KASSA_PATH_XML_TO,
                         bank=item,
                         displayed=True)
+    # subprocess.Popen(OUTLOOK_BIN)  # запуск MS Outlook
     # КОНЕЦ ФУНКЦИИ
 
 

@@ -5,6 +5,7 @@ import time
 import pyperclip
 import pyautogui as pg
 from MyModules.config_read import *
+from MyModules.kassa_close_day import closing_day
 from MyModules.select_menu import selecting_menu
 from MyModules.print_log import print_log
 from MyModules.save_file_xls import saving_xls
@@ -36,7 +37,7 @@ DICT_MOUNTS = {
 
 def export_xml_xls_reestr():
     """Функция экспорта реестров XML и XLS"""
-    # closing_day()  # вызов функции закрытия кассового дня
+    closing_day()  # вызов функции закрытия кассового дня
 
     current_date = ''
     current_bank = ''
@@ -124,3 +125,4 @@ def export_xml_xls_reestr():
 
     # TODO сделать высылку файлов
     # input()
+    # КОНЕЦ ФУНКЦИИ

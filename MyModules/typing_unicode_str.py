@@ -1,4 +1,6 @@
 # Модуль ввода и копирования/вставки текста
+# pip install pynput
+
 
 def typing_unicode_str(text: str) -> None:
     """Функция вставки Юникод-строк."""

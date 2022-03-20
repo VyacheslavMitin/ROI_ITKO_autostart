@@ -1,30 +1,27 @@
 # Модуль поиски файлов (для кассы)
 
+# Импорты
 import os
 import time
-import sys
 import datetime
 import glob
-from MyModules.config_read import *
+from MyModules.config_read import KASSA_PATH_XML_FROM, KASSA_PATH_XML_TO
 from MyModules.print_log import print_log
+from MyModules.making_dirs import kassa_making_dirs
 
+# Константы
 TODAY_DATE = datetime.date.today().strftime('%d.%m.%Y')
-TODAY_YEAR = datetime.date.today().strftime("%Y")
-TODAY_MOUNTH = datetime.date.today().strftime("%m")
 
-PATH_VBRR = f'{PATH_BANKS}/ВБРР/{TODAY_YEAR}/{DICT_MOUNTS.get(TODAY_MOUNTH)}/'
-PATH_VTB = f'{PATH_BANKS}/ВТБ/{TODAY_YEAR}/{DICT_MOUNTS.get(TODAY_MOUNTH)}/'
-PATH_RNKO = f'{PATH_BANKS}/РНКО/{TODAY_YEAR}/{DICT_MOUNTS.get(TODAY_MOUNTH)}/'
-# проверка вложенной папки в ГПБ
-PATH_GPB = f'{PATH_BANKS}/ГПБ/{TODAY_YEAR}/{DICT_MOUNTS.get(TODAY_MOUNTH)}/{datetime.date.today().strftime("%d %m %Y")}/'
-if os.path.isdir(f'{PATH_GPB}/{datetime.date.today().strftime("%d %m %Y")}/'):
-    PATH_GPB = f'{PATH_GPB}/{datetime.date.today().strftime("%d %m %Y")}/'
+PATH_VBRR_FROM = f'{KASSA_PATH_XML_FROM}/ВБРР Самарский филиал/'
+PATH_VTB_FROM = f'{KASSA_PATH_XML_FROM}/Филиал  ВТБ (ПАО) в г Нижнем Новгороде/'
+PATH_RNKO_FROM = f'{KASSA_PATH_XML_FROM}/Р-ИНКАС/'
+PATH_GPB_FROM = f'{KASSA_PATH_XML_FROM}/Газпромбанк/'
 
-DICT_BANKS = {  # словарь с путями для банков
-    "ВБРР": os.path.join(PATH_VBRR),
-    "ВТБ": os.path.join(PATH_VTB),
-    "РНКО": os.path.join(PATH_RNKO),
-    "ГПБ": os.path.join(PATH_GPB),
+DICT_BANKS_FROM = {  # словарь с путями для банков
+    "ВБРР": os.path.join(PATH_VBRR_FROM),
+    "ВТБ": os.path.join(PATH_VTB_FROM),
+    "РНКО": os.path.join(PATH_RNKO_FROM),
+    "ГПБ": os.path.join(PATH_GPB_FROM),
 }
 
 FILES_VBRR, FILES_VTB, FILES_RNKO, FILES_GPB = [], [], [], []
@@ -36,11 +33,11 @@ DICT_FILES = {  # словарь с пустыми списками файлов
 }
 
 
-def search_files(path, bank, printable=False, technical=False):
+# Функции
+def search_files(printable=False, technical=False):
     """Функция подготовки списка файлов на отправку"""
-    print_log(f"Сбор документов для отправки", line_after=False)
 
-    for path, bank in KASSA_PATH_XML:
+    for bank, path in DICT_BANKS_FROM.items():
         # Получение в лист всех файлов в каталоге
         list_of_files = filter(os.path.isfile,
                                glob.glob(path + '*'))
@@ -54,9 +51,11 @@ def search_files(path, bank, printable=False, technical=False):
                 timestamp_str = time.strftime('%d.%m.%Y',
                                               time.gmtime(os.path.getmtime(file)))
                 if timestamp_str == TODAY_DATE:  # проверка по текущей дате
+
                     if printable:
                         # print(timestamp_str, ' -->', file)
                         print(file)
+
                     if bank == "ВБРР":
                         FILES_VBRR.append(os.path.normpath(file))
                     elif bank == "ВТБ":
@@ -65,11 +64,16 @@ def search_files(path, bank, printable=False, technical=False):
                         FILES_RNKO.append(os.path.normpath(file))
                     elif bank == "ГПБ":
                         FILES_GPB.append(os.path.normpath(file))
+
             except FileNotFoundError:  # если нет каталога или файла
                 pass
 
-    if technical:  # вывод списка в принте если нужно
-        print("\nСловарь:")
+    if technical:  # вывод списка в print если нужно
+        print("Файлы XML:")
         for key, values in DICT_FILES.items():
             if values:
-                print(f"Банк '{key}', файлы {values}")
+                print(f"Банк '{key}', файл '{values[0]}'")
+
+
+if __name__ == '__main__':
+    search_files()

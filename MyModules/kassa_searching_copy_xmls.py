@@ -1,5 +1,6 @@
 # Модуль поиски файлов (для кассы)
 
+# Импорты
 import os
 import time
 import shutil
@@ -10,13 +11,13 @@ from MyModules.print_log import print_log
 from MyModules.making_dirs import kassa_making_dirs
 
 
+# Константы
 TODAY_DATE = datetime.date.today().strftime('%d.%m.%Y')
 
 PATH_VBRR_FROM = f'{KASSA_PATH_XML_FROM}/ВБРР Самарский филиал/'
 PATH_VTB_FROM = f'{KASSA_PATH_XML_FROM}/Филиал  ВТБ (ПАО) в г Нижнем Новгороде/'
 PATH_RNKO_FROM = f'{KASSA_PATH_XML_FROM}/Р-ИНКАС/'
 PATH_GPB_FROM = f'{KASSA_PATH_XML_FROM}/Газпромбанк/'
-
 
 DICT_BANKS_FROM = {  # словарь с путями для банков
     "ВБРР": os.path.join(PATH_VBRR_FROM),
@@ -34,6 +35,7 @@ DICT_FILES = {  # словарь с пустыми списками файлов
 }
 
 
+# Функции
 def search_files_xmls(printable=False, technical=False):
     """Функция подготовки списка файлов на отправку"""
 
@@ -51,9 +53,11 @@ def search_files_xmls(printable=False, technical=False):
                 timestamp_str = time.strftime('%d.%m.%Y',
                                               time.gmtime(os.path.getmtime(file)))
                 if timestamp_str == TODAY_DATE:  # проверка по текущей дате
+
                     if printable:
                         # print(timestamp_str, ' -->', file)
                         print(file)
+
                     if bank == "ВБРР":
                         FILES_VBRR.append(os.path.normpath(file))
                     elif bank == "ВТБ":
@@ -62,6 +66,7 @@ def search_files_xmls(printable=False, technical=False):
                         FILES_RNKO.append(os.path.normpath(file))
                     elif bank == "ГПБ":
                         FILES_GPB.append(os.path.normpath(file))
+
             except FileNotFoundError:  # если нет каталога или файла
                 pass
 

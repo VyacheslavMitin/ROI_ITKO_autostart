@@ -44,9 +44,9 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
         interval = 0.3
 
     time.sleep(timeout)
-    pg.press('enter', presses=4, interval=0.3)
+    pg.press('enter', presses=4, interval=interval)
     time.sleep(timeout)
-    pg.press('tab', presses=2, interval=0.3)
+    pg.press('tab', presses=2, interval=interval)
     pg.press('enter')
     time.sleep(timeout)
     check_itko()

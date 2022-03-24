@@ -11,7 +11,9 @@ def closing_day():
     print_log("Закрытие кассового дня...", line_before=True)
     selecting_menu(1, 13)  # запуск закрытия дня
 
-    pg.press('tab', presses=3, interval=0.2)
+    pg.press('tab', presses=3, interval=0.3)
+    time.sleep(0.5)
     pg.press('space')
     time.sleep(3)
     print_log("Кассовый день закрыт", line_before=True)
+    time.sleep(1)

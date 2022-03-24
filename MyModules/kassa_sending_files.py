@@ -102,7 +102,7 @@ if __name__ == '__main__':
     # print(func_dict_mail('XML_РЕЕСТРЫ', KASSA_PATH_REESTRY, "РНКО").get('XML_РЕЕСТРЫ').get('subject'))
     # print(func_dict_mail('XML_РЕЕСТРЫ', KASSA_PATH_REESTRY, "РНКО").get('XML_РЕЕСТРЫ').get('recipients'))
     # print(func_dict_mail('XML_РЕЕСТРЫ', KASSA_PATH_REESTRY, "РНКО").get('XML_РЕЕСТРЫ').get('files'))
-    sending_outlook(mode='XML_РЕЕСТРЫ',
+    sending_outlook(mode='test',
                     path=KASSA_PATH_XML_TO,
                     bank="ГПБ",
                     )

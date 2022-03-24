@@ -37,9 +37,11 @@ DICT_MOUNTS = {
 }
 
 
+# Функции
 def export_xml_xls_reestr():
     """Функция экспорта реестров XML и XLS"""
     if os.getlogin() == KASSA_LOGIN:
+        # pass
         closing_day()  # вызов функции закрытия кассового дня
 
     current_date = ''
@@ -52,7 +54,7 @@ def export_xml_xls_reestr():
     selecting_menu(1, 3)  # Запуск журнала распред. ведомостей
     pg.press('end')  # переход к последней строке в журнале
 
-    pg.press('left', presses=5)  # выбор крайнего левого столбца с датами
+    pg.press('left', presses=5, interval=0.3)  # выбор крайнего левого столбца с датами
 
     eng_layout()
     pg.hotkey('ctrl', 'c')  # копирование в буфер обмена даты последней записи для сравнения в дальнейшем
@@ -60,47 +62,47 @@ def export_xml_xls_reestr():
 
     i = 0
     for i in range(5):
-        pg.press('left', presses=5)  # выбор крайнего левого столбца с датами
+        pg.press('left', presses=5, interval=0.3)  # выбор крайнего левого столбца с датами
 
         eng_layout()
         pg.hotkey('ctrl', 'c')  # копирование в буфер обмена даты последней записи для сравнения в дальнейшем
 
         if pyperclip.paste() == current_date:  # сравнение по дате
-            pg.press('right', presses=2, interval=0.1)  # выбор крайнего левого столбца с датами
+            pg.press('right', presses=2, interval=0.3)  # выбор столбца с банком
             rus_layout()
-            pg.hotkey('ctrl', 'c')  # копирование в буфер обмена текущего банка
+            pg.hotkey('ctrl', 'c')  # копирование в буфер обмена имени текущего банка
             current_bank = pyperclip.paste()  # запись в переменную текущего банка
 
             if current_bank == 'Филиал  ВТБ (ПАО) в г. Нижнем Новгороде':  # переименование файлов
                 bank = "ВТБ"
-                wait_xml_form = 2
-                wait_print_form = 2
+                wait_xml_form = 3
+                wait_print_form = 3
             elif current_bank == 'Р-ИНКАС':
                 bank = "РНКО"
-                wait_xml_form = 7
-                wait_print_form = 12
+                wait_xml_form = 10
+                wait_print_form = 15
             elif current_bank == 'Газпромбанк':
                 bank = "ГПБ"
-                wait_xml_form = 2
-                wait_print_form = 4
+                wait_xml_form = 6
+                wait_print_form = 7
             elif current_bank == 'ВБРР Самарский филиал':
                 bank = "ВБРР"
-                wait_xml_form = 2
-                wait_print_form = 2
+                wait_xml_form = 3
+                wait_print_form = 3
 
             pg.press('enter')  # вход в последнюю запись
 
             print_log(f"Выгрузка файла XML Банка '{bank}'", line_before=True)
-            pg.press('tab', presses=17, interval=0.1)  # выгрузка реестра в XML
+            pg.press('tab', presses=18, interval=0.3)  # выгрузка реестра в XML
             time.sleep(0.5)
-            pg.press('space')
+            pg.press('space')  # нажать кнопку выгрузки
             time.sleep(wait_xml_form)
             pg.press('space')
 
             kassa_making_dirs(path=KASSA_PATH_REESTRY, bank=bank)  # создание каталогов для экспорта
 
             print_log("Выгрузка файла XLS", line_before=True)
-            pg.press('tab', presses=1, interval=0.1)  # выгрузка реестра в XLS
+            pg.press('tab', presses=1, interval=0.3)  # выгрузка реестра в XLS
             pg.press('space')
             pg.press('down')
             pg.press('enter')  # открытие печатной формы
@@ -119,7 +121,7 @@ def export_xml_xls_reestr():
             i += 1
             time.sleep(0.5)
             pg.press('up')  # выбор строки выше
-            pg.press('left', presses=5)  # выбор крайнего левого столбца с датами
+            pg.press('left', presses=5, interval=0.3)  # выбор крайнего левого столбца с датами
 
         else:  # если дата не совпадает
             break

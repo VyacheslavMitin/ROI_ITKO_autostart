@@ -93,8 +93,9 @@ def export_xml_xls_reestr():
             pg.press('enter')  # вход в последнюю запись
 
             print_log(f"Выгрузка файла XML Банка '{bank}'", line_before=True)
-            pg.press('tab', presses=18, interval=0.3)  # выгрузка реестра в XML
+            pg.press('tab', presses=18, interval=0.5)  # выгрузка реестра в XML
             time.sleep(0.5)
+            # input()
             pg.press('space')  # нажать кнопку выгрузки
             time.sleep(wait_xml_form)
             pg.press('space')
@@ -102,10 +103,13 @@ def export_xml_xls_reestr():
             kassa_making_dirs(path=KASSA_PATH_REESTRY, bank=bank)  # создание каталогов для экспорта
 
             print_log("Выгрузка файла XLS", line_before=True)
-            pg.press('tab', presses=1, interval=0.3)  # выгрузка реестра в XLS
+            pg.press('tab', presses=1, interval=0.5)  # выгрузка реестра в XLS
             pg.press('space')
+            time.sleep(0.5)
             pg.press('down')
+            time.sleep(0.5)
             pg.press('enter')  # открытие печатной формы
+            # input()
             time.sleep(wait_print_form)  # ожидание печатной формы
             pg.hotkey('ctrl', 's')
             time.sleep(0.5)

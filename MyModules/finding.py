@@ -1,5 +1,6 @@
 # Модуль работы с поиском по клиентам
 
+import time
 import pyautogui as pg
 from MyModules.switch_layout import eng_layout, rus_layout
 from MyModules.typing_unicode_str import typing_unicode_str as typing
@@ -13,3 +14,4 @@ def working_find(name):
     rus_layout()
     typing(name)  # имя в поисковое окно
     pg.press('enter')  # поиск
+    time.sleep(0.2)

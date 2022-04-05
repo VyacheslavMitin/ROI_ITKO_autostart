@@ -15,11 +15,8 @@ from MyModules.save_file_xls import saving_xls
 def export_vou():
     """Функция экспорта файлов ВОУ"""
     print_log("Генерация XLS файла")
-    selecting_menu(1, 5)  # вход в журнал воу с сохранением файла
-    from main import interval_january
-    interval_january()
-    pg.press('end')
-    pg.press('enter')
+    from MyModules.open_vou import open_last_vou
+    open_last_vou(1)  # журнал ВОУ
     # pg.press('tab', presses=16, interval=0.1)  # без записи даты в ВОУ
     pg.press('tab', presses=4, interval=0.1)
     eng_layout()

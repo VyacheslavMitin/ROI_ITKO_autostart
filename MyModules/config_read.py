@@ -3,9 +3,11 @@
 
 import configparser
 import os
+import datetime
 
 # КОНСТАНТЫ
-name_curdir = os.path.basename(os.path.abspath(os.path.curdir))
+NOW_DATE = datetime.datetime.now().strftime('%d.%m.%y')  # Текущая дата в формате 01.01.22
+name_curdir = os.path.basename(os.path.abspath(os.path.curdir))  # путь к текущей директории
 
 if name_curdir == 'MyModules':
     path_ = os.path.abspath(os.path.join(os.path.curdir, '..')) + '\\'

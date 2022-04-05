@@ -5,7 +5,6 @@ import glob
 import sys
 import time
 import pyautogui as pg
-from datetime import datetime
 # Мои модули
 from MyModules.config_read import *
 from MyModules.starting_itko import start_itko
@@ -17,12 +16,9 @@ from MyModules.typing_unicode_str import typing_unicode_str as typing
 from MyModules.print_log import print_log
 from MyModules.switch_layout import rus_layout, eng_layout
 
-# КОНСТАНТЫ
-NOW_DATE = datetime.now().strftime('%d.%m.%y')  # Текущая дата в формате 01.01.22
-
 
 # ФУНКЦИИ
-def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='33'):
+def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='34'):
     """Функция приветствия"""
     print(f"МОДУЛЬ РАБОТЫ '{name_}'")
     print(f"Автор модуля: '{author_}'")
@@ -42,39 +38,6 @@ def change_datetime():
     print_log("Изменение даты/времени", line_before=True)
     from os import system
     system(CHANGE_TIME)
-
-
-def interval_january(long_=False):
-    """Функция определения интервалов: если январь и нужен доступ к документам прошлого года"""
-    def clear_dates():
-        pg.press('right', presses=20, interval=0.0)
-        pg.press('backspace', presses=20, interval=0.0)
-
-    if past_dates()[3] == '12':
-        time_sec = 0
-        pg.press('alt')
-        pg.press('right', presses=1, interval=time_sec)
-        pg.press('down', presses=12, interval=time_sec)
-        if long_:
-            pg.press('down', presses=4, interval=time_sec)
-        pg.press('enter')
-        clear_dates()
-        typing(past_dates()[0])
-        pg.press('tab')
-        clear_dates()
-        typing(NOW_DATE)
-        pg.press('tab')
-        pg.press('enter')
-
-
-def preparation_vou():
-    """Функция запуска расчета ВОУ"""
-    print_log("Запуск расчета ВОУ", line_before=True)
-    from MyModules.select_menu import selecting_menu
-    selecting_menu(1, 5)  # запуск журнала воу
-    interval_january()
-    selecting_menu(2, 6)  # запуск авто формирования
-    time.sleep(5)
 
 
 def cleaning_dir(path0_: str):
@@ -127,6 +90,7 @@ if __name__ == '__main__':
     elif select == '3':
         change_datetime()
         start_itko(point='buh')
+        from MyModules.preparation_vou import preparation_vou
         preparation_vou()
 
     elif select == '4':
@@ -166,6 +130,14 @@ if __name__ == '__main__':
         start_itko(point='buh')
         exports_rzd()
         quit_1c(*dict_with_paths.get('exports_dir'))
+        time.sleep(0.5)
+        sending_outlook(mode_='sformirovat', displayed=True)
+    elif select == '777':
+        # TODO переделать на свои папки
+        from MyModules.exports_krasnoe_beloe import exports_krasnoe_beloe
+        start_itko(point='buh')
+        exports_krasnoe_beloe()
+        quit_1c(*dict_with_paths.get('vou_dir'))
         time.sleep(0.5)
         sending_outlook(mode_='sformirovat', displayed=True)
 

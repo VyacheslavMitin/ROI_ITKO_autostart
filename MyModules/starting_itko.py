@@ -58,14 +58,12 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
         if not no_windows:
             print_log("Открытие окон")
             from datetime import datetime
-            from main import interval_january
+            from MyModules.interval_journals import interval_january
             if 1 <= int(datetime.now().strftime('%d')) <= 10:  # если первые 10 дней месяца
                 from MyModules.exporting_xls import call_sformirovat
                 call_sformirovat()  # документы за день
-                selecting_menu(2, 5)  # журнал воу
-                interval_january(long_=False)
-                pg.press('end')
-                pg.press('enter')
+                from MyModules.open_vou import open_last_vou
+                open_last_vou(2)  # журнал ВОУ
             else:  # если НЕ первые 10 дней месяца
                 selecting_menu(1, 2)  # документы за день
                 pg.press('F4')
@@ -79,22 +77,18 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
                 for i in range(4):
                     pg.press('tab')
                     pg.press('space')
-                selecting_menu(2, 3)  # распред. ведомости
+                selecting_menu(2, 3)  # распределительные ведомости
                 interval_january(long_=True)
                 selecting_menu(2, 4)  # клиенты
 
     if point == 'adm' and mode == 'ENTERPRISE':  # оставить администратора
         if not no_windows:
             from datetime import datetime
-            from main import interval_january
+            from MyModules.interval_journals import interval_january
             if 1 <= int(datetime.now().strftime('%d')) <= 10:
                 print_log("Открытие журнала ВОУ")
-                time.sleep(0.5)
-                pg.press('alt')
-                pg.press('right', presses=4, interval=0.1)
-                pg.press('down', presses=5, interval=0.1)
-                pg.press('enter')
-                interval_january()
+                from MyModules.open_vou import open_last_vou
+                open_last_vou(4)  # журнал ВОУ
             print_log("Открытие журнала документов")
             time.sleep(0.5)
             pg.press('alt')

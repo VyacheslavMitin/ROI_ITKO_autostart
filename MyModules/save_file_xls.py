@@ -5,7 +5,7 @@ import pyautogui as pg
 import time
 import os
 from MyModules.print_log import print_log
-from MyModules.config_read import MY_LOGIN, KASSA_LOGIN
+from MyModules.config_read import KASSA_LOGIN
 
 
 def saving_xls(name=None, closing=True):

@@ -7,7 +7,7 @@ from MyModules.config_read import MY_LOGIN, KASSA_LOGIN
 from MyModules.print_log import print_log
 
 if os.getlogin() == MY_LOGIN:  # дефолтный выбор
-    default_menu = '30'
+    default_menu = '1'
 elif os.getlogin() == KASSA_LOGIN:
     default_menu = '30'
 
@@ -27,8 +27,9 @@ def pyautogui_menu() -> str:
         7: "Файлы 'Сформировать.xls'/'РЖД.xls'",
         8: "Выгрузка '202 форма'",
         9: "Выгрузка 'Отчет по ПП'",
+        777: "Выгрузка 'Красное и Белое'",
+        100: "Поменять системные дату/время",
         30: "Выгрузка XML", 31: "Выписки Мегафон-РТК-Вымпелком", 32: "Выгрузка АДМ",
-        100: "Поменять системные дату/время"
     }
     separator = '=' * 40
     return pg.prompt(text=f"""
@@ -48,6 +49,7 @@ def pyautogui_menu() -> str:
     5: {menu_points.get(5)}
     6: {menu_points.get(6)}
     7/70: {menu_points.get(7)}
+    777: {menu_points.get(777)}
     8: {menu_points.get(8)}
     9: {menu_points.get(9)}
     {separator}

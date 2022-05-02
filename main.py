@@ -11,6 +11,7 @@ from MyModules.starting_itko import start_itko
 from MyModules.menu_gui import pyautogui_menu
 from MyModules.sending_files import sending_outlook
 from MyModules.making_dirs import making_dirs
+from MyModules.cleaning_dir import cleaning_dir
 from MyModules.past_dates import past_dates
 from MyModules.typing_unicode_str import typing_unicode_str as typing
 from MyModules.print_log import print_log
@@ -38,15 +39,6 @@ def change_datetime():
     print_log("Изменение даты/времени", line_before=True)
     from os import system
     system(CHANGE_TIME)
-
-
-def cleaning_dir(path0_: str):
-    """Функция удаления файлов в каталоге экспортов"""
-    print_log("Очистка каталога экспорта")
-
-    for files in glob.glob(path0_ + f'*.*'):
-        os.remove(files)
-    time.sleep(0.5)
 
 
 def quit_1c(name_, path1_):
@@ -139,7 +131,6 @@ if __name__ == '__main__':
         exports_krasnoe_beloe()
         quit_1c(*dict_with_paths.get('clients_dir'))
         time.sleep(0.5)
-        # sending_outlook(mode_='sformirovat', displayed=True)
 
     elif select == '8':
         start_itko(point='buh')

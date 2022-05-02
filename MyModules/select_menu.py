@@ -7,7 +7,7 @@ import pyautogui as pg
 # from MyModules.select_menu import selecting_menu
 
 
-def selecting_menu(mode_, point_):
+def selecting_menu(mode_, point_, timeout=0.0):
     """Функция выбора строки меню в 'Робот'.
     1 - ТочкиПоДням
     2 - Документы кассового дня
@@ -20,8 +20,6 @@ def selecting_menu(mode_, point_):
     9 - Выгрузка 014
     10 - Выгрузка ВСКК
     11 - Выгрузка 202"""
-
-    timeout = 0.0  # без таймаута
 
     time.sleep(timeout)
     pg.press('alt')

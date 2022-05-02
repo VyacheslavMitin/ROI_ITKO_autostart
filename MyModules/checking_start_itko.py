@@ -16,7 +16,7 @@ TUPLE_WINDOWS = (WINDOW_ITKO_ENTERPRISE_BUH, WINDOW_ITKO_ENTERPRISE_ADM, WINDOW_
 
 
 # Функции
-def authorization_itko() -> None:
+def authorization_itko(monopoly=False) -> None:
     """Функция запуска ИТКО"""
     print_log("Запуск '1С: ИТКО'...")
     # Сначала - поиск лаунчера 1С 7
@@ -29,8 +29,13 @@ def authorization_itko() -> None:
     if WINDOW_LAUNCHER not in pg.getAllTitles():
         sys.exit("Не обнаружено окно выбора баз '1С: ИТКО'!")
 
-    # Выбор первой (верхней базы в списке
-    pg.press('tab', presses=2)
+    # Выбор первой (верхней) базы в списке
+    if monopoly:
+        pg.press('tab')
+        pg.press('space')
+        pg.press('tab')
+    else:
+        pg.press('tab', presses=2)
     pg.press('home')  # выбор первой базы в списке баз
     pg.press('enter')  # вход в базу
 

@@ -20,13 +20,16 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
     else:
         itko_bin = ITKO_BIN
 
-    subprocess.Popen([
+    subprocess.Popen([  # запуск процесса ИТКО
         itko_bin,
         mode
     ])
 
     time.sleep(1)
-    authorization_itko()
+    if not args:
+        authorization_itko(monopoly=False)
+    elif args[0] == "Удаление объектов" or args[0] == "Бухгалтерские итоги":
+        authorization_itko(monopoly=True)
 
     if point == 'buh':  # выбор бухгалтера
         print_log("Выбор 'Бухгалтер' для входа")
@@ -91,23 +94,30 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
                 open_last_vou(4)  # журнал ВОУ
             print_log("Открытие журнала документов")
             time.sleep(0.5)
-            pg.press('alt')
             if 1 <= int(datetime.now().strftime('%d')) <= 10:
-                pg.press('right', presses=2, interval=0.1)
+                selecting_menu(2, 1)
             else:
-                pg.press('right', presses=4, interval=0.1)
-            pg.press('down', presses=1, interval=0.1)
-            pg.press('enter', presses=2, interval=0.5)
+                selecting_menu(4, 1)
+            pg.press('enter', presses=1, interval=0.5)
+
+    if point == 'adm' and mode == 'ENTERPRISE' and args[0] == 'Удаление объектов':
+        print_log("Открытие меню для удаления помеченных объектов")
+        time.sleep(0.5)
+        selecting_menu(1, 14)
+        time.sleep(1)
+        pg.press('space')
+
+    if point == 'adm' and mode == 'ENTERPRISE' and args[0] == 'Бухгалтерские итоги':  # оставить администратора
+        print_log("Открытие меню управления бухгалтерскими итогами")
+        time.sleep(0.5)
+        selecting_menu(1, 18)
 
     if mode == 'CONFIG':
         from MyModules.switch_layout import eng_layout, rus_layout
         from MyModules.typing_unicode_str import typing_unicode_str
-        pg.press('alt')
-        pg.press('right', presses=3, interval=0.1)
         if args[0] == 'import':
             print_log("Открытие окна для загрузки базы", line_before=True)
-            pg.press('down', presses=5, interval=0.1)
-            pg.press('enter')
+            selecting_menu(3, 5, 0.1)
             pg.press('tab')
             pg.press('enter')
             eng_layout()
@@ -116,8 +126,7 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
         elif args[0] == 'export':
             from MyModules.past_dates import past_dates
             print_log("Открытие окна для выгрузки базы", line_before=True)
-            pg.press('down', presses=4, interval=0.1)
-            pg.press('enter')
+            selecting_menu(3, 4, 0.1)
             eng_layout()
             typing_unicode_str(PATH_ITKO)
             typing_unicode_str(past_dates()[7])

@@ -20,6 +20,8 @@ def pyautogui_menu() -> str:
         0: 'Загрузка/Выгрузка базы ИТКО',
         1: 'Старт/Быстрый старт Бухгалтером',
         2: 'Старт/Быстрый старт ИТКО Администратором',
+        200: 'Бухгалтерские итоги',
+        222: 'Удаление помеченных объектов',
         3: "Формирование ВОУ",
         4: "Выгрузка 'ВОУ'",
         5: "Выгрузка '014'",
@@ -41,7 +43,10 @@ def pyautogui_menu() -> str:
     0/00: {menu_points.get(0)}
     {separator}
     1/10: {menu_points.get(1)}
+    {separator}
     2/20: {menu_points.get(2)}
+    200: {menu_points.get(200)}
+    222: {menu_points.get(222)}
     {separator}
     3: {menu_points.get(3)}
     {separator}

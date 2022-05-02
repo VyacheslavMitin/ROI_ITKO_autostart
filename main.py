@@ -78,6 +78,10 @@ if __name__ == '__main__':
         start_itko(point='adm', no_windows=False)
     elif select == '20':
         start_itko(point='adm', no_windows=True)
+    elif select == '200':
+        start_itko('Бухгалтерские итоги', point='adm', no_windows=True)
+    elif select == '222':
+        start_itko('Удаление объектов', point='adm', no_windows=True)
 
     elif select == '3':
         change_datetime()

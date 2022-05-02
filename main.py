@@ -19,7 +19,7 @@ from MyModules.switch_layout import rus_layout, eng_layout
 
 
 # ФУНКЦИИ
-def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='34'):
+def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='36'):
     """Функция приветствия"""
     print(f"МОДУЛЬ РАБОТЫ '{name_}'")
     print(f"Автор модуля: '{author_}'")
@@ -130,9 +130,9 @@ if __name__ == '__main__':
         sending_outlook(mode_='sformirovat', displayed=True)
     elif select == '777':
         start_itko(point='buh')
-        from MyModules.exports_krasnoe_beloe import exports_krasnoe_beloe
+        from MyModules.exports_invoice_details import exports_invoice_details
         cleaning_dir(PATH_CLIENTS)
-        exports_krasnoe_beloe()
+        exports_invoice_details()
         quit_1c(*dict_with_paths.get('clients_dir'))
         time.sleep(0.5)
 

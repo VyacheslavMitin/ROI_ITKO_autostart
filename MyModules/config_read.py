@@ -61,6 +61,7 @@ dict_with_paths = {  # словарь с именами папок и путям
 # Блок для работы с именами клиентов
 NAMES_STR = cfg.get('NAMES', 'points')
 NAMES_STR_double = cfg.get('NAMES', 'points_double')
+CLIENTS_INVOICE_DETAILS = cfg.get('NAMES', 'client_invoice_details')
 # Блок для работы с письмами
 RECIPIENTS_SFORMIROVAT = cfg.get('NAMES', 'recipients_sform')
 RECIPIENTS_202 = cfg.get('NAMES', 'recipients_202')

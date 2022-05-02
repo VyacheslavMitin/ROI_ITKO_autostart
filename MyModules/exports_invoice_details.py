@@ -3,7 +3,7 @@
 import pyautogui as pg
 import time
 
-from MyModules.config_read import *
+from MyModules.config_read import PATH_CLIENTS, CLIENTS_INVOICE_DETAILS
 from MyModules.print_log import print_log
 from MyModules.switch_layout import rus_layout, eng_layout
 from MyModules.typing_unicode_str import typing_unicode_str as typing
@@ -13,15 +13,15 @@ from MyModules.open_vou import open_last_vou
 from MyModules.finding import working_find
 
 
-TUPLE_KRASNOE_BELOE = ("Альфа Пенза", "Альфа-М", "Лабиринт-Волга")
+TUPLE_CLIENTS = CLIENTS_INVOICE_DETAILS.split(',')
 
 
-def exports_krasnoe_beloe():
+def exports_invoice_details():
     """Функция экспорта документов для 'Красное и белое'"""
     open_last_vou(1)  # журнал ВОУ
 
     print_log("Выгрузка детализаций по кассе клиента 'Красное и Белое'")
-    for item in TUPLE_KRASNOE_BELOE:
+    for item in TUPLE_CLIENTS:
         working_find(item)
         pg.press('tab', presses=8, interval=0.1)
         pg.press('space')

@@ -133,13 +133,13 @@ if __name__ == '__main__':
         time.sleep(0.5)
         sending_outlook(mode_='sformirovat', displayed=True)
     elif select == '777':
-        # TODO переделать на свои папки
-        from MyModules.exports_krasnoe_beloe import exports_krasnoe_beloe
         start_itko(point='buh')
+        from MyModules.exports_krasnoe_beloe import exports_krasnoe_beloe
+        cleaning_dir(PATH_CLIENTS)
         exports_krasnoe_beloe()
-        quit_1c(*dict_with_paths.get('vou_dir'))
+        quit_1c(*dict_with_paths.get('clients_dir'))
         time.sleep(0.5)
-        sending_outlook(mode_='sformirovat', displayed=True)
+        # sending_outlook(mode_='sformirovat', displayed=True)
 
     elif select == '8':
         start_itko(point='buh')

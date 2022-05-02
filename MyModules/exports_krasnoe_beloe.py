@@ -33,7 +33,7 @@ def exports_krasnoe_beloe():
         pg.hotkey('ctrl', 's')
         time.sleep(0.5)
         eng_layout()
-        typing(PATH_VOU)
+        typing(PATH_CLIENTS)
         rus_layout()
         typing(f'Детализация пересчета {item} {period_for_emails()}')
         saving_xls(f'Детализация пересчета {item} {period_for_emails()}')

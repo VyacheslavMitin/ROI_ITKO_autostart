@@ -33,6 +33,7 @@ PATH_VSKK = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_vskk'))
 PATH_VOU = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_vou'))
 PATH_202 = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_202'))
 PATH_PP = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_pp'))
+PATH_CLIENTS = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_clients'))
 
 # Пути для кассовой рутины
 KASSA_ITKO_BIN = cfg.get('KASSA', 'kassa_itko_bin')
@@ -53,6 +54,7 @@ dict_with_paths = {  # словарь с именами папок и путям
     'vou_dir': (cfg.get('PATHS', 'dir_vou'), PATH_VOU),
     '202_dir': (cfg.get('PATHS', 'dir_202'), PATH_202),
     'pp_dir': (cfg.get('PATHS', 'dir_pp'), PATH_PP),
+    'clients_dir': (cfg.get('PATHS', 'dir_clients'), PATH_CLIENTS),
     'exports_dir': (cfg.get('PATHS', 'dir_sformirovat'), PATH_SFORMIROVAT),
 }
 

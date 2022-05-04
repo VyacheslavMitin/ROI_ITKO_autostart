@@ -30,6 +30,8 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
         authorization_itko(monopoly=False)
     elif args[0] == "Удаление объектов" or args[0] == "Бухгалтерские итоги":
         authorization_itko(monopoly=True)
+    else:  # работа с конфигуратором, аргументы импорт и экспорт
+        authorization_itko(monopoly=False)
 
     if point == 'buh':  # выбор бухгалтера
         print_log("Выбор 'Бухгалтер' для входа")
@@ -100,17 +102,17 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
                 selecting_menu(4, 1)
             pg.press('enter', presses=1, interval=0.5)
 
-    if point == 'adm' and mode == 'ENTERPRISE' and args[0] == 'Удаление объектов':
-        print_log("Открытие меню для удаления помеченных объектов")
-        time.sleep(0.5)
-        selecting_menu(1, 14)
-        time.sleep(1)
-        pg.press('space')
-
-    if point == 'adm' and mode == 'ENTERPRISE' and args[0] == 'Бухгалтерские итоги':  # оставить администратора
-        print_log("Открытие меню управления бухгалтерскими итогами")
-        time.sleep(0.5)
-        selecting_menu(1, 18)
+    if point == 'adm' and mode == 'ENTERPRISE' and args:
+        if args[0] == 'Удаление объектов':
+            print_log("Открытие меню для удаления помеченных объектов")
+            time.sleep(0.5)
+            selecting_menu(1, 14)
+            time.sleep(1)
+            pg.press('space')
+        elif args[0] == 'Бухгалтерские итоги':
+            print_log("Открытие меню управления бухгалтерскими итогами")
+            time.sleep(0.5)
+            selecting_menu(1, 18)
 
     if mode == 'CONFIG':
         from MyModules.switch_layout import eng_layout, rus_layout

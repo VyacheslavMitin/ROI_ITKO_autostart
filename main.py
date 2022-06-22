@@ -10,12 +10,13 @@ from MyModules.config_read import *
 from MyModules.starting_itko import start_itko
 from MyModules.menu_gui import pyautogui_menu
 from MyModules.sending_files import sending_outlook
-from MyModules.making_dirs import making_dirs
+from MyModules.making_dirs import making_dirs, kassa_making_dirs, kassa_making_dirs_banks
 from MyModules.cleaning_dir import cleaning_dir
 from MyModules.past_dates import past_dates
 from MyModules.typing_unicode_str import typing_unicode_str as typing
 from MyModules.print_log import print_log
 from MyModules.switch_layout import rus_layout, eng_layout
+from MyModules.quit_itko import quit_1c, kassa_quit_1c
 
 
 # ФУНКЦИИ
@@ -39,24 +40,6 @@ def change_datetime():
     print_log("Изменение даты/времени", line_before=True)
     from os import system
     system(CHANGE_TIME)
-
-
-def quit_1c(name_, path1_):
-    """Функция выхода из 1С и запуска проводника"""
-    pg.hotkey('alt', 'f4')
-
-    if name_:
-        name_ = name_[:-1]
-        if name_ in pg.getAllTitles():  # поиск открытой папки
-            list__ = []
-            for i in pg.getAllTitles():
-                if i == name_:
-                    list__.append(i)
-            for item in enumerate(list__):
-                pg.getWindowsWithTitle(item[1])[item[0]].close()
-
-    if path1_:
-        os.system(f'explorer.exe {os.path.normpath(path1_)}')  # запуск проводника
 
 
 if __name__ == '__main__':
@@ -108,7 +91,7 @@ if __name__ == '__main__':
         start_itko(point='buh')
         from MyModules.kassa_exports_014 import kassa_export_014
         kassa_export_014()
-        quit_1c(*dict_with_paths.get('kassa_014_dir'))
+        kassa_quit_1c(kassa_making_dirs(KASSA_PATH_014))
 
     elif select == '6':
         start_itko(point='buh')

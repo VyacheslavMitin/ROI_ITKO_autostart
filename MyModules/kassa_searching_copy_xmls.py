@@ -8,7 +8,7 @@ import datetime
 import glob
 from MyModules.config_read import KASSA_PATH_XML_FROM, KASSA_PATH_XML_TO
 from MyModules.print_log import print_log
-from MyModules.making_dirs import kassa_making_dirs
+from MyModules.making_dirs import kassa_making_dirs_banks
 
 
 # Константы
@@ -85,7 +85,7 @@ def copy_xml():
 
     for bank, files in DICT_FILES.items():
         if files:
-            str_path = kassa_making_dirs(KASSA_PATH_XML_TO, bank)
+            str_path = kassa_making_dirs_banks(KASSA_PATH_XML_TO, bank)
             shutil.copy(files[0], str_path)
     print_log("Файлы XML скопированы")
 

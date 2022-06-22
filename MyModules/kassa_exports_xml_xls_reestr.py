@@ -11,7 +11,7 @@ from MyModules.print_log import print_log
 from MyModules.save_file_xls import saving_xls
 from MyModules.switch_layout import rus_layout, eng_layout
 from MyModules.typing_unicode_str import typing_unicode_str as typing
-from MyModules.making_dirs import kassa_making_dirs
+from MyModules.making_dirs import kassa_making_dirs_banks
 from MyModules.kassa_searching_copy_xmls import copy_xml
 from MyModules.kassa_sending_files import sending_outlook
 
@@ -100,7 +100,7 @@ def export_xml_xls_reestr():
             time.sleep(wait_xml_form)
             pg.press('space')
 
-            kassa_making_dirs(path=KASSA_PATH_REESTRY, bank=bank)  # создание каталогов для экспорта
+            kassa_making_dirs_banks(path=KASSA_PATH_REESTRY, bank=bank)  # создание каталогов для экспорта
 
             print_log("Выгрузка файла XLS", line_before=True)
             pg.press('tab', presses=1, interval=0.5)  # выгрузка реестра в XLS

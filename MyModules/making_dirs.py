@@ -31,7 +31,15 @@ def making_dirs():
             os.makedirs(os.path.normpath(item), exist_ok=True)
 
 
-def kassa_making_dirs(path, bank):
+def kassa_making_dirs(path):
+    """Функция создания каталогов для документов кассы"""
+    string_path = os.path.normpath(f'{path}//{TODAY_YEAR}//{DICT_MOUNTS.get(TODAY_MOUNTH)}//')
+    os.makedirs(string_path, exist_ok=True)
+
+    return string_path
+
+
+def kassa_making_dirs_banks(path, bank):
     """Функция создания каталогов для документов кассы"""
     string_path = os.path.normpath(f'{path}//{bank}//{TODAY_YEAR}//{DICT_MOUNTS.get(TODAY_MOUNTH)}//')
     os.makedirs(string_path, exist_ok=True)
@@ -41,4 +49,4 @@ def kassa_making_dirs(path, bank):
 
 if __name__ == '__main__':
     making_dirs()
-    kassa_making_dirs(path=KASSA_PATH_REESTRY, bank='ВБРР')
+    kassa_making_dirs_banks(path=KASSA_PATH_REESTRY, bank='ВБРР')

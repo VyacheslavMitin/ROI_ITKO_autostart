@@ -19,7 +19,7 @@ from MyModules.switch_layout import rus_layout, eng_layout
 
 
 # ФУНКЦИИ
-def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='36'):
+def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='38'):
     """Функция приветствия"""
     print(f"МОДУЛЬ РАБОТЫ '{name_}'")
     print(f"Автор модуля: '{author_}'")
@@ -104,6 +104,11 @@ if __name__ == '__main__':
         from MyModules.exports_014 import export_014
         export_014()
         quit_1c(*dict_with_paths.get('014_dir'))
+    elif select == '55':
+        start_itko(point='buh')
+        from MyModules.kassa_exports_014 import kassa_export_014
+        kassa_export_014()
+        quit_1c(*dict_with_paths.get('kassa_014_dir'))
 
     elif select == '6':
         start_itko(point='buh')

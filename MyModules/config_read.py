@@ -41,6 +41,7 @@ KASSA_PATH_REESTRY = cfg.get('KASSA', 'path_reestry')
 KASSA_PATH_VYPISKI = cfg.get('KASSA', 'path_vypiski')
 KASSA_PATH_XML_FROM = cfg.get('KASSA', 'path_xml_from')
 KASSA_PATH_XML_TO = cfg.get('KASSA', 'path_xml_to')
+KASSA_PATH_014 = cfg.get('KASSA', 'path_014')
 # Получатели писем кассы
 KASSA_RECIPIENTS_SAMARA = cfg.get('KASSA', 'xml_reestr_samara')
 KASSA_RECIPIENTS_VBRR = cfg.get('KASSA', 'xml_reestr_vbrr')
@@ -56,6 +57,7 @@ dict_with_paths = {  # словарь с именами папок и путям
     'pp_dir': (cfg.get('PATHS', 'dir_pp'), PATH_PP),
     'clients_dir': (cfg.get('PATHS', 'dir_clients'), PATH_CLIENTS),
     'exports_dir': (cfg.get('PATHS', 'dir_sformirovat'), PATH_SFORMIROVAT),
+    'kassa_014_dir': (cfg.get('KASSA', 'path_014'), KASSA_PATH_014),
 }
 
 # Блок для работы с именами клиентов
@@ -96,6 +98,7 @@ if __name__ == '__main__':
     print(KASSA_PATH_VYPISKI)
     print(KASSA_PATH_XML_FROM)
     print(KASSA_PATH_XML_TO)
+    print(KASSA_PATH_014)
     print(KASSA_RECIPIENTS_SAMARA)
     print(KASSA_RECIPIENTS_VBRR)
     print(KASSA_RECIPIENTS_VTB)

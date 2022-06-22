@@ -25,6 +25,7 @@ def pyautogui_menu() -> str:
         3: "Формирование ВОУ",
         4: "Выгрузка 'ВОУ'",
         5: "Выгрузка '014'",
+        55: "Выгрузка '014 для Самары",
         6: "Выгрузка 'ВСКК'",
         7: "Файлы 'Сформировать.xls'/'РЖД.xls'",
         777: "Выгрузка для клиентов",
@@ -52,6 +53,7 @@ def pyautogui_menu() -> str:
     {separator}
     4: {menu_points.get(4)}
     5: {menu_points.get(5)}
+    55: {menu_points.get(55)}
     6: {menu_points.get(6)}
     7/70: {menu_points.get(7)}
     777: {menu_points.get(777)}

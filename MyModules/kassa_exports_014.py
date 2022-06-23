@@ -40,7 +40,7 @@ def kassa_export_014():
     typing(KASSA_PATH_014 + datetime.datetime.today().strftime("%Y") + '\\')
     rus_layout()
     typing(DICT_MOUNTS.get(TODAY_MOUNTH))
-    eng_layout()
+    rus_layout()
     typing('\\' + file_name_input)
     time.sleep(1)
     pg.press('tab')

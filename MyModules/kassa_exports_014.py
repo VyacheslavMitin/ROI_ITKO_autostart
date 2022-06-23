@@ -7,7 +7,7 @@ import time
 
 from MyModules.config_read import KASSA_PATH_014
 from MyModules.print_log import print_log
-from MyModules.switch_layout import eng_layout, rus_layout
+from MyModules.switch_layout_keyboard import eng_layout, rus_layout
 from MyModules.typing_unicode_str import typing_unicode_str as typing
 from MyModules.cur_dates import current_dates
 from MyModules.select_menu import selecting_menu
@@ -47,8 +47,7 @@ def kassa_export_014():
     pg.press('enter')
     time.sleep(10)
 
-    print_log("Ожидание файла...")
-    print(path_ + file_name_input)
+    print_log(f"Ожидание файла...")
     while True:
         time.sleep(1)
         if os.path.isfile(path_ + file_name_input):

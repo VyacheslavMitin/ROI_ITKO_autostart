@@ -22,7 +22,7 @@ def export_vou():
     eng_layout()
     typing(f'{past_dates()[1]}')
     print_log(f"Смена даты в ВОУ на {past_dates()[1]}")
-    pg.press('tab', presses=13, interval=0.3)
+    pg.press('tab', presses=13, interval=0.3)  # 12 или 13
     pg.press('space')
     pg.press('down')
     pg.press('enter')

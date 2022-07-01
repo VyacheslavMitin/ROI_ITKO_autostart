@@ -39,7 +39,7 @@ def export_202(change_mount=False):
     pg.press('enter')
     time.sleep(5)
     print_log("Выгрузка форм по банкам в XLS")
-    banks = ('ВТБ', 'Р-ИНКАС', 'ГПБ', 'ВБРР')
+    banks = ('ВТБ', 'Р-ИНКАС', 'ГПБ')
     for bank in banks:
         pg.hotkey('ctrl', 's')
         time.sleep(0.5)

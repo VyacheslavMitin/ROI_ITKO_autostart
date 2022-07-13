@@ -20,7 +20,7 @@ from MyModules.quit_itko import quit_1c, kassa_quit_1c
 
 
 # ФУНКЦИИ
-def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='39'):
+def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='42'):
     """Функция приветствия"""
     print(f"МОДУЛЬ РАБОТЫ '{name_}'")
     print(f"Автор модуля: '{author_}'")

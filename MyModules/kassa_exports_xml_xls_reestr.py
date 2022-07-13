@@ -41,7 +41,7 @@ DICT_MOUNTS = {
 def export_xml_xls_reestr():
     """Функция экспорта реестров XML и XLS"""
     if os.getlogin() == KASSA_LOGIN:
-        # pass
+        pass
         closing_day()  # вызов функции закрытия кассового дня
 
     current_date = ''
@@ -93,7 +93,7 @@ def export_xml_xls_reestr():
             pg.press('enter')  # вход в последнюю запись
 
             print_log(f"Выгрузка файла XML Банка '{bank}'", line_before=True)
-            pg.press('tab', presses=18, interval=0.5)  # выгрузка реестра в XML
+            pg.press('tab', presses=16, interval=0.5)  # выгрузка реестра в XML
             time.sleep(0.5)
             # input()
             pg.press('space')  # нажать кнопку выгрузки

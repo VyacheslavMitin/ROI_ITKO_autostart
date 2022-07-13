@@ -1,5 +1,5 @@
 # Модуль запуска ИТКО
-
+import sys
 import pyautogui as pg
 import subprocess
 import time
@@ -7,6 +7,7 @@ from MyModules.config_read import *
 from MyModules.print_log import print_log
 from MyModules.select_menu import selecting_menu
 from MyModules.checking_start_itko import authorization_itko, check_itko
+from MyModules.check_windows import check_not_window, check_window
 
 
 def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
@@ -117,15 +118,58 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
     if mode == 'CONFIG':
         from MyModules.switch_layout import eng_layout, rus_layout
         from MyModules.typing_unicode_str import typing_unicode_str
-        if args[0] == 'import':
+
+        if args[0] == 'import':  # если идет загрузка базы
             print_log("Открытие окна для загрузки базы", line_before=True)
             selecting_menu(3, 5, 0.1)
             pg.press('tab')
             pg.press('enter')
             eng_layout()
-            typing_unicode_str(PATH_ITKO)
+            typing_unicode_str(PATH_ITKO)  # ввод пути к каталогу с бекапами
             pg.press('enter')
-        elif args[0] == 'export':
+            time.sleep(1)
+            pg.press('tab', presses=4)
+            time.sleep(0.5)
+            pg.press('down')
+            time.sleep(0.5)
+            pg.press('up')
+            time.sleep(0.5)
+            pg.press('enter')
+            time.sleep(1)
+            import pyperclip
+            import keyboard
+            keyboard.press('shift')
+            time.sleep(0.5)
+            keyboard.press_and_release("down")
+            keyboard.release('shift')
+            rus_layout()
+            pg.hotkey('ctrl', 'c')
+            string_base_name = pyperclip.paste()
+            time.sleep(0.5)
+            string_base_name = string_base_name[53:]
+            time.sleep(1)
+            pg.press('enter')
+            time.sleep(1)
+            from MyModules.send_notification_telegram import notification_send_telegram
+            if check_window("Конфигуратор", 60):  # проверка, что окно "Конфигуратор" появилось
+                pg.press('space')  # согласия на загрузку базы
+            else:
+                error = f"Не появилось окно распаковки базы '{string_base_name}'"
+                notification_send_telegram(error)
+                sys.exit(error)
+            if check_window("Конфигуратор", 900):  # проверка, что окно "Конфигуратор" появилось
+                notification_send_telegram(f"База '{string_base_name}' загружена!")
+                time.sleep(1)
+                pg.press('enter')
+                from MyModules.quit_itko import quit_1c
+                quit_1c(None, None)
+            else:
+                error = f"Не появилось окно успешного завершения базы '{string_base_name}'"
+                notification_send_telegram(error)
+                sys.exit(error)
+            print_log(f"База '{string_base_name}' загружена!")
+
+        elif args[0] == 'export':  # если идет выгрузка базы
             from MyModules.past_dates import past_dates
             print_log("Открытие окна для выгрузки базы", line_before=True)
             selecting_menu(3, 4, 0.1)

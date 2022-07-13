@@ -9,7 +9,7 @@ from MyModules.config_read import KASSA_PATH_014
 from MyModules.print_log import print_log
 from MyModules.switch_layout_keyboard import eng_layout, rus_layout
 from MyModules.typing_unicode_str import typing_unicode_str as typing
-from MyModules.cur_dates import current_dates
+from MyModules.current_dates import current_dates
 from MyModules.select_menu import selecting_menu
 from MyModules.making_dirs import kassa_making_dirs, DICT_MOUNTS, TODAY_MOUNTH
 

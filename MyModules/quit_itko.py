@@ -7,7 +7,7 @@ def quit_1c(name_, path1_):
     """Функция выхода из 1С и запуска проводника"""
     pg.hotkey('alt', 'f4')
 
-    if name_:
+    if name_:  # поиск дубликатов открытых папок
         name_ = name_[:-1]
         if name_ in pg.getAllTitles():  # поиск открытой папки
             list__ = []

@@ -7,7 +7,7 @@ from MyModules.config_read import *
 from MyModules.print_log import print_log
 from MyModules.select_menu import selecting_menu
 from MyModules.checking_start_itko import authorization_itko, check_itko
-from MyModules.check_windows import check_not_window, check_window
+from MyModules.check_windows import check_window
 
 
 def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
@@ -118,6 +118,9 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
     if mode == 'CONFIG':
         from MyModules.switch_layout import eng_layout, rus_layout
         from MyModules.typing_unicode_str import typing_unicode_str
+
+        if args[0] == 'config':  # если идет загрузка базы
+            pass
 
         if args[0] == 'import':  # если идет загрузка базы
             print_log("Открытие окна для загрузки базы", line_before=True)

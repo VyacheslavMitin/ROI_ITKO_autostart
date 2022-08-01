@@ -9,7 +9,7 @@ from MyModules.print_log import print_log
 
 
 # Функции
-def check_window(window='', seconds=10):
+def check_window(window='', seconds=60, print_wait=30):
     check = None
     print_log(f"Поиск окна {window}...")
     for item in range(seconds):  # ожидание 30 секунд окна авторизации
@@ -18,14 +18,14 @@ def check_window(window='', seconds=10):
             check = True
             break
         else:
-            if (item % 10) == 0.0:  # выводить каждые 10 секунд
+            if (item % print_wait) == 0.0:  # выводить каждые print_wait секунд
                 print_log(f"Окно '{window}' не обнаружено!")
         time.sleep(1)
     if check:
         return True
 
 
-def check_not_window(window='', seconds=10):
+def check_not_window(window='', seconds=60, print_wait=30):
     check = None
     print_log(f"Поиск окна {window}...")
     for item in range(seconds):  # ожидание 30 секунд окна авторизации
@@ -34,7 +34,7 @@ def check_not_window(window='', seconds=10):
             check = True
             break
         else:
-            if (item % 10) == 0.0:  # выводить каждые 10 секунд
+            if (item % print_wait) == 0.0:  # выводить каждые print_wait секунд
                 print_log(f"Окно '{window}' обнаружено!")
         time.sleep(1)
     if check:

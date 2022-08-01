@@ -20,7 +20,7 @@ from MyModules.quit_itko import quit_1c, kassa_quit_1c
 
 
 # ФУНКЦИИ
-def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='43'):
+def welcoming(name_='Автоматизация ИТКО', author_='Вячеслав Митин', version_='44'):
     """Функция приветствия"""
     print(f"МОДУЛЬ РАБОТЫ '{name_}'")
     print(f"Автор модуля: '{author_}'")
@@ -51,6 +51,8 @@ if __name__ == '__main__':
         start_itko('import', point='adm', mode='CONFIG')
     elif select == '00':
         start_itko('export', point='adm', mode='CONFIG')
+    elif select == '000':
+        start_itko('config', point='adm', mode='CONFIG')
 
     elif select == '1':
         start_itko(point='buh', no_windows=False)

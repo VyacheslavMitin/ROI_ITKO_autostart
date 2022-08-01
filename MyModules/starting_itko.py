@@ -180,8 +180,29 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
             typing_unicode_str(" после ВОУ")
             eng_layout()
             typing_unicode_str(".zip")
+            time.sleep(1)
+            import pyperclip
+            import keyboard
+            keyboard.press('shift')
+            time.sleep(0.5)
+            keyboard.press_and_release("down")
+            keyboard.release('shift')
+            rus_layout()
+            pg.hotkey('ctrl', 'c')
+            string_base_name = pyperclip.paste()
+            time.sleep(0.5)
+            string_base_name = string_base_name[53:]
+            print(string_base_name)
+            time.sleep(1)
             pg.press('tab', presses=2, interval=0.2)
-            pg.press('enter')
+            pg.press('enter')  # запуск выгрузки базы
+            from MyModules.send_notification_telegram import notification_send_telegram
+            if check_window("Конфигуратор", 900):  # проверка, что окно "Конфигуратор" появилось
+                notification_send_telegram(f"База '{string_base_name}' выгружена!")
+                time.sleep(1)
+                pg.press('enter')
+                from MyModules.quit_itko import quit_1c
+                quit_1c(None, None)
 
 
 if __name__ == '__main__':

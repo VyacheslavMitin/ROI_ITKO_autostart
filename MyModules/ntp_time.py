@@ -14,15 +14,19 @@ import datetime
 
 def ntp_time_get():
     c = ntplib.NTPClient()
-    response = c.request('pool.ntp.org')
-    # Вариант 1
-    ntp_time = time.ctime(response.tx_time)
-    ntp_time = ntp_time.replace(":", "-")
-    # Вариант 1
-    ts = response.tx_time
-    # ntp_time2 = time.strftime('%d.%m.%Yг. %H-%Mч.', time.localtime(ts))
-    ntp_time2 = time.strftime('%d.%m.%Y, %H-%M', time.localtime(ts))
-    return ntp_time2
+    try:
+        response = c.request('pool.ntp.org')
+    except ntplib.NTPException:
+        return "нет точного времени"
+    else:
+        # Вариант 1
+        ntp_time = time.ctime(response.tx_time)
+        ntp_time = ntp_time.replace(":", "-")
+        # Вариант 1
+        ts = response.tx_time
+        # ntp_time2 = time.strftime('%d.%m.%Yг. %H-%Mч.', time.localtime(ts))
+        ntp_time2 = time.strftime('%d.%m.%Y, %H-%M', time.localtime(ts))
+        return ntp_time2
 
 
 if __name__ == '__main__':

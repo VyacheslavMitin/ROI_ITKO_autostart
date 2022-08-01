@@ -25,7 +25,7 @@ def preparation_vou():
     before_vou_date = pyperclip.paste()
 
     selecting_menu(2, 6)  # запуск авто формирования
-    time.sleep(360)  # 6 минут ждем воу
+    time.sleep(420)  # 7 минут ждем ВОУ
     # TODO сделать проверку созданной ВОУ иначе - по загрузке процессора например
     pg.press("down")
 
@@ -42,10 +42,10 @@ def preparation_vou():
         after_vou_number = pyperclip.paste()
         time.sleep(0.5)
         screenshots_path = PATH_SCREENSHOTS + f"Скрин журнала ВОУ за период '{period_for_emails()}' " \
-                                              f"от {ntp_time_get()}.png"
+                                              f"от '{ntp_time_get()}'.png"
         pg.screenshot(screenshots_path)
         notification_send_telegram(f"ВОУ №{after_vou_number} от {after_vou_date} "  # текстовое уведомление
-                                   f"за период '{period_for_emails()}' сформирована в {ntp_time_get()}")
+                                   f"за период '{period_for_emails()}' сформирована в '{ntp_time_get()}'")
         notification_send_telegram_images(screenshots_path, screenshots_path[66:])  # скриншот
     else:
         error = f"ВОУ за период '{period_for_emails()}' не сформирована!"

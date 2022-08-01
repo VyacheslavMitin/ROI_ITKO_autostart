@@ -9,7 +9,15 @@ from MyModules.print_log import print_log
 # Функции
 def notification_send_telegram(text):
     print_log("Отправлено уведомление в Телеграм")
-    telegram_send.send(messages=['*КАССА ПЕРЕСЧЕТА*\n' + text], parse_mode='Markdown')
+    telegram_send.send(messages=['*КАССА ПЕРЕСЧЕТА*\n' + text],
+                       parse_mode='Markdown')
+
+
+def notification_send_telegram_images(image, caption):
+    print_log("Отправлено уведомление с изображением в Телеграм")
+    with open(image, 'rb') as img:
+        telegram_send.send(images=[img],
+                           captions=[caption])
 
 
 # Тест функции

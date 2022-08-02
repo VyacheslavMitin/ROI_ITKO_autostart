@@ -31,13 +31,18 @@ def ntp_time_get():
 
 
 def ntp_time():
+    i = 0
+    attempts = 30
     time_ntp = ntp_time_get()
     while time_ntp == "нет точного времени":
-        print_log("Точное время не получено! Продолжаю попытки получения...")
+        i += 1
+        print_log(f"Точное время не получено! Продолжаю попытки получения {i} из {attempts}...")
         time_ntp = ntp_time_get()
         if time_ntp != "нет точного времени":
             print_log("Удалось получить точное время")
             return time_ntp
+        if i == 30:
+            break
     else:
         return time_ntp
 

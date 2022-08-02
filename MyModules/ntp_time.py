@@ -1,6 +1,7 @@
 import ntplib
 import time
 import datetime
+from MyModules.print_log import print_log
 
 # import os
 # import time
@@ -29,8 +30,21 @@ def ntp_time_get():
         return ntp_time2
 
 
+def ntp_time():
+    time_ntp = ntp_time_get()
+    while time_ntp == "нет точного времени":
+        print_log("Точное время не получено! Продолжаю попытки получения...")
+        time_ntp = ntp_time_get()
+        if time_ntp != "нет точного времени":
+            print_log("Удалось получить точное время")
+            return time_ntp
+    else:
+        return time_ntp
+
+
 if __name__ == '__main__':
     print("Время с интернета")
 
     # datetime.datetime.strptime(time.ctime(), "%a %b %d %H:%M:%S %Y")
-    print(ntp_time_get())
+    # print(ntp_time_get())
+    print(ntp_time())

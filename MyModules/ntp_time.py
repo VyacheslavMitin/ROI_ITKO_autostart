@@ -1,6 +1,6 @@
 import ntplib
 import time
-import datetime
+# import datetime
 from MyModules.print_log import print_log
 
 # import os

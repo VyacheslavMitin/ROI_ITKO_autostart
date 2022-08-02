@@ -161,7 +161,9 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
                 notification_send_telegram(error)
                 sys.exit(error)
             if check_window("Конфигуратор", 900):  # проверка, что окно "Конфигуратор" появилось
-                notification_send_telegram(f"База '{string_base_name}' загружена!")
+                success_message = f"База '{string_base_name}' загружена"
+                print_log(success_message)
+                notification_send_telegram(success_message)
                 time.sleep(1)
                 pg.press('enter')
                 from MyModules.quit_itko import quit_1c
@@ -170,7 +172,6 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
                 error = f"Не появилось окно успешного завершения базы '{string_base_name}'"
                 notification_send_telegram(error)
                 sys.exit(error)
-            print_log(f"База '{string_base_name}' загружена!")
 
         elif args[0] == 'export':  # если идет выгрузка базы
             from MyModules.past_dates import past_dates
@@ -201,7 +202,9 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
             pg.press('enter')  # запуск выгрузки базы
             from MyModules.send_notification_telegram import notification_send_telegram
             if check_window("Конфигуратор", 900):  # проверка, что окно "Конфигуратор" появилось
-                notification_send_telegram(f"База '{string_base_name}' выгружена!")
+                success_message = f"База '{string_base_name}' выгружена"
+                print_log(success_message)
+                notification_send_telegram(success_message)
                 time.sleep(1)
                 pg.press('enter')
                 from MyModules.quit_itko import quit_1c

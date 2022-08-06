@@ -20,11 +20,13 @@ def ntp_time_get():
     ntp_time = ntp_time.replace(":", "-")
     # Вариант 1
     ts = response.tx_time
-    ntp_time2 = time.strftime('%d.%m.%Yг. %H-%Mч.', time.localtime(ts))
+    # ntp_time2 = time.strftime('%d.%m.%Yг. %H-%Mч.', time.localtime(ts))
+    ntp_time2 = time.strftime('%d.%m.%Y, %H-%M', time.localtime(ts))
     return ntp_time2
 
 
 if __name__ == '__main__':
     print("Время с интернета")
+
     # datetime.datetime.strptime(time.ctime(), "%a %b %d %H:%M:%S %Y")
     print(ntp_time_get())

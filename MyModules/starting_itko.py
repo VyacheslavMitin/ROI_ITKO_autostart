@@ -175,14 +175,17 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
 
         elif args[0] == 'export':  # если идет выгрузка базы
             from MyModules.past_dates import past_dates
+            from MyModules.ntp_time import ntp_time_get
             print_log("Открытие окна для выгрузки базы", line_before=True)
             selecting_menu(3, 4, 0.1)
             eng_layout()
             typing_unicode_str(PATH_ITKO)
             typing_unicode_str(past_dates()[7])
             rus_layout()
-            typing_unicode_str(" после ВОУ")
+            now_date_time = ntp_time_get()
+            typing_unicode_str(" после ВОУ ")
             eng_layout()
+            typing_unicode_str(f"({now_date_time})")
             typing_unicode_str(".zip")
             time.sleep(1)
             import pyperclip
@@ -196,7 +199,6 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
             string_base_name = pyperclip.paste()
             time.sleep(0.5)
             string_base_name = string_base_name[53:]
-            print(string_base_name)
             time.sleep(1)
             pg.press('tab', presses=2, interval=0.2)
             pg.press('enter')  # запуск выгрузки базы
@@ -209,6 +211,10 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
                 pg.press('enter')
                 from MyModules.quit_itko import quit_1c
                 quit_1c(None, None)
+            else:
+                error_message = f"База '{string_base_name}' не выгружена!"
+                notification_send_telegram(error_message)
+                sys.exit(error_message)
 
 
 if __name__ == '__main__':

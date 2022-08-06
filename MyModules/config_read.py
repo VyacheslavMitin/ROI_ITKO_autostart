@@ -34,6 +34,7 @@ PATH_VOU = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_vou'))
 PATH_202 = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_202'))
 PATH_PP = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_pp'))
 PATH_CLIENTS = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_clients'))
+PATH_SCREENSHOTS = os.path.join(PATH_ITKO, cfg.get('PATHS', 'dir_screenshots'))
 
 # Пути для кассовой рутины
 KASSA_ITKO_BIN = cfg.get('KASSA', 'kassa_itko_bin')
@@ -56,6 +57,7 @@ dict_with_paths = {  # словарь с именами папок и путям
     '202_dir': (cfg.get('PATHS', 'dir_202'), PATH_202),
     'pp_dir': (cfg.get('PATHS', 'dir_pp'), PATH_PP),
     'clients_dir': (cfg.get('PATHS', 'dir_clients'), PATH_CLIENTS),
+    'screenshots': (cfg.get('PATHS', 'dir_screenshots'), PATH_SCREENSHOTS),
     'exports_dir': (cfg.get('PATHS', 'dir_sformirovat'), PATH_SFORMIROVAT),
     'kassa_014_dir': (cfg.get('KASSA', 'path_014'), KASSA_PATH_014),
 }
@@ -99,6 +101,7 @@ if __name__ == '__main__':
     print(KASSA_PATH_XML_FROM)
     print(KASSA_PATH_XML_TO)
     print(KASSA_PATH_014)
+    print(PATH_SCREENSHOTS)
     print(KASSA_RECIPIENTS_SAMARA)
     print(KASSA_RECIPIENTS_VBRR)
     print(KASSA_RECIPIENTS_VTB)

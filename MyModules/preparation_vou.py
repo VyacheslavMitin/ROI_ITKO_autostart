@@ -1,11 +1,14 @@
 # Модуль расчета ВОУ
+import datetime
 import sys
 import time
 import pyautogui as pg
 import pyperclip
+from MyModules.config_read import PATH_SCREENSHOTS
 from MyModules.print_log import print_log
 from MyModules.past_dates import period_for_emails
-from MyModules.send_notification_telegram import notification_send_telegram
+from MyModules.send_notification_telegram import notification_send_telegram, notification_send_telegram_images
+from MyModules.ntp_time import ntp_time_get
 
 
 def preparation_vou():
@@ -37,9 +40,14 @@ def preparation_vou():
         pg.hotkey('ctrl', 'c')
         time.sleep(0.5)
         after_vou_number = pyperclip.paste()
-        notification_send_telegram(f"ВОУ №{after_vou_number} от {after_vou_date} "
-                                   f"за период '{period_for_emails()}' сформирована")
+        time.sleep(0.5)
+        screenshots_path = PATH_SCREENSHOTS + f"Скрин журнала ВОУ за период '{period_for_emails()}' " \
+                                              f"от {ntp_time_get()}.png"
+        pg.screenshot(screenshots_path)
+        notification_send_telegram(f"ВОУ №{after_vou_number} от {after_vou_date} "  # текстовое уведомление
+                                   f"за период '{period_for_emails()}' сформирована в {ntp_time_get()}")
+        notification_send_telegram_images(screenshots_path, screenshots_path[66:])  # скриншот
     else:
-        error = f"ВОУ за  период '{period_for_emails()}' не сформирована!"
+        error = f"ВОУ за период '{period_for_emails()}' не сформирована!"
         notification_send_telegram(error)
         sys.exit(error)

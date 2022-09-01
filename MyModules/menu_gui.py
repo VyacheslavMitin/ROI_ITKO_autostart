@@ -32,7 +32,7 @@ def pyautogui_menu() -> str:
         8: "Выгрузка '202 форма'",
         9: "Выгрузка 'Отчет по ПП'",
         100: "Поменять системные дату/время",
-        30: "Выгрузка XML", 31: "Выписки Мегафон-РТК-Вымпелком", 32: "Выгрузка АДМ",
+        30: "Отправка XML", 31: "Выписки Мегафон-РТК-Вымпелком", 32: "Выгрузка АДМ",
     }
     separator = '=' * 47
     return pg.prompt(text=f"""
@@ -61,8 +61,6 @@ def pyautogui_menu() -> str:
     9: {menu_points.get(9)}
     {separator}
     30: {menu_points.get(30)}
-    31: {menu_points.get(31)}
-    32: {menu_points.get(32)}
     {separator}
     100: {menu_points.get(100)}
     """,

@@ -25,7 +25,7 @@ def preparation_vou():
     before_vou_date = pyperclip.paste()
 
     selecting_menu(2, 6)  # запуск авто формирования
-    time.sleep(420)  # 7 минут ждем ВОУ
+    time.sleep(480)  # 7 минут ждем ВОУ
     # TODO сделать проверку созданной ВОУ иначе - по загрузке процессора например
     pg.press("down")
 

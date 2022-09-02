@@ -178,27 +178,35 @@ def start_itko(*args, point='buh', mode='ENTERPRISE', no_windows=True):
             from MyModules.ntp_time import ntp_time_get
             print_log("Открытие окна для выгрузки базы", line_before=True)
             selecting_menu(3, 4, 0.1)
+            string_base_name = ''
             eng_layout()
             typing_unicode_str(PATH_ITKO)
+            string_base_name += PATH_ITKO
             typing_unicode_str(past_dates()[7])
+            string_base_name += past_dates()[7]
             rus_layout()
             now_date_time = ntp_time_get()
             typing_unicode_str(" после ВОУ ")
+            string_base_name += " после ВОУ "
             eng_layout()
             typing_unicode_str(f"({now_date_time})")
+            string_base_name += f"({now_date_time})"
             typing_unicode_str(".zip")
-            time.sleep(1)
-            import pyperclip
-            import keyboard
-            keyboard.press('shift')
-            time.sleep(0.5)
-            keyboard.press_and_release("down")
-            keyboard.release('shift')
-            rus_layout()
-            pg.hotkey('ctrl', 'c')
-            string_base_name = pyperclip.paste()
-            time.sleep(0.5)
+            string_base_name += ".zip"
             string_base_name = string_base_name[53:]
+            time.sleep(1)
+
+            # import pyperclip
+            # import keyboard
+            # keyboard.press('shift')
+            # time.sleep(0.5)
+            # keyboard.press_and_release("down")
+            # keyboard.release('shift')
+            # eng_layout()
+            # pg.hotkey('ctrl', 'c')
+            # string_base_name = pyperclip.paste()
+            # time.sleep(0.5)
+            # string_base_name = string_base_name[53:]
             time.sleep(1)
             pg.press('tab', presses=2, interval=0.2)
             pg.press('enter')  # запуск выгрузки базы
